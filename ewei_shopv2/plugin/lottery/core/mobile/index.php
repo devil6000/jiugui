@@ -114,7 +114,7 @@ class index_EweiShopV2Page extends PluginMobilePage
 			$_W['shopshare']['title'] = $default['title'];
 			$_W['shopshare']['desc'] = $default['desc'];
 			$_W['shopshare']['imgUrl'] = tomedia($default['thumb']);
-			$_W['shopshare']['link'] = mobileUrl('lottery', array('lid' => $id,'mid' => $member['id']));
+			$_W['shopshare']['link'] = mobileUrl('lottery/index/share', array('lid' => $id,'mid' => $member['id']));
 		}
 
 		if (isset($lottery['lottery_type']) && ($lottery['lottery_type'] == 1)) {
@@ -495,6 +495,44 @@ class index_EweiShopV2Page extends PluginMobilePage
 		}
 
 		return true;
+	}
+
+    /**
+     * 获取分享次数
+     */
+	public function share(){
+		global $_W,$_GPC;
+		$rid = intval($_GPC['rid']);
+		$mid = intval($_GPC['mid']);
+		$openid = $_W['openid'];
+
+		if(!empty($mid) && !empty($openid) && !empty($rid)){
+			$count = pdo_fetchcolumn("select count(id) from " . tablename('ewei_shop_lottery_share') . " where lottery_id=:rid and mid=:mid and openid=:openid and uniacid=:uniacid", array(':rid' => $rid, ':mid' => $mid, ':openid' => $openid, ':uniacid' => $_W['uniacid']));
+			if(empty($count)){
+				$member_id = pdo_getcolumn('ewei_shop_member', array('uniacid' => $_W['uniacid'], 'openid' => $openid), 'id');
+				if($member_id != $mid){
+					$share_openid = pdo_getcolumn('ewei_shop_member', array('id' => $mid, 'uniacid' => $_W['uniacid']), 'openid');
+					$share_num = pdo_getcolumn('ewei_shop_lottery_join', array('lottery_id' => $rid,'join_user' => $share_openid, 'uniacid' => $_W['uniacid']), 'share_num');
+					$share_num += 1;
+					$default = pdo_getcolumn('ewei_shop_lottery_default', array('uniacid' => $_W['uniacid']), 'data');
+					$default = unserialize($default);
+					if($share_num >= $default['times']){
+						pdo_update('ewei_shop_lottery_join', array('lottery_num' => 'lottery_num + 1'), array('lottery_id' => $rid,'join_user' => $share_openid, 'uniacid' => $_W['uniacid']));
+					}
+
+                    $insert = array(
+                        'lottery_id' => $rid,
+                        'uniacid' => $_W['uniacid'],
+                        'openid' => $openid,
+                        'mid' => $mid,
+                        'create_time' => time()
+                    );
+                    pdo_insert('ewei_shop_lottery_share', $insert);
+				}
+			}
+		}
+
+		header('location:' . mobileUrl('lottery'));
 	}
 }
 
