@@ -42,7 +42,6 @@ class Setting_EweiShopV2Page extends PluginWebPage
 		global $_GPC;
 		$id = intval($_GPC['id']);
 		$item = pdo_fetch('SELECT * FROM ' . tablename('ewei_shop_lottery_task') . ' WHERE uniacid =:uniacid AND `id`=:id LIMIT 1', array(':uniacid' => $_W['uniacid'], ':id' => $id));
-
 		if (empty($item)) {
 			$item = array(
 				'uniacid'    => $_W['uniacid'],

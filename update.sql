@@ -1,0 +1,1 @@
+ALTER TABLE `ims_ewei_shop_lottery` ADD `lottery_num` INT(4) NULL DEFAULT 0 COMMENT '³é½±Ä¬ÈÏ´ÎÊý';

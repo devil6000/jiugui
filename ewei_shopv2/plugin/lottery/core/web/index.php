@@ -92,6 +92,10 @@ class Index_EweiShopV2Page extends PluginWebPage
 			$data['is_goods'] = $_GPC['is_goods'];
 			$data['lottery_type'] = intval($_GPC['lottery_type']);
 			$data['addtime'] = time();
+            /***********************************************
+             * 增加默认抽奖次数
+             ***********************************************/
+            $data['lottery_num'] = intval($_GPC['lottery_num']);
 			$taskTypeIsExist = intval($this->taskTypeIsExist(intval($_GPC['task_type']), $id));
 
 			if (!empty($taskTypeIsExist)) {
