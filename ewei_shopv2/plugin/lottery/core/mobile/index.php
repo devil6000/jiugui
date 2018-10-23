@@ -9,6 +9,27 @@ class index_EweiShopV2Page extends PluginMobilePage
 	{
 		global $_W;
 		global $_GPC;
+        /**********************************************
+         * BY 2018-10-23 判断是否为默认次数
+         **********************************************/
+        $list = pdo_fetchall("select * from " . tablename('ewei_shop_lottery') . " where lottery_num>0 and uniacid=:uniacid and lottery_type=1 and task_type=0", array(':uniacid' => $_W['uniacid']));
+        $time = time();
+        foreach ($list as $item){
+        	if($item['end_time'] > $time){
+        		$count = pdo_fetchcolumn("select count(id) from " . tablename('ewei_shop_lottery_join') . " where uniacid=:uniacid AND `join_user`=:join_user and lottery_id=:lottery_id", array(':uniacid' => $_W['uniacid'], ':join_user' => $_W['openid'], ':lottery_id' => $item['lottery_id']));
+        		if(empty($count)){
+        			$insert = array(
+						'uniacid' => $_W['uniacid'],
+						'join_user' => $_W['openid'],
+						'lottery_id' => $item['lottery_id'],
+						'lottery_num' => $item['lottery_num'],
+						'addtime' => $time
+					);
+        			pdo_insert('ewei_shop_lottery_join', $insert);
+				}
+			}
+		}
+
 		$task_sql = 'SELECT COUNT(*) FROM ' . tablename('ewei_shop_lottery_join') . '  WHERE lottery_num>0 and uniacid=:uniacid AND `join_user`=:join_user ';
 		$lottery = pdo_fetchcolumn($task_sql, array(':uniacid' => $_W['uniacid'], ':join_user' => $_W['openid']));
 		include $this->template();
@@ -84,6 +105,16 @@ class index_EweiShopV2Page extends PluginMobilePage
 
 			$has_changes = pdo_fetchcolumn('select count(*) from ' . tablename('ewei_shop_lottery_join') . 'where uniacid=:uniacid AND lottery_id=:lottery_id  AND join_user=:join_user and lottery_num>0 ' . $conditon, array(':uniacid' => $_W['uniacid'], ':join_user' => $_W['openid'], ':lottery_id' => $id));
 			$member = m('member')->getMember($_W['openid'], true);
+
+			/***************************************************
+			 * 分享信息
+			 ***************************************************/
+			$default = pdo_getcolumn('ewei_shop_lottery_default', array('uniacid' => $_W['uniacid']), 'data');
+			$default = unserialize($default);
+			$_W['shopshare']['title'] = $default['title'];
+			$_W['shopshare']['desc'] = $default['desc'];
+			$_W['shopshare']['imgUrl'] = tomedia($default['thumb']);
+			$_W['shopshare']['link'] = mobileUrl('lottery', array('lid' => $id,'mid' => $member['id']));
 		}
 
 		if (isset($lottery['lottery_type']) && ($lottery['lottery_type'] == 1)) {
