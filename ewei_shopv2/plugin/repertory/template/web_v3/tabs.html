@@ -1,0 +1,14 @@
+<div class='menu-header'>{php echo $this->plugintitle}</div>
+<ul>
+    {ifp 'repertory.agent'}<li {if $_W['routes']=='repertory.agent'}class="active"{/if}><a href="{php echo webUrl('repertory/agent')}">分销商管理</a></li>{/if}
+    {ifp 'repertory.agent'}<li {if $_W['routes']=='repertory.order'}class="active"{/if}><a href="{php echo webUrl('repertory/order')}">分销订单</a></li>{/if}
+</ul>
+
+<div class="menu-header">设置</div>
+<ul>
+   {ifp 'repertory.notice'}<li  {if $_W['routes']=='repertory.notice'}class="active"{/if}><a href="{php echo webUrl('repertory/notice')}">通知设置</a></li>{/if}
+    {ifp 'repertory.cover'}<li {if $_W['routes']=='repertory.cover'}class="active"{/if}><a href="{php echo webUrl('repertory/cover')}">入口设置</a></li>{/if}
+   {ifp 'repertory.set'}<li {if $_W['routes']=='repertory.set'}class="active"{/if}><a href="{php echo webUrl('repertory/set')}">基础设置</a></li>{/if}
+	
+</ul>
+<!--6Z2S5bKb5piT6IGU5LqS5Yqo572R57uc56eR5oqA5pyJ6ZmQ5YWs5Y+4-->

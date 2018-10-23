@@ -1,0 +1,146 @@
+{template '_header'}
+
+<link href="/favicon.ico" rel="shortcut icon" />
+<link rel="stylesheet" type="text/css" href="../addons/ewei_shopv2/static/css/card/index.css"/>
+<script type="text/javascript" src="js/bootstrap-colorpalette.js" charset="utf-8"></script>
+
+<style>
+	.dropdown-menu {
+		border: medium none;
+		font-size: 12px;
+		left: 0;
+		list-style: none outside none;
+		padding: 0;
+		text-shadow: none;
+		top: 100%;
+		z-index: 1000;
+		border-radius: 0;
+		box-shadow: 0 0 3px rgba(86, 96, 117, 0.3);
+	}
+
+	.dropdown-menu li {
+		display: inline-block;
+	}
+
+	.bootstrap-colorpalette {
+		padding-left: 4px;
+		padding-right: 4px;
+		white-space: normal;
+		line-height: 1;
+	}
+
+	.tabs-container .form-group-color {
+		margin-right: -15px;
+		margin-left: -15px;
+	}
+</style>
+<link rel="stylesheet" type="text/css" href="../addons/ewei_shopv2/template/web/sale/wxcard/css/iconfont.css"/>
+
+<div class='page-header'>
+     当前位置：<span class="text-primary">基本信息</span>
+</div>
+<div class="page-content">
+    <form {ifp 'member.card'}action="" method='post'{/if} class='form-horizontal form-validate'>
+    <div class="flex">
+
+        <!--控制台-->
+            <div class="control flex1" style="padding: 10px 0;background: none">
+                <div class="editor_section">
+                    <!--选择会员-->
+                    <div class="form-group">
+					    <label class="col-lg control-label">配送员信息</label>
+					    <div class="col-sm-9 col-xs-12">
+					        <input type="hidden" value="{$member['openid']}" id='openid' name='openid' class="form-control"  />
+					
+					        <div class='input-group'>
+					            <input type="text" name="parentagent" value="{if !empty($member)}{$member['nickname']}/{$member['realname']}/{$member['mobile']}{/if}" id="member_input" class="form-control" readonly />
+					            <div class='input-group-btn'>
+					                <button class="btn btn-default" type="button" onclick="chooseAgent()">选择配送员</button>
+					            </div>
+					        </div>
+					        <span id="avatar" class='help-block' {if empty($member)}style="display:none"{/if}><img  style="width:100px;height:100px;border:1px solid #ccc;padding:1px" src="{php echo tomedia($member['avatar'])}"/></span>
+					
+					        <div id="modal-module-menus-notice"  class="modal fade" tabindex="-1">
+					            <div class="modal-dialog" style='width: 920px;'>
+					                <div class="modal-content">
+					                    <div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3>选择配送员</h3></div>
+					                    <div class="modal-body" >
+					                        <div class="row">
+					                            <div class="input-group">
+					                                <input type="text" class="form-control" name="keyword" value="" id="search-kwd-notice" placeholder="请输入会员昵称/姓名/手机号" />
+					                                <span class='input-group-btn'><button type="button" class="btn btn-default" onclick="search_members();">搜索</button></span>
+					                            </div>
+					                        </div>
+					                        <div id="module-menus-notice" style="padding-top:5px;"></div>
+					                    </div>
+					                    <div class="modal-footer"><a href="#" class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</a></div>
+					                </div>
+					
+					            </div>
+					        </div>
+					
+					        <span class="help-block">修改后， 只有关系链改变, 以往的订单佣金都不会改变,新的订单才按新关系计算佣金 ,请谨慎选择</span>
+					
+					    </div>
+					</div>
+                    <div class="form-group">
+                        <label class="col-lg control-label must">  姓名</label>
+                        <div class="col-sm-8 col-xs-12">
+                            {ifp 'member.card'}
+                            <input type="text" name="realname" id="realname" class="input form-control" value="{$member['realname']}" />
+                            {else}
+                            {$member['realname']}
+                            {/if}
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label class="col-lg control-label must">  手机</label>
+                        <div class="col-sm-8 col-xs-12">
+                            {ifp 'member.card'}
+                            <input type="tel" name="mobile" id="mobile" class="input form-control" value="{$member['mobile']}" />
+                            {else}
+                            {$member['mobile']}
+                            {/if}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+</div>
+
+    <div class='panel-body' >
+        <a class="btn btn-default" href="{php echo webUrl('member.card')}">返回</a>
+        <input type="submit" value="提交" class="btn btn-primary"/>
+    </div>
+    </form>
+</div>
+<script type="text/javascript" src="../addons/ewei_shopv2/static/js/app/biz/sale/wxcard/colorpalette.js" charset="utf-8"></script>
+
+<script>
+        function search_members() {
+        if ($.trim($('#search-kwd-notice').val()) == '') {
+            Tip.focus('#search-kwd-notice', '请输入关键词');
+            return;
+        }
+        $("#module-menus-notice").html("正在搜索....")
+        $.get('{php echo webUrl('commission/distribution/m_query')}', {
+            keyword: $.trim($('#search-kwd-notice').val()), 'op': 'query', selfid: "{$id}"
+        }, function (dat) {
+            $('#module-menus-notice').html(dat);
+        });
+    }
+    function select_member(o) {
+        $("#openid").val(o.openid);
+        $("#avatar").show();
+        $("#avatar").find('img').attr('src', o.avatar);
+        $("#member_input").val(o.nickname + "/" + o.realname + "/" + o.mobile);
+        $("#modal-module-menus-notice .close").click();
+    }
+    function chooseAgent() {
+        popwin = $('#modal-module-menus-notice').modal();
+    }
+</script>
+
+{template '_footer'}
+
+<!--青岛易联互动网络科技有限公司-->

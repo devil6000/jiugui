@@ -1,0 +1,95 @@
+<style>
+	.fui-goods-list{width:100%;border-bottom: 1px dashed #e1ecee;padding-top:5px;padding-bottom:5px;}
+	.fui-goods-list span{display: block;padding:0;}
+</style>
+<form class="form-horizontal form-validate" action="{php echo webUrl('order/detail/check_agent_send')}" method="post" enctype="multipart/form-data">
+	<input type='hidden' name='id' value='{$id}' />
+	<input type='hidden' name='agent_send' value='2' />
+	<div class="modal-dialog">
+           <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">{if $edit_flag==1}修改物流信息{else}订单发货{/if}</h4>
+            </div>
+            <div class="modal-body">
+                   	<div class="form-group">
+						<label class="col-sm-2 control-label">收 货 人</label>
+						<div class="col-sm-9 col-xs-12">
+							<div class="form-control-static">
+								联系人: {$address['realname']} / {$address['mobile']} <br/>
+								地    址: {$address['province']}{$address['city']}{$address['area']} {$address['address']}
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+					    <label class="col-lg control-label">选择配送员</label>
+					    <div class="col-sm-9 col-xs-12">
+					        <input type="hidden" value="{$member['id']}" id='v_id' name='v_id' class="form-control"  />
+					
+					        <div class='input-group'>
+					            <input type="text" name="parentagent" value="{if !empty($member)}{$member['nickname']}/{$member['realname']}/{$member['mobile']}{/if}" id="member_input" class="form-control" readonly />
+					            <div class='input-group-btn'>
+					                <button class="btn btn-default" type="button" onclick="chooseAgent()">选择配送员</button>
+					            </div>
+					        </div>
+					        <span id="avatar" class='help-block' {if empty($member)}style="display:none"{/if}><img  style="width:100px;height:100px;border:1px solid #ccc;padding:1px" src="{php echo tomedia($member['avatar'])}"/></span>
+					    </div>
+					</div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit">{if $edit_flag==1}保存信息{else}确认发货{/if}</button>
+                <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
+            </div>
+        </div>
+    </div>
+</form>
+ <div id="modal-module-menus-notice"  class="modal fade" tabindex="-1">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header"><button   class="close" onclick="closeAgent()" type="button">×</button><h3>选择配送员</h3></div>
+            <div class="modal-body" >
+                <div class="row">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="keyword" value="" id="search-kwd-notice" placeholder="请输入会员昵称/姓名/手机号" />
+                        <span class='input-group-btn'><button type="button" class="btn btn-default" onclick="search_members();">搜索</button></span>
+                    </div>
+                </div>
+                <div id="module-menus-notice" style="padding-top:5px;"></div>
+            </div>
+            <div class="modal-footer"><a href="#" class="btn btn-default" onclick="closeAgent()" >关闭</a></div>
+        </div>
+    </div>
+</div>
+<script>
+		
+	
+ 	function search_members() {
+        if ($.trim($('#search-kwd-notice').val()) == '') {
+            Tip.focus('#search-kwd-notice', '请输入关键词');
+            return;
+        }
+        $("#module-menus-notice").html("正在搜索....")
+        $.get('{php echo webUrl('commission/distribution/query')}', {
+            keyword: $.trim($('#search-kwd-notice').val()), 'op': 'query', selfid: "{$id}"
+        }, function (dat) {
+            $('#module-menus-notice').html(dat);
+        });
+    }
+    function select_member(o) {
+        $("#v_id").val(o.id);
+        $("#avatar").show();
+        $("#avatar").find('img').attr('src', o.avatar);
+        $("#member_input").val(o.nickname + "/" + o.realname + "/" + o.mobile);
+        $("#modal-module-menus-notice .close").click();
+    }
+    function chooseAgent() {
+        popwin = $('#modal-module-menus-notice').modal();
+    }
+    function closeAgent() {
+        popwin = $('#modal-module-menus-notice').modal('hide');
+    }
+</script>
+
+
+
+<!--4000097827-->
