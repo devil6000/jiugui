@@ -54,6 +54,14 @@
                         </select>
                     </div>
                     <div class="input-group-select">
+                        <select name="status" class="form-control" style="">
+                            <option value="" {if $_GPC['status'] == ''}selected{/if}>订单状态</option>
+                            {loop $orderstatus $key $type}
+                            <option value="{$key}" {if $_GPC['status'] == "$key"}selected="selected"{/if}>{$type['name']}</option>
+                            {/loop}
+                        </select>
+                    </div>
+                    <div class="input-group-select">
                         <select name='searchfield'  class='form-control'   style=""  >
                             <option value='ordersn' {if $_GPC['searchfield']=='ordersn'}selected{/if}>订单号</option>
                             <option value='member' {if $_GPC['searchfield']=='member'}selected{/if}>会员信息</option>

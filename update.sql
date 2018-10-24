@@ -1,7 +1,7 @@
-ALTER TABLE `ims_ewei_shop_lottery` ADD `lottery_num` INT(4) NULL DEFAULT 0 COMMENT '抽奖默认次数';
-alter table `ims_ewei_shop_lottery_join` add `share_num` int(4) null default 0 comment '已分享次数';
+ALTER TABLE `ims_ewei_shop_lottery` ADD `lottery_num` INT(4) NULL DEFAULT 0 COMMENT '鍒濆娆℃暟';
+alter table `ims_ewei_shop_lottery_join` add `share_num` int(4) null default 0 comment '鍒嗕韩娆℃暟';
 /**
-分享表，保存活动分享次数
+鍒嗕韩鏃ュ織
  */
 create table `ims_ewei_shop_lottery_share`(
  `id` int(11) not null auto_increment,
@@ -12,3 +12,8 @@ create table `ims_ewei_shop_lottery_share`(
  `mid` int(11) not null,
  primary key (`id`)
 );
+
+/**
+瀛橀厭淇℃伅
+ */
+alter table `ims_ewei_shop_order_goods` add `repertory_num` int(10) null default 0 comment '瀛橀厭鏁伴噺';

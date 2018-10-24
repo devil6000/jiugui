@@ -509,6 +509,9 @@
             {if !empty($item['remark'])}
             <div class="table-row"><div  style='background:#fdeeee;color:red;flex: 1;;'>买家备注: {$item['remark']}</div></div>
             {/if}
+            {if !empty($item['is_repertory'])}
+            <div class="table-row"><div style='background:#fdeeee;color:red;flex: 1;'>存酒订单</div></div>
+            {/if}
 
             {if (!empty($level)&&!empty($item['agentid'])) || (!empty($item['merchname']) && $item['merchid'] > 0)}
             <div class="table-footer table-row" style="margin:0 20px">

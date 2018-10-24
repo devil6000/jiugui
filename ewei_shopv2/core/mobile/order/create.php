@@ -3259,6 +3259,10 @@ class Create_EweiShopV2Page extends MobileLoginPage
 		$order['cash'] = $cash;
 		$order['status'] = 0;
 		$order['remark'] = trim($_GPC['remark']);
+        /********************************
+         * 判断是否为存酒订单 BY 2018-10-24
+         ********************************/
+        $order['is_repertory'] = intval($_GPC['repertory']);
 		$order['addressid'] = ((empty($dispatchtype) ? $addressid : 0));
 		$order['goodsprice'] = $goodsprice;
 		$order['dispatchprice'] = $dispatch_price + $seckill_dispatchprice;
