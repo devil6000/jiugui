@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6b7be45e-8ae1-4e95-9e3d-f30e5e27297e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ewei_shopv2/plugin/lottery/core/mobile/index.php" afterPath="$PROJECT_DIR$/ewei_shopv2/plugin/lottery/core/mobile/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ewei_shopv2/plugin/lottery/core/web/setting.php" afterPath="$PROJECT_DIR$/ewei_shopv2/plugin/lottery/core/web/setting.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ewei_shopv2/plugin/lottery/template/web_v3/setting/setlottery.html" afterPath="$PROJECT_DIR$/ewei_shopv2/plugin/lottery/template/web_v3/setting/setlottery.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,12 +22,12 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/core/mobile/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1988">
-              <caret line="199" column="45" lean-forward="true" selection-start-line="199" selection-start-column="45" selection-end-line="199" selection-end-column="45" />
+            <state relative-caret-position="-3033">
+              <caret line="180" column="0" lean-forward="true" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
               <folding>
                 <marker date="1540284166000" expanded="true" signature="347:360" ph="select * fro... " />
                 <marker date="1540284166000" expanded="true" signature="347:361" ph="select * fro... ${tablename()}" />
@@ -65,7 +62,7 @@
       <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ewei_shopv2/core/inc/functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="542">
+            <state relative-caret-position="17680">
               <caret line="1040" column="33" lean-forward="false" selection-start-line="1040" selection-start-column="26" selection-end-line="1040" selection-end-column="33" />
               <folding />
             </state>
@@ -75,7 +72,7 @@
       <file leaf-file-name="setlottery.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/template/web_v3/setting/setlottery.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-349">
+            <state relative-caret-position="340">
               <caret line="20" column="58" lean-forward="false" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="58" />
               <folding />
             </state>
@@ -85,8 +82,8 @@
       <file leaf-file-name="setting.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/core/web/setting.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="300" column="0" lean-forward="true" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
+            <state relative-caret-position="5100">
+              <caret line="300" column="0" lean-forward="false" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
               <folding>
                 <marker date="1540283186000" expanded="true" signature="548:694" ph="SELECT * FRO... ${tablename('ewei_shop_lottery_task')}" />
                 <marker date="1540283186000" expanded="true" signature="744:817" ph="SELECT COUNT... ${tablename('ewei_shop_lottery_task')}" />
@@ -132,7 +129,7 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/template/mobile/default/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
+            <state relative-caret-position="170">
               <caret line="10" column="82" lean-forward="false" selection-start-line="10" selection-start-column="72" selection-end-line="10" selection-end-column="82" />
               <folding />
             </state>
@@ -142,7 +139,7 @@
       <file leaf-file-name="post.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/template/web_v3/post.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="488">
+            <state relative-caret-position="680">
               <caret line="40" column="36" lean-forward="false" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="36" />
               <folding />
             </state>
@@ -152,7 +149,7 @@
       <file leaf-file-name="basic.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/template/web_v3/post/basic.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
+            <state relative-caret-position="2856">
               <caret line="168" column="6" lean-forward="false" selection-start-line="168" selection-start-column="6" selection-end-line="168" selection-end-column="6" />
               <folding />
             </state>
@@ -202,7 +199,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1920" />
-    <option name="height" value="979" />
+    <option name="height" value="981" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -244,102 +241,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ewei_shopv2" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jiugui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jiugui" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ewei_shopv2" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugin" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jiugui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jiugui" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ewei_shopv2" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugin" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lottery" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jiugui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jiugui" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ewei_shopv2" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugin" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lottery" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jiugui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jiugui" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ewei_shopv2" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugin" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lottery" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -406,6 +307,12 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -439,33 +346,34 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1540260377223</updated>
-      <workItem from="1540260384190" duration="12867000" />
+      <workItem from="1540260384190" duration="13514000" />
+      <workItem from="1540349398617" duration="341000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12867000" />
+    <option name="totallyTimeSpent" value="13855000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="979" extended-state="0" />
+    <frame x="0" y="23" width="1920" height="981" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14962727" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1512247" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -480,11 +388,133 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/core/mobile/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1540284166000" expanded="true" signature="347:360" ph="select * fro... " />
+            <marker date="1540284166000" expanded="true" signature="347:361" ph="select * fro... ${tablename()}" />
+            <marker date="1540284166000" expanded="true" signature="347:459" ph="select * fro... ${tablename('ewei_shop_lottery')}" />
+            <marker date="1540284166000" expanded="true" signature="347:475" ph="select * fro... ${tablename('ewei_shop_lottery')}" />
+            <marker date="1540284166000" expanded="true" signature="650:671" ph="select count... " />
+            <marker date="1540284166000" expanded="true" signature="650:672" ph="select count... ${tablename()}" />
+            <marker date="1540284166000" expanded="true" signature="650:792" ph="select count... ${tablename('ewei_shop_lottery_join')}" />
+            <marker date="1540284166000" expanded="true" signature="1240:1373" ph="SELECT COUNT... ${tablename('ewei_shop_lottery_join')}" />
+            <marker date="1540284166000" expanded="true" signature="1703:2038" ph="SELECT j.*,l... ${tablename('ewei_shop_lottery_join')}" />
+            <marker date="1540284166000" expanded="true" signature="3016:3149" ph="SELECT COUNT... ${tablename('ewei_shop_lottery_join')}" />
+            <marker date="1540284166000" expanded="true" signature="3468:3580" ph="SELECT * FRO... ${tablename('ewei_shop_lottery')}" />
+            <marker date="1540284166000" expanded="true" signature="3751:3848" ph="SELECT `data... ${tablename('ewei_shop_lottery_default')}" />
+            <marker date="1540284166000" expanded="true" signature="3973:4234" ph="SELECT l.*,m... ${tablename('ewei_shop_lottery_log')}" />
+            <marker date="1540284166000" expanded="true" signature="4486:4644" ph="select count... ${tablename('ewei_shop_lottery_join')}" />
+            <marker date="1540284166000" expanded="true" signature="5950:6062" ph="SELECT * FRO... ${tablename('ewei_shop_lottery')}" />
+            <marker date="1540284166000" expanded="true" signature="6443:6571" ph="SELECT COUNT... ${tablename('ewei_shop_lottery_log')}" />
+            <marker date="1540284166000" expanded="true" signature="6889:7170" ph="SELECT l.*,m... ${tablename('ewei_shop_lottery_log')}" />
+            <marker date="1540284166000" expanded="true" signature="7270:7398" ph="SELECT COUNT... ${tablename('ewei_shop_lottery_log')}" />
+            <marker date="1540284166000" expanded="true" signature="9201:9298" ph="SELECT `data... ${tablename('ewei_shop_lottery_default')}" />
+            <marker date="1540284166000" expanded="true" signature="10152:10301" ph="SELECT COUNT... ${tablename('ewei_shop_lottery_join')}" />
+            <marker date="1540284166000" expanded="true" signature="10425:10537" ph="SELECT * FRO... ${tablename('ewei_shop_lottery')}" />
+            <marker date="1540284166000" expanded="true" signature="10869:11044" ph="SELECT `id` ${tablename('ewei_shop_lottery_join')}" />
+            <marker date="1540284166000" expanded="true" signature="14076:14188" ph="SELECT * FRO... ${tablename('ewei_shop_lottery')}" />
+            <marker date="1540284166000" expanded="true" signature="15886:16020" ph="SELECT l.* F... ${tablename('ewei_shop_lottery_log')}" />
+            <marker date="1540284166000" expanded="true" signature="16419:16578" ph="SELECT thumb... ${tablename('ewei_shop_goods')}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ewei_shopv2/core/inc/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17680">
+          <caret line="1040" column="33" lean-forward="false" selection-start-line="1040" selection-start-column="26" selection-end-line="1040" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/template/web_v3/setting/setlottery.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="58" lean-forward="false" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/core/web/setting.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5100">
+          <caret line="300" column="0" lean-forward="true" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
+          <folding>
+            <marker date="1540283186000" expanded="true" signature="548:694" ph="SELECT * FRO... ${tablename('ewei_shop_lottery_task')}" />
+            <marker date="1540283186000" expanded="true" signature="744:817" ph="SELECT COUNT... ${tablename('ewei_shop_lottery_task')}" />
+            <marker date="1540283186000" expanded="true" signature="1136:1238" ph="SELECT * FRO... ${tablename('ewei_shop_lottery_task')}" />
+            <marker date="1540283186000" expanded="true" signature="1831:1948" ph="SELECT * FRO... ${tablename('ewei_shop_task_poster')}" />
+            <marker date="1540283186000" expanded="true" signature="2051:2161" ph="SELECT * FRO... ${tablename('ewei_shop_lottery')}" />
+            <marker date="1540283186000" expanded="true" signature="4495:4608" ph="SELECT `id`,... ${tablename('ewei_shop_lottery_task')}" />
+            <marker date="1540283186000" expanded="true" signature="5038:5136" ph="select COUNT... ${tablename('ewei_shop_lottery_default')}" />
+            <marker date="1540283186000" expanded="true" signature="5207:5303" ph="select `data... ${tablename('ewei_shop_lottery_default')}" />
+            <marker date="1540283186000" expanded="true" signature="5930:6034" ph="select * fro... ${tablename('rule')}" />
+            <marker date="1540283186000" expanded="true" signature="6184:6275" ph="select * fro... ${tablename('rule_keyword')}" />
+            <marker date="1540283186000" expanded="true" signature="6364:6454" ph="select * fro... ${tablename('cover_reply')}" />
+            <marker date="1540283186000" expanded="true" signature="8369:8473" ph="select * fro... ${tablename('rule')}" />
+            <marker date="1540283186000" expanded="true" signature="8623:8714" ph="select * fro... ${tablename('rule_keyword')}" />
+            <marker date="1540283186000" expanded="true" signature="8803:8893" ph="select * fro... ${tablename('cover_reply')}" />
+            <marker date="1540283186000" expanded="true" signature="10505:10602" ph="SELECT `data... ${tablename('ewei_shop_lottery_default')}" />
+            <marker date="1540283186000" expanded="true" signature="11197:11288" ph="SELECT COUNT... ${tablename('ewei_shop_lottery_default')}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/core/processor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/template/mobile/default/indexpan.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="63" column="98" lean-forward="false" selection-start-line="63" selection-start-column="86" selection-end-line="63" selection-end-column="98" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/template/mobile/default/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="82" lean-forward="false" selection-start-line="10" selection-start-column="72" selection-end-line="10" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/template/web_v3/post.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="36" lean-forward="false" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/template/web_v3/post/basic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2856">
+          <caret line="168" column="6" lean-forward="false" selection-start-line="168" selection-start-column="6" selection-end-line="168" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/update.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="93" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ewei_shopv2/trunk/static/js/myconfig.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="22" column="39" lean-forward="true" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -498,7 +528,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/template/web_v3/post.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
+        <state relative-caret-position="680">
           <caret line="40" column="36" lean-forward="false" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="36" />
           <folding />
         </state>
@@ -506,7 +536,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/template/web_v3/post/basic.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
+        <state relative-caret-position="2856">
           <caret line="168" column="6" lean-forward="false" selection-start-line="168" selection-start-column="6" selection-end-line="168" selection-end-column="6" />
           <folding />
         </state>
@@ -516,22 +546,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="558">
           <caret line="223" column="17" lean-forward="true" selection-start-line="223" selection-start-column="17" selection-end-line="223" selection-end-column="17" />
-          <folding>
-            <marker date="1540265084000" expanded="true" signature="554:695" ph="SELECT * FRO... ${tablename('ewei_shop_lottery')}" />
-            <marker date="1540265084000" expanded="true" signature="745:813" ph="SELECT COUNT... ${tablename('ewei_shop_lottery')}" />
-            <marker date="1540265084000" expanded="true" signature="969:1062" ph="SELECT COUNT... ${tablename('ewei_shop_lottery_join')}" />
-            <marker date="1540265084000" expanded="true" signature="1554:1671" ph="SELECT * FRO... ${tablename('ewei_shop_task_poster')}" />
-            <marker date="1540265084000" expanded="true" signature="1715:1826" ph="SELECT * FRO... ${tablename('ewei_shop_lottery')}" />
-            <marker date="1540265084000" expanded="true" signature="8750:8874" ph="SELECT lotte... ${tablename('ewei_shop_lottery')}" />
-            <marker date="1540265084000" expanded="true" signature="10206:10335" ph="SELECT COUNT... ${tablename('ewei_shop_lottery')}" />
-            <marker date="1540265084000" expanded="true" signature="10490:10640" ph="SELECT COUNT... ${tablename('ewei_shop_lottery')}" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/template/mobile/default/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
+        <state relative-caret-position="170">
           <caret line="10" column="82" lean-forward="false" selection-start-line="10" selection-start-column="72" selection-end-line="10" selection-end-column="82" />
           <folding />
         </state>
@@ -541,7 +561,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="29" column="32" lean-forward="true" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -549,7 +568,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
           <caret line="25" column="54" lean-forward="true" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -557,7 +575,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
           <caret line="26" column="18" lean-forward="true" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -565,7 +582,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="121" lean-forward="false" selection-start-line="6" selection-start-column="111" selection-end-line="6" selection-end-column="121" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -581,14 +597,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="710">
           <caret line="42" column="36" lean-forward="true" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/core/web/setting.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="300" column="0" lean-forward="true" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
+        <state relative-caret-position="5100">
+          <caret line="300" column="0" lean-forward="false" selection-start-line="300" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
           <folding>
             <marker date="1540283186000" expanded="true" signature="548:694" ph="SELECT * FRO... ${tablename('ewei_shop_lottery_task')}" />
             <marker date="1540283186000" expanded="true" signature="744:817" ph="SELECT COUNT... ${tablename('ewei_shop_lottery_task')}" />
@@ -614,7 +629,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-275">
           <caret line="126" column="9" lean-forward="false" selection-start-line="126" selection-start-column="9" selection-end-line="126" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -628,7 +642,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ewei_shopv2/core/inc/functions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="542">
+        <state relative-caret-position="17680">
           <caret line="1040" column="33" lean-forward="false" selection-start-line="1040" selection-start-column="26" selection-end-line="1040" selection-end-column="33" />
           <folding />
         </state>
@@ -636,7 +650,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/template/web_v3/setting/setlottery.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-349">
+        <state relative-caret-position="340">
           <caret line="20" column="58" lean-forward="false" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="58" />
           <folding />
         </state>
@@ -644,8 +658,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ewei_shopv2/plugin/lottery/core/mobile/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1988">
-          <caret line="199" column="45" lean-forward="true" selection-start-line="199" selection-start-column="45" selection-end-line="199" selection-end-column="45" />
+        <state relative-caret-position="-3033">
+          <caret line="180" column="0" lean-forward="true" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
           <folding>
             <marker date="1540284166000" expanded="true" signature="347:360" ph="select * fro... " />
             <marker date="1540284166000" expanded="true" signature="347:361" ph="select * fro... ${tablename()}" />
