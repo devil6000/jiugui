@@ -103,7 +103,13 @@ class index_EweiShopV2Page extends PluginMobilePage
 				$conditon = ' and `addtime` > ' . $effecttime;
 			}
 
-			$has_changes = pdo_fetchcolumn('select count(*) from ' . tablename('ewei_shop_lottery_join') . 'where uniacid=:uniacid AND lottery_id=:lottery_id  AND join_user=:join_user and lottery_num>0 ' . $conditon, array(':uniacid' => $_W['uniacid'], ':join_user' => $_W['openid'], ':lottery_id' => $id));
+			$info = pdo_fetch('select * from ' . tablename('ewei_shop_lottery_join') . 'where uniacid=:uniacid AND lottery_id=:lottery_id  AND join_user=:join_user and lottery_num>0 and lottery_tag is null ' . $conditon, array(':uniacid' => $_W['uniacid'], ':join_user' => $_W['openid'], ':lottery_id' => $id));
+			if(!empty($info)){
+				$has_changes = $info['lottery_num'];
+			}else{
+                $has_changes = pdo_fetchcolumn('select count(*) from ' . tablename('ewei_shop_lottery_join') . 'where uniacid=:uniacid AND lottery_id=:lottery_id  AND join_user=:join_user and lottery_num>0 ' . $conditon, array(':uniacid' => $_W['uniacid'], ':join_user' => $_W['openid'], ':lottery_id' => $id));
+			}
+
 			$member = m('member')->getMember($_W['openid'], true);
 
 			/***************************************************
@@ -114,7 +120,8 @@ class index_EweiShopV2Page extends PluginMobilePage
 			$_W['shopshare']['title'] = $default['title'];
 			$_W['shopshare']['desc'] = $default['desc'];
 			$_W['shopshare']['imgUrl'] = tomedia($default['thumb']);
-			$_W['shopshare']['link'] = mobileUrl('lottery/index/share', array('lid' => $id,'mid' => $member['id']));
+			//$_W['shopshare']['link'] = $_W['siteroot'] . "app/" .  mobileUrl('lottery/index/share', array('rid' => $id,'mid' => $member['id']));
+			$_W['shopshare']['link'] = $_W['siteroot'] . 'app/index.php?i=' . $_W['uniacid'] . '&c=entry&m=ewei_shopv2&do=mobile&r=lottery.index.share&rid=' . $id . '&mid=' . $member['id'];
 		}
 
 		if (isset($lottery['lottery_type']) && ($lottery['lottery_type'] == 1)) {
@@ -512,13 +519,17 @@ class index_EweiShopV2Page extends PluginMobilePage
 				$member_id = pdo_getcolumn('ewei_shop_member', array('uniacid' => $_W['uniacid'], 'openid' => $openid), 'id');
 				if($member_id != $mid){
 					$share_openid = pdo_getcolumn('ewei_shop_member', array('id' => $mid, 'uniacid' => $_W['uniacid']), 'openid');
-					$share_num = pdo_getcolumn('ewei_shop_lottery_join', array('lottery_id' => $rid,'join_user' => $share_openid, 'uniacid' => $_W['uniacid']), 'share_num');
-					$share_num += 1;
+					$join = pdo_get('ewei_shop_lottery_join', array('lottery_id' => $rid,'join_user' => $share_openid, 'uniacid' => $_W['uniacid']), array('share_num','lottery_num'));
+					$share_num = $join['share_num'] + 1;
 					$default = pdo_getcolumn('ewei_shop_lottery_default', array('uniacid' => $_W['uniacid']), 'data');
 					$default = unserialize($default);
+					$update['share_num'] = $share_num;
 					if($share_num >= $default['times']){
-						pdo_update('ewei_shop_lottery_join', array('lottery_num' => 'lottery_num + 1'), array('lottery_id' => $rid,'join_user' => $share_openid, 'uniacid' => $_W['uniacid']));
+						$update['lottery_num'] = $join['lottery_num'] + 1;
+						$update['share_num'] = $share_num - $default['times'];
 					}
+                    pdo_update('ewei_shop_lottery_join', $update, array('lottery_id' => $rid,'join_user' => $share_openid, 'uniacid' => $_W['uniacid']));
+
 
                     $insert = array(
                         'lottery_id' => $rid,
