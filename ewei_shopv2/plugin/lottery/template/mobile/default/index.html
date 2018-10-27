@@ -7,7 +7,7 @@
 <div class='fui-page  fui-page-current'>
 
     <div class="fui-content">
-        {if !empty($lottery)}
+        {if !empty($lottery) || !empty($info)}
        <a class="lottery-head" href="{php echo mobileUrl('lottery/index/getlottery',array(),true);}">
            <img src="../addons/ewei_shopv2/plugin/lottery/static/images/lottery_banner.png" style="height: 10rem;width: 100%;">
        </a>

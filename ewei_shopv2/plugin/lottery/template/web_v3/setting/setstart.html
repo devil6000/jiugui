@@ -61,16 +61,6 @@
                 {/if}
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-lg control-label">分享次数</label>
-            <div class="col-sm-9 col-xs-12">
-                {ifp 'lottery.edit'}
-                <input type="text" name="times" class="form-control" value="{$set['times']}" />
-                {else}
-                <div class="form-control-static">{$set['times']}</div>
-                {/if}
-            </div>
-        </div>
 
         {ifp 'lottery.setting.edit|lottery.setting.add'}
         <div class="form-group">

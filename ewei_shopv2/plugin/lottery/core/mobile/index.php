@@ -12,24 +12,37 @@ class index_EweiShopV2Page extends PluginMobilePage
         /**********************************************
          * BY 2018-10-23 判断是否为默认次数
          **********************************************/
-        $list = pdo_fetchall("select * from " . tablename('ewei_shop_lottery') . " where lottery_num>0 and uniacid=:uniacid and lottery_type=1 and task_type=0", array(':uniacid' => $_W['uniacid']));
+        $info = pdo_get('ewei_shop_lottery', array('task_type' => 4, 'is_delete' => 0, 'uniacid' => $_W['uniacid']));	//2018-10-25 判断是否有分享活动
+        if(!empty($info)){
+        	if($info['end_time'] > time()){
+                $count = pdo_fetchcolumn("select count(id) from " . tablename('ewei_shop_lottery_join') . " where uniacid=:uniacid AND `join_user`=:join_user and lottery_id=:lottery_id", array(':uniacid' => $_W['uniacid'], ':join_user' => $_W['openid'], ':lottery_id' => $info['lottery_id']));
+                if(empty($count)){
+                    $this->model->getLottery($_W['openid'],4,null);
+                    $this->model->getLotteryList($_W['openid'], array('lottery_id' => $info['lottery_id']));
+				}
+			}
+		}
+        /**
+        $list = pdo_fetchall("select * from " . tablename('ewei_shop_lottery') . " where lottery_num>0 and uniacid=:uniacid and lottery_type=1 and task_type=4", array(':uniacid' => $_W['uniacid']));
         $time = time();
         foreach ($list as $item){
         	if($item['end_time'] > $time){
         		$count = pdo_fetchcolumn("select count(id) from " . tablename('ewei_shop_lottery_join') . " where uniacid=:uniacid AND `join_user`=:join_user and lottery_id=:lottery_id", array(':uniacid' => $_W['uniacid'], ':join_user' => $_W['openid'], ':lottery_id' => $item['lottery_id']));
         		if(empty($count)){
+        			$data = unserialize($item['tasK_data']);
         			$insert = array(
 						'uniacid' => $_W['uniacid'],
 						'join_user' => $_W['openid'],
 						'lottery_id' => $item['lottery_id'],
-						'lottery_num' => $item['lottery_num'],
+						'lottery_num' => $data['other_num'],
+						'lottery_tag' => '分享' . $data['share_num'] . '次,赠1次',
 						'addtime' => $time
 					);
         			pdo_insert('ewei_shop_lottery_join', $insert);
 				}
 			}
 		}
-
+		 * **/
 		$task_sql = 'SELECT COUNT(*) FROM ' . tablename('ewei_shop_lottery_join') . '  WHERE lottery_num>0 and uniacid=:uniacid AND `join_user`=:join_user ';
 		$lottery = pdo_fetchcolumn($task_sql, array(':uniacid' => $_W['uniacid'], ':join_user' => $_W['openid']));
 		include $this->template();
@@ -48,6 +61,10 @@ class index_EweiShopV2Page extends PluginMobilePage
 		$limit = ($page - 1) * 15;
 		$task_sql = 'SELECT j.*,l.lottery_title,l.lottery_type,l.lottery_days FROM ' . tablename('ewei_shop_lottery_join') . ' as j left join ' . tablename('ewei_shop_lottery') . ' as l on j.lottery_id=l.lottery_id WHERE j.lottery_num>0 and j.uniacid=:uniacid AND j.`join_user`=:join_user AND l.`is_delete`=0 ORDER BY j.addtime DESC LIMIT ' . $limit . ',15';
 		$lottery = pdo_fetchall($task_sql, array(':uniacid' => $_W['uniacid'], ':join_user' => $_W['openid']));
+
+		if(empty($lottery)){
+            $lottery = pdo_fetchall('select * from ' . tablename('ewei_shop_lottery') . ' where uniacid=:uniacid and is_delete=0 and task_type=4', array(':uniacid' => $_W['uniacid']));
+		}
 
 		foreach ($lottery as $key => $value) {
 			if (!empty($value['lottery_days'])) {
@@ -103,12 +120,16 @@ class index_EweiShopV2Page extends PluginMobilePage
 				$conditon = ' and `addtime` > ' . $effecttime;
 			}
 
+			/*
 			$info = pdo_fetch('select * from ' . tablename('ewei_shop_lottery_join') . 'where uniacid=:uniacid AND lottery_id=:lottery_id  AND join_user=:join_user and lottery_num>0 and lottery_tag is null ' . $conditon, array(':uniacid' => $_W['uniacid'], ':join_user' => $_W['openid'], ':lottery_id' => $id));
 			if(!empty($info)){
 				$has_changes = $info['lottery_num'];
 			}else{
                 $has_changes = pdo_fetchcolumn('select count(*) from ' . tablename('ewei_shop_lottery_join') . 'where uniacid=:uniacid AND lottery_id=:lottery_id  AND join_user=:join_user and lottery_num>0 ' . $conditon, array(':uniacid' => $_W['uniacid'], ':join_user' => $_W['openid'], ':lottery_id' => $id));
 			}
+			*/
+
+            $has_changes = pdo_fetchcolumn('select count(*) from ' . tablename('ewei_shop_lottery_join') . 'where uniacid=:uniacid AND lottery_id=:lottery_id  AND join_user=:join_user and lottery_num>0 ' . $conditon, array(':uniacid' => $_W['uniacid'], ':join_user' => $_W['openid'], ':lottery_id' => $id));
 
 			$member = m('member')->getMember($_W['openid'], true);
 
@@ -519,17 +540,40 @@ class index_EweiShopV2Page extends PluginMobilePage
 				$member_id = pdo_getcolumn('ewei_shop_member', array('uniacid' => $_W['uniacid'], 'openid' => $openid), 'id');
 				if($member_id != $mid){
 					$share_openid = pdo_getcolumn('ewei_shop_member', array('id' => $mid, 'uniacid' => $_W['uniacid']), 'openid');
-					$join = pdo_get('ewei_shop_lottery_join', array('lottery_id' => $rid,'join_user' => $share_openid, 'uniacid' => $_W['uniacid']), array('share_num','lottery_num'));
-					$share_num = $join['share_num'] + 1;
-					$default = pdo_getcolumn('ewei_shop_lottery_default', array('uniacid' => $_W['uniacid']), 'data');
-					$default = unserialize($default);
-					$update['share_num'] = $share_num;
-					if($share_num >= $default['times']){
-						$update['lottery_num'] = $join['lottery_num'] + 1;
-						$update['share_num'] = $share_num - $default['times'];
+                    $lottery = pdo_getcolumn('ewei_shop_lottery', array('uniacid' => $_W['uniacid'],'lottery_id' => $rid), 'task_data');
+                    $lottery = unserialize($lottery);
+                    $share_num = 1;
+                    if($lottery['share_num'] == 1){
+                    	$i = 1;
+                    	while($i <= $lottery['add_num']){
+                            $join_data = array('uniacid' => $_W['uniacid'], 'join_user' => $share_openid, 'lottery_id' => $rid, 'lottery_num' => 1, 'lottery_tag' => '分享' . $lottery['other_num'] . '次，赠送' . $lottery['add_num'] . '次', 'addtime' => time());
+                            pdo_insert('ewei_shop_lottery_join', $join_data);
+                            ++$i;
+						}
+						$this->model->getLotteryList($share_openid,array('lottery_id' => $rid));
+                    	$share_num = 0;
 					}
-                    pdo_update('ewei_shop_lottery_join', $update, array('lottery_id' => $rid,'join_user' => $share_openid, 'uniacid' => $_W['uniacid']));
 
+					$share_join = pdo_get('ewei_shop_lottery_share_join', array('uniacid' => $_W['uniacid'],'openid' => $share_openid, 'lottery_id' => $rid));
+					if(empty($share_join)){
+						$share_insert = array('uniacid' => $_W['uniacid'], 'openid' => $share_openid, 'lottery_id' => $rid, 'share_num' => $share_num);
+						pdo_insert('ewei_shop_lottery_share_join', $share_insert);
+					}else{
+						if($lottery['share_num'] > 1){
+                            $share_num = $share_join['share_num']  + 1;
+							if($lottery['share_num'] <= $share_num){
+                                $i = 1;
+                                while($i <= $lottery['add_num']){
+                                    $join_data = array('uniacid' => $_W['uniacid'], 'join_user' => $share_openid, 'lottery_id' => $rid, 'lottery_num' => 1, 'lottery_tag' => '分享' . $lottery['share_num'] . '次，赠送' . $lottery['add_num'] . '次', 'addtime' => time());
+                                    pdo_insert('ewei_shop_lottery_join', $join_data);
+                                    ++$i;
+                                }
+                                $this->model->getLotteryList($share_openid,array('lottery_id' => $rid));
+                                $share_num = 0;
+							}
+							pdo_update('ewei_shop_lottery_share_join', array('share_num' => $share_num), array('uniacid' => $_W['uniacid'],'openid' => $share_openid, 'lottery_id' => $rid));
+						}
+					}
 
                     $insert = array(
                         'lottery_id' => $rid,

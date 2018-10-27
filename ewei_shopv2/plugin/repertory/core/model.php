@@ -16,8 +16,22 @@ if (!(class_exists('RepertoryModel'))) {
 			return $set;
 		}
 
-	}
+		public function allow($orderid, $times = 0, $verifycode = '', $openid = ''){
+            global $_W;
 
+            if (empty($openid)) {
+                $openid = $_W['openid'];
+            }
+
+            $uniacid = $_W['uniacid'];
+            $store = false;
+            $merchid = 0;
+            $lastverifys = 0;
+            $verifyinfo = false;
+
+        }
+
+	}
 }
 
 

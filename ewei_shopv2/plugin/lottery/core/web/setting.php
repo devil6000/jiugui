@@ -165,7 +165,6 @@ class Setting_EweiShopV2Page extends PluginWebPage
 				$default['title'] = trim($_GPC['title']);
 				$default['thumb'] = trim($_GPC['thumb']);
 				$default['desc'] = trim($_GPC['desc']);
-				$default['times'] = trim($_GPC['times']);
 
 				if (empty($default['keyword'])) {
 					show_json(0, '请填写关键词!');
@@ -227,7 +226,6 @@ class Setting_EweiShopV2Page extends PluginWebPage
 				$default['title'] = trim($_GPC['title']);
 				$default['thumb'] = trim($_GPC['thumb']);
 				$default['desc'] = trim($_GPC['desc']);
-				$default['times'] = trim($_GPC['times']);
 
 				if (empty($default['keyword'])) {
 					show_json(0, '请填写关键词!');
@@ -307,8 +305,6 @@ class Setting_EweiShopV2Page extends PluginWebPage
 			m('common')->updateSysset(array('notice' => $data));
 			plog('sysset.notice.edit', '修改系统设置-模板消息通知设置');
 			$set['lotteryinfo'] = serialize($_GPC['lotteryinfo']);
-			//$set['times'] = $_GPC['times'];
-			//$set['share'] = $_GPC['share'];
 			$data = array('data' => serialize($set), 'addtime' => time());
 			$count = pdo_fetchcolumn('SELECT COUNT(*) FROM ' . tablename('ewei_shop_lottery_default') . ' WHERE uniacid =:uniacid', array(':uniacid' => $_W['uniacid']));
 

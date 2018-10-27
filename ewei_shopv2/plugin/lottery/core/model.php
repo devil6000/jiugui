@@ -149,19 +149,16 @@ class LotteryModel extends PluginModel
 
 				foreach ($lotterylist as $key => $value) {
 					$value['task_data'] = unserialize($value['task_data']);
+					if (0 < $value['task_data']['other_num']) {
+						$i = 1;
 
-					if ($data['taskid'] == $value['task_data']['poster_id']) {
-						if (0 < $value['task_data']['poster_num']) {
-							$i = 1;
-
-							while ($i <= $value['task_data']['poster_num']) {
-								$join_data = array('uniacid' => $_W['uniacid'], 'join_user' => $openid, 'lottery_id' => $value['lottery_id'], 'lottery_num' => 1, 'lottery_tag' => '完成任务海报,赠' . $value['task_data']['poster_num'] . '次', 'addtime' => time());
-								pdo_insert('ewei_shop_lottery_join', $join_data);
-								++$i;
-							}
-
-							$is_reward = $value['lottery_id'];
+						while ($i <= $value['task_data']['other_num']) {
+							$join_data = array('uniacid' => $_W['uniacid'], 'join_user' => $openid, 'lottery_id' => $value['lottery_id'], 'lottery_num' => 1, 'lottery_tag' => '初始赠送' . $value['task_data']['other_num'] . '次', 'addtime' => time());
+							pdo_insert('ewei_shop_lottery_join', $join_data);
+							++$i;
 						}
+
+						$is_reward = $value['lottery_id'];
 					}
 				}
 
