@@ -22,8 +22,6 @@ class Verify_EweiShopV2Page extends PluginMobilePage{
     public function detail(){
         global $_W;
         global $_GPC;
-        $openid = $_W['openid'];
-        $uniacid = $_W['uniacid'];
         $orderid = intval($_GPC['id']);
         $data = p('repertory')->allow($orderid);
 

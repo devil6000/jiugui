@@ -1,0 +1,26 @@
+{template '_header'}
+<div class="fui-page fui-order-detail">
+    <div class="fui-header">
+        <div class="fui-header-left"><a class="back" href="{php echo mobileUrl('order')}"></a></div>
+        <div class="title">存酒详情</div>
+        <div class="fui-header-right" onclick="location.href='{php echo mobileUrl('repertory/order')}'">
+            <span class="icon icon-order" style="font-size: 1.1rem;"></span>
+        </div>
+    </div>
+    <div class="fui-content navbar">
+        <div class="fui-list-group result-list">
+            <div class="fui-list order-status">
+                <div class="fio-list-inner">
+                    <div class="title">
+                        交易完成
+                    </div>
+                    <div class="text"></div>
+                </div>
+                <div class="fui-list-media">
+                    <i class="icon icon-check"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{template '_footer'}
