@@ -73,8 +73,9 @@
 			{if !empty($address)&&empty($order['istrade'])}您的包裹整装待发{/if}
 
 			{if !empty($order['istrade'])}您的服务已成功预约{/if}
-			
-			{if !empty($order['dispatchtype']) && empty($order['isverify'])}您可以到您选择的自提点取货了{/if}
+
+			{if $order['dispatchtype'] == 1 && empty($order['isverify'])}您可以到您选择的自提点取货了{/if}
+			{if $order['dispatchtype'] == 2}您可以到任意服务门店取酒消费{/if}
 			
 			{if !empty($order['isverify'])}您可以到适用门店去使用了{/if}
 			
