@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e967d9a4-ad29-4bdc-bd6e-b5722b8e34d5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ewei_shopv2/core/mobile/member/index.php" afterPath="$PROJECT_DIR$/ewei_shopv2/core/mobile/member/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ewei_shopv2/core/web/order/list.php" afterPath="$PROJECT_DIR$/ewei_shopv2/core/web/order/list.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ewei_shopv2/core/web/order/op.php" afterPath="$PROJECT_DIR$/ewei_shopv2/core/web/order/op.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ewei_shopv2/plugin/repertory/core/model.php" afterPath="$PROJECT_DIR$/ewei_shopv2/plugin/repertory/core/model.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ewei_shopv2/plugin/repertory/template/mobile/default/index.html" afterPath="$PROJECT_DIR$/ewei_shopv2/plugin/repertory/template/mobile/default/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ewei_shopv2/template/mobile/default/member/index.html" afterPath="$PROJECT_DIR$/ewei_shopv2/template/mobile/default/member/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ewei_shopv2/template/web_v3/order/list.html" afterPath="$PROJECT_DIR$/ewei_shopv2/template/web_v3/order/list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ewei_shopv2/template/web_v3/order/ops.html" afterPath="$PROJECT_DIR$/ewei_shopv2/template/web_v3/order/ops.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/update.sql" afterPath="$PROJECT_DIR$/update.sql" />
-    </list>
+    <list default="true" id="e967d9a4-ad29-4bdc-bd6e-b5722b8e34d5" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -687,12 +676,12 @@
       <workItem from="1540642960986" duration="2817000" />
       <workItem from="1540681916309" duration="14000" />
       <workItem from="1540708168022" duration="6946000" />
-      <workItem from="1540772853537" duration="9269000" />
+      <workItem from="1540772853537" duration="9505000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34280000" />
+    <option name="totallyTimeSpent" value="34516000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="979" extended-state="0" />
