@@ -63,15 +63,26 @@ if (!(class_exists('RepertoryModel'))) {
         public function setOrdeToRepertory($order_id){
             global $_W;
             $uniacid = $_W['uniacid'];
-            $order_goods_list = pdo_fetchall('select og.goodsid,og.orderid,og.total,o.openid,o.ordersn,g.thumb,g.title from ' . tablename('ewei_shop_order_goods') . ' og left join ' . tablename('ewei_shop_order') . ' o on og.orderid=o.id left join ' . tablename('ewei_shop_goods') . ' g on og.goodsid=g.id where o.status=3 and o.is_repertory = 1 and uniacid=:uniacid and og.orderid=:orderid', array(':uniacid' => $uniacid,':orderid' => $order_id));
+            $order_goods_list = pdo_fetchall('select og.goodsid,og.orderid,og.total,o.openid,o.ordersn,g.thumb,g.title,o.verifycode from ' . tablename('ewei_shop_order_goods') . ' og left join ' . tablename('ewei_shop_order') . ' o on og.orderid=o.id left join ' . tablename('ewei_shop_goods') . ' g on og.goodsid=g.id where o.status=3 and o.dispatchtype=2 and og.uniacid=:uniacid and og.orderid=:orderid', array(':uniacid' => $uniacid,':orderid' => $order_id));
             if(!empty($order_goods_list)){
                 $time = time();
-                $order_goods_list = tomedia($order_goods_list);
                 foreach ($order_goods_list as $key => $item){
-                    $insert = array('uniacid' => $_W['uniacid'], 'goods_id' => $item['goodsid'], 'thumb' => $item['thumb'], 'order_id' => $item['orderid'], 'order_sn' => $item['ordersn'], 'total' => $item['total'], 'create_time' => $time, 'goods_title' => $item['title'], 'openid' => $item['openid']);
-                    pdo_insert($insert);
+                    $insert = array('uniacid' => $_W['uniacid'], 'goods_id' => $item['goodsid'], 'thumb' => $item['thumb'], 'order_id' => $item['orderid'], 'order_sn' => $item['ordersn'], 'total' => $item['total'], 'create_time' => $time, 'goods_title' => $item['title'], 'openid' => $item['openid'], 'verifycode' => $item['verifycode'], 'get_num' => 0, 'status' => 0);
+                    pdo_insert('ewei_shop_repertory',$insert);
                 }
             }
+        }
+
+        /**
+         * 获取存酒数量
+         * @param $openid
+         * @return mixed
+         */
+        public function getNumber($openid){
+            global $_W;
+            $uniacid = $_W['uniacid'];
+            $count = pdo_fetchcolumn('select (sum(total) - sum(get_num)) as num from ' . tablename('ewei_shop_repertory') . ' where openid=:openid and uniacid=:uniacid and status=0 limit 1', array(':openid' => $openid, ':uniacid' => $uniacid));
+            return $count;
         }
 	}
 }

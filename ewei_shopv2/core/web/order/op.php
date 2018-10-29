@@ -468,6 +468,58 @@ class Op_EweiShopV2Page extends WebPage
 		show_json(1);
 	}
 
+	//增加存酒功能 BY 2018-10-29
+	public function keepwine(){
+		global $_W;
+		$opData = $this->opData();
+		extract($opData);
+        if ($item['status'] != 1) {
+            show_json(0, '订单未付款，无法确认取货！');
+        }
+        $time = time();
+        $d = array('status' => 3, 'sendtime' => $time, 'finishtime' => $time);
+        if ($item['isverify'] == 1) {
+            $d['verified'] = 1;
+            $d['verifytime'] = $time;
+            $d['verifyopenid'] = '';
+        }
+        pdo_update('ewei_shop_order', $d, array('id' => $item['id'], 'uniacid' => $_W['uniacid']));
+        //保存存酒订单信息
+		if(p('repertory')){
+			p('repertory')->setOrdeToRepertory($item['id']);
+		}
+
+        m('order')->fullback($item['id']);
+        if (com('coupon')) {
+            com('coupon')->sendcouponsbytask($item['id']);
+        }
+        if (!empty($item['couponid'])) {
+            com('coupon')->backConsumeCoupon($item['id']);
+        }
+        if (!empty($item['refundid'])) {
+            $refund = pdo_fetch('select * from ' . tablename('ewei_shop_order_refund') . ' where id=:id limit 1', array(':id' => $item['refundid']));
+
+            if (!empty($refund)) {
+                pdo_update('ewei_shop_order_refund', array('status' => -1), array('id' => $item['refundid']));
+                pdo_update('ewei_shop_order', array('refundstate' => 0), array('id' => $item['id']));
+            }
+        }
+        $log = '订单确认存酒';
+        if (p('ccard') && !empty($item['ccardid'])) {
+            p('ccard')->setBegin($item['id'], $item['ccardid']);
+            $log = '订单确认充值';
+        }
+        $log .= ' ID: ' . $item['id'] . ' 订单号: ' . $item['ordersn'];
+        m('order')->setGiveBalance($item['id'], 1);
+        m('member')->upgradeLevel($item['openid']);
+        m('notice')->sendOrderMessage($item['id']);
+        if (p('commission')) {
+            p('commission')->checkOrderFinish($item['id']);
+        }
+        plog('order.op.keepwine', $log);
+        show_json(1);
+	}
+
 	public function send()
 	{
 		global $_W;

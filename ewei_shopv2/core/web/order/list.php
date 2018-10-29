@@ -324,6 +324,9 @@ class List_EweiShopV2Page extends WebPage
 						if (0 < $value['sendtype']) {
 							$value['status'] = '部分使用';
 						}
+					}else if($value['dispatchtype'] == 2){
+						//增加"待存酒"标签,BY 2018-10-29
+						$value['status'] = '待存酒';
 					}
 					else if (empty($value['addressid'])) {
 						$value['status'] = '待取货';
@@ -370,8 +373,8 @@ class List_EweiShopV2Page extends WebPage
 						$value['dispatchname'] = '虚拟物品(卡密)<br/>自动发货';
 					}
 				}
-
-				if (($value['dispatchtype'] == 1) || !empty($value['isverify']) || !empty($value['virtual']) || !empty($value['isvirtual'])) {
+				//增加 dispatchtype = 2，BY 2018-10-29
+				if (($value['dispatchtype'] == 1) || ($value['dispatchtype'] == 2) || !empty($value['isverify']) || !empty($value['virtual']) || !empty($value['isvirtual'])) {
 					$value['address'] = '';
 					$carrier = iunserializer($value['carrier']);
 

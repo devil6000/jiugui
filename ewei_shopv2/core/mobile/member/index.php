@@ -167,6 +167,11 @@ class Index_EweiShopV2Page extends MobileLoginPage
 			$roleuser = pdo_fetch('SELECT id, uid, username, status FROM' . tablename('ewei_shop_perm_user') . 'WHERE openid=:openid AND uniacid=:uniacid AND status=1 LIMIT 1', array(':openid' => $_W['openid'], ':uniacid' => $_W['uniacid']));
 		}
 
+		//增加显示存酒数量
+		if(p('repertory')){
+			$repertorynum = p('repertory')->getNumber($_W['openid']);
+		}
+
 		include $this->template();
 	}
 }

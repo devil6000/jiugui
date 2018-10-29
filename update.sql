@@ -39,5 +39,8 @@ create table `ims_ewei_shop_repertory`(
   `create_time` int(10) null default 0,
   `goods_title` varchar(300) null,
   `openid` varchar(50) not null,
+  `verifycode` varchar(255) not null COMMENT '核销码',
+  `get_num` int(4) NULL DEFAULT 0 COMMENT '已取用数量',
+  `status` int(4) NULL DEFAULT 0 COMMENT '状态,1已用完',
   primary key (`id`)
 );
