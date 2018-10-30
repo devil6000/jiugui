@@ -6,29 +6,36 @@
         <div class="fui-header-right">&nbsp;</div>
     </div>
     <div class='fui-content navbar'>
+        <div class='fui-list-group'>
+            <div class='fui-list order-status'>
+                <div class='fui-list-inner'>
+                    <div class='title'>{$order['order_sn']}</div>
+                </div>
+            </div>
+        </div>
         {if !empty($carrier)}
         <div class='fui-list-group' style='margin-top:5px;'>
             <div class='fui-list'>
                 <div class='fui-list-media'><i class='icon icon-person2'></i></div>
                 <div class='fui-list-inner'>
-                    <div class='title'>{$order['realname']} {$order['mobile']}</div>
+                    <div class='title'>{$carrier['carrier_realname']} {$carrier['carrier_mobile']}</div>
                 </div>
             </div>
         </div>
         {/if}
         <div class="fui-list-group goods-list-group">
             <div class="fui-list-group-title"><i class="icon icon-shop"></i> {$_W['shopset']['shop']['name']}</div>
-            <a href="{php echo mobileUrl('goods/detail',array('id'=>$g['goodsid']))}">
+            <a href="{php echo mobileUrl('goods/detail',array('id'=>$order['goods_id']))}">
                 <div class="fui-list goods-list">
                     <div class="fui-list-media">
-                        <img src="{php echo tomedia($g['thumb'])}" class="round" />
+                        <img src="{php echo tomedia($order['thumb'])}" class="round" />
                     </div>
                     <div class="fui-list-inner">
-                        <div class="text goodstitle">{$g['title']}</div>
-                        {if !empty($g['optionid'])}<div class='subtitle'>{$g['optiontitle']}</div>{/if}
+                        <div class="text goodstitle">{$order['goods_title']}</div>
+                        {if !empty($order['option_id'])}<div class='subtitle'>{$order['option_name']}</div>{/if}
                     </div>
                     <div class='fui-list-angle'>
-                        ￥<span class='marketprice'>{$g['price']}</span><br/>   x{$g['total']}
+                        ￥<span class='marketprice'>{$order['goods_price']}</span><br/>   x{$order['total']}
                     </div>
                 </div>
             </a>
@@ -36,7 +43,7 @@
 
         <div class='fui-cell-group'>
             <div class='fui-cell'>
-                <div class='fui-cell-label' style='width:auto;'>剩余件数(已取 <span class='text-danger'>{$g['get_num']}</span> 件)</div>
+                <div class='fui-cell-label' style='width:auto;'>剩余件数(已取 <span class='text-danger'>{$order['get_num']}</span> 件)</div>
                 <div class='fui-cell-info'></div>
                 <div class='fui-cell-remark noremark'>
                     <div class="fui-number"
@@ -52,7 +59,7 @@
         </div>
     </div>
     <div class='fui-footer'>
-        <div class="btn btn-danger order-verify block" data-orderid="{$order['id']}" data-verifytype="{$order['verifytype']}">
+        <div class="btn btn-danger order-verify block" data-orderid="{$order['id']}">
             <i class="icon icon-check"></i>
             <span>确定使用</span>
         </div>

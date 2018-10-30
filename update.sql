@@ -42,5 +42,9 @@ create table `ims_ewei_shop_repertory`(
   `verifycode` varchar(255) not null COMMENT '核销码',
   `get_num` int(4) NULL DEFAULT 0 COMMENT '已取用数量',
   `status` int(4) NULL DEFAULT 0 COMMENT '状态,1已用完',
+  `carrier` TEXT,
+  `goods_price` DECIMAL(10,2) NULL DEFAULT 0 COMMENT '商品价格',
+  `option_id` INT(11) NULL DEFAULT 0 COMMENT '商品属性ID',
+  `option_name` VARCHAR(300) NULL COMMENT '商品属性名称',
   primary key (`id`)
 );

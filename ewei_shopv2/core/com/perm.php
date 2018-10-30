@@ -1874,6 +1874,19 @@ class Perm_EweiShopV2ComModel extends ComModel
 	'cover'    => array('text' => '入口设置', 'view' => '查看', 'edit' => '编辑-log')
 	) : array();
 	}
+
+    protected function perm_repertory()
+    {
+        return $this->isopen('repertory') && $this->is_perm_plugin('repertory') ? array(
+            'text'     => m('plugin')->getName('repertory'),
+			'agent'	   => array('text' => '存酒管理', 'view' => '查看', 'delete' => '删除'),
+            'order'    => array('text' => '存酒订单', 'view' => '查看', 'verify' => '核销订单'),
+            'verify'   => array('text' => '核销查询', 'view' => '查看', 'verify' => '核销-log'),
+            'cover'    => array('text' => '入口设置', 'view' => '查看', 'edit' => '编辑-log'),
+            'notice'   => array('text' => '通知设置', 'view' => '查看', 'edit' => '编辑-log'),
+            'set'      => array('text' => '基础设置', 'view' => '查看', 'edit' => '编辑-log')
+        ) : array();
+    }
 }
 
 ?>

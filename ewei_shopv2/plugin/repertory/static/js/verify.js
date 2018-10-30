@@ -22,7 +22,7 @@ define(['core', 'tpl'], function(core, tpl, op) {
         tip = "确认核销 <span class='text-danger'>" + times + "</span> 次吗?";
 
         FoxUI.confirm(tip, function() {
-            core.json('groups/verify/complete', {
+            core.json('repertory/verify/complete', {
                 id: orderid,
                 times: times
             }, function(ret) {
@@ -30,7 +30,7 @@ define(['core', 'tpl'], function(core, tpl, op) {
                     FoxUI.toast.show(ret.result.message);
                     return
                 }
-                location.href = core.getUrl('groups/verify/success', {
+                location.href = core.getUrl('repertory/verify/success', {
                     id: orderid,
                     times: times
                 })

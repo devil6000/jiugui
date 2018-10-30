@@ -13,7 +13,10 @@ return array(
 		'icon'      => 'page',
 		'items'     => array(
 			array('title' => '存酒管理', 'route' => 'agent'),
-			array('title' => '存酒订单', 'route' => 'order'),
+			array(
+				'title' 	=> '存酒订单',
+				'route' 	=> 'order'
+			),
 			array(
 				'title' => '设置',
 				'items' => array(

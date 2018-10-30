@@ -57,7 +57,11 @@ if (!(class_exists('RepertoryModel'))) {
                 }
             }
 
-            return array('order' => $order, 'store' => $store, 'saler' => $saler);
+            $total = $order['total'] - $order['get_num'];   //获取剩余数量
+
+            $carrier = unserialize($order['carrier']);
+
+            return array('order' => $order, 'store' => $store, 'saler' => $saler, 'carrier' => $carrier, 'total' => $total);
         }
 
         /**
@@ -67,13 +71,21 @@ if (!(class_exists('RepertoryModel'))) {
         public function setOrdeToRepertory($order_id){
             global $_W;
             $uniacid = $_W['uniacid'];
-            $order_goods_list = pdo_fetchall('select og.goodsid,og.orderid,og.total,o.openid,o.ordersn,g.thumb,g.title,o.verifycode from ' . tablename('ewei_shop_order_goods') . ' og left join ' . tablename('ewei_shop_order') . ' o on og.orderid=o.id left join ' . tablename('ewei_shop_goods') . ' g on og.goodsid=g.id where o.status=3 and o.dispatchtype=2 and og.uniacid=:uniacid and og.orderid=:orderid', array(':uniacid' => $uniacid,':orderid' => $order_id));
-            if(!empty($order_goods_list)){
+            $order = pdo_fetch('select openid, ordersn, verifycode, carrier from ' . tablename('ewei_shop_order') . ' where uniacid=:uniacid and status=3 and id=:id and dispatchtype=2 limit 1', array(':uniacid' => $uniacid, ':id' => $order_id));
+            if(!empty($order)){
+                $member = pdo_get('ewei_shop_member', array('openid' => $order['openid'], 'uniacid' => $uniacid), array('id','repertory', 'nickname'));
+                $order_goods_list = pdo_fetchall('select og.goodsid,og.total,og.optionid,og.optionname,g.thumb,g.title,g.marketprice from ' . tablename('ewei_shop_order_goods') . ' og left join ' . tablename('ewei_shop_goods') . ' g on og.goodsid=g.id where og.orderid=:orderid', array(':orderid' => $order_id));
+                $num = $member['repertory'];
                 $time = time();
+                $total = 0;
                 foreach ($order_goods_list as $key => $item){
-                    $insert = array('uniacid' => $_W['uniacid'], 'goods_id' => $item['goodsid'], 'thumb' => $item['thumb'], 'order_id' => $item['orderid'], 'order_sn' => $item['ordersn'], 'total' => $item['total'], 'create_time' => $time, 'goods_title' => $item['title'], 'openid' => $item['openid'], 'verifycode' => $item['verifycode'], 'get_num' => 0, 'status' => 0);
+                    $num += $item['total'];
+                    $total += $item['total'];
+                    $insert = array('uniacid' => $_W['uniacid'], 'goods_id' => $item['goodsid'], 'thumb' => $item['thumb'], 'option_id' => $item['optionid'], 'option_name' => $item['optionname'], 'goods_price' => $item['marketprice'], 'order_id' => $order_id, 'order_sn' => $order['ordersn'], 'total' => $item['total'], 'create_time' => $time, 'goods_title' => $item['title'], 'openid' => $order['openid'], 'verifycode' => $order['verifycode'], 'carrier' => $order['carrier'], 'get_num' => 0, 'status' => 0);
                     pdo_insert('ewei_shop_repertory',$insert);
                 }
+                pdo_update('ewei_shop_member', array('isrepertory' => 1, 'repertory' => $num, 'repertorytime' => time()), array('openid' => $order['openid'], 'uniacid' => $uniacid));
+                $this->sendMessage(array('openid' => $member['nickname'], 'num' => $total, 'applytime' => $time),'repertory_apply');
             }
         }
 
@@ -107,15 +119,146 @@ if (!(class_exists('RepertoryModel'))) {
             }
 
             extract($data);
-            if(empty($data['status'])){
-                $get_num = $data['get_num'] + $times;
-                $status = ($data['total'] - $get_num) <= 0 ? 1 : 0;
-                $update = array('get_num' => $get_num, 'status' => $status);
-                pdo_update('ewei_shop_repertory', $update, array('id' => $orderid, 'uniacid' => $uniacid));
+            $order = pdo_fetch('select * from ' . tablename('ewei_shop_repertory') . ' where id=:id and uniacid=:uniacid', array(':id' => $orderid, ':uniacid' => $uniacid));
+            if(empty($order['status'])){
+                $get_num = $order['get_num'] + $times;
+                $status = ($order['total'] - $get_num) <= 0 ? 1 : 0;
+                $data = array('get_num' => $get_num, 'status' => $status);
+                pdo_update('ewei_shop_repertory', $data, array('id' => $orderid, 'uniacid' => $uniacid));
+                //$num = pdo_getcolumn('ewei_shop_member', array('openid' => $order['openid'], 'uniacid' => $uniacid), 'repertory');
+                $member = m('member')->getMember($order['openid']);
+                $num = $member['repertory'] - $times;
+                pdo_update('ewei_shop_member', array('repertory' => $num), array('openid' => $order['openid'], 'uniacid' => $uniacid));
+                plog('reportory.verify.complete', '核销酒水 ' . $order['goods_title'] . ' ' . $times . ' 件');
 
+                $this->sendMessage(array('openid' => $order['openid'], 'nickname' => $member['nickname'], 'num' => $times, 'title' => $order['goods_title'], 'verifytime' => time()), 'repertory_verify');
             }
 
             return true;
+        }
+
+        public function sendMessage($sendData, $message_type)
+        {
+            $notice = m('common')->getPluginset('repertory');
+            $tm = $notice['tm'];
+
+            if (($message_type == 'repertory_credit') && empty($usernotice['repertory_credit'])) {
+
+                $tm['msguser'] = $sendData['openid'];
+                $data = array('[昵称]' => $sendData['nickname'], '[存酒数量]' => $sendData['total'], '[积分]' => $sendData['credit'], '[时间]' => date('Y-m-d H:i:s', $sendData['time']));
+                $message = array('keyword1' => (!(empty($tm['repertory_credittitle'])) ? $tm['repertory_credittitle'] : '存酒获取积分通知'), 'keyword2' => (!(empty($tm['repertory_credit'])) ? $tm['repertory_credit'] : '[昵称]，您共存酒[存酒数量]件 ，可获得[积分]积分'));
+                return $this->sendNotice($tm, 'repertory_credit_advanced', $data, $message);
+            }
+
+
+            if (($message_type == 'repertory_apply') && empty($usernotice['repertory_apply'])) {
+
+                $tm['msguser'] = $sendData['openid'];
+                $data = array('[昵称]' => $sendData['nickname'], '[数量]' => $sendData['num'], '[时间]' => date('Y-m-d H:i:s', $sendData['applytime']));
+                $message = array('keyword1' => (!(empty($tm['repertory_applytitle'])) ? $tm['repertory_applytitle'] : '存酒通知'), 'keyword2' => (!(empty($tm['repertory_apply'])) ? $tm['repertory_apply'] : '[昵称]在[时间]成功存酒[数量]件.请到后台查看~'));
+                return $this->sendNotice($tm, 'repertory_apply_advanced', $data, $message);
+            }
+
+            if(($message_type == 'repertory_verify') && empty($usernotice['repertory_verify'])){
+                $tm['msguser'] = $sendData['openid'];
+                $data = array('[昵称]' => $sendData['nickname'], '[件数]' => $sendData['num'], '[商品名称]' => $sendData['title'], '[时间]' => date('Y-m-d H:i:s', $sendData['verifytime']));
+                $message = array('keyword1' => (!(empty($tm['repertory_verifytitle'])) ? $tm['repertory_verifytitle'] : '核销成功通知'), 'keyword2' => (!(empty($tm['repertory_verify'])) ? $tm['repertory_verify'] : '[昵称]在[时间]成功消费[数量]件[商品名称].请到后台查看~'));
+                return $this->sendNotice($tm, 'repertory_verify_advanced', $data, $message);
+            }
+
+        }
+
+        protected function sendNotice($tm, $tag, $datas, $message)
+        {
+            global $_W;
+
+            if (!(empty($tm['is_advanced'])) && !(empty($tm[$tag]))) {
+
+                $advanced_template = pdo_fetch('select * from ' . tablename('ewei_shop_member_message_template') . ' where id=:id and uniacid=:uniacid limit 1', array(':id' => $tm[$tag], ':uniacid' => $_W['uniacid']));
+
+
+                if (!(empty($advanced_template))) {
+
+                    $url = ((!(empty($advanced_template['url'])) ? $this->replaceArray($datas, $advanced_template['url']) : ''));
+                    $advanced_message = array(
+                        'first'  => array('value' => $this->replaceArray($datas, $advanced_template['first']), 'color' => $advanced_template['firstcolor']),
+                        'remark' => array('value' => $this->replaceArray($datas, $advanced_template['remark']), 'color' => $advanced_template['remarkcolor'])
+                    );
+                    $data = iunserializer($advanced_template['data']);
+
+
+                    foreach ($data as $d ) {
+
+                        $advanced_message[$d['keywords']] = array('value' => $this->replaceArray($datas, $d['value']), 'color' => $d['color']);
+                    }
+
+
+
+                    $tm['templateid'] = $advanced_template['template_id'];
+                    $this->sendMoreAdvanced($tm, $tag, $advanced_message, $url);
+                }
+
+            }
+
+            else {
+
+                $tag = str_replace('_advanced', '', $tag);
+                $this->sendMore($tm, $message, $datas);
+            }
+
+
+
+            return true;
+        }
+
+        protected function sendMore($tm, $message, $datas)
+        {
+            $message['keyword2'] = $this->replaceArray($datas, $message['keyword2']);
+            $msg = array(
+                'keyword1' => array('value' => $message['keyword1'], 'color' => '#73a68d'),
+                'keyword2' => array('value' => $message['keyword2'], 'color' => '#73a68d')
+            );
+            $openid = $tm['msguser'];
+            $send = m('message')->sendTplNotice($openid, $tm['templateid'], $msg);
+            if(is_error($send)){
+                m('message')->sendCustomNotice($openid, $msg);
+            }
+        }
+
+        protected function sendMoreAdvanced($tm, $tag, $msg, $url)
+        {
+            if ($tm['msguser'] == 1) {
+
+                $openid = $tm['applyopenid'];
+            }
+
+            else {
+
+                $openid = $tm['openid'];
+            }
+
+
+
+            if (!(empty($openid))) {
+
+                foreach ($openid as $openid ) {
+
+                    if (!(empty($tm[$tag])) && !(empty($tm['templateid']))) {
+
+                        m('message')->sendTplNotice($openid, $tm['templateid'], $msg, $url);
+                    }
+
+                    else {
+
+                        m('message')->sendCustomNotice($openid, $msg, $url);
+                    }
+
+                }
+
+            }
+
+
+
         }
 	}
 }

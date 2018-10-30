@@ -55,52 +55,13 @@ class Index_EweiShopV2Page extends PluginWebPage
 
 		if ($_W['ispost']) {
 			$data = (is_array($_GPC['data']) ? $_GPC['data'] : array());
-			$data['cashcredit'] = intval($data['cashcredit']);
-			$data['cashweixin'] = intval($data['cashweixin']);
-			$data['cashother'] = intval($data['cashother']);
-			$data['cashalipay'] = intval($data['cashalipay']);
-			$data['cashcard'] = intval($data['cashcard']);
+			$data['repertory'] = intval($data['repertory']);
+			$data['repertory_credit'] = intval($data['repertory_credit']);
 
-			if (!empty($data['withdrawcharge'])) {
-				$data['withdrawcharge'] = trim($data['withdrawcharge']);
-				$data['withdrawcharge'] = floatval(trim($data['withdrawcharge'], '%'));
-			}
-
-			$data['withdrawbegin'] = floatval(trim($data['withdrawbegin']));
-			$data['withdrawend'] = floatval(trim($data['withdrawend']));
-			$data['register_bottom_content'] = m('common')->html_images($data['register_bottom_content']);
-			$data['applycontent'] = m('common')->html_images($data['applycontent']);
-			$data['regbg'] = save_media($data['regbg']);
-			$data['become_goodsid'] = intval($_GPC['become_goodsid']);
-			$data['texts'] = is_array($_GPC['texts']) ? $_GPC['texts'] : array();
 			m('common')->updatePluginset(array('repertory' => $data));
 			m('cache')->set('template_' . $this->pluginname, $data['style']);
-			$selfbuy = ($data['selfbuy'] ? '开启' : '关闭');
-			$become_child = ($data['become_child'] ? ($data['become_child'] == 1 ? '首次下单' : '首次付款') : '首次点击分享连接');
 
-			switch ($data['become']) {
-			case '0':
-				$become = '无条件';
-				break;
-
-			case '1':
-				$become = '申请';
-				break;
-
-			case '2':
-				$become = '消费次数';
-				break;
-
-			case '3':
-				$become = '消费金额';
-				break;
-
-			case '4':
-				$become = '购买商品';
-				break;
-			}
-
-			plog('repertory.set.edit', '修改基本设置<br>' . '分销内购 -- ' . $selfbuy . '<br>成为下线条件 -- ' . $become_child . '<br>成为分销商条件 -- ' . $become);
+			//plog('repertory.set.edit', '修改基本设置<br>' . '每存 -- ' . $selfbuy . '<br>成为下线条件 -- ' . $become_child . '<br>成为分销商条件 -- ' . $become);
 			show_json(1, array('url' => webUrl('repertory/set', array('tab' => str_replace('#tab_', '', $_GPC['tab'])))));
 		}
 
@@ -120,11 +81,6 @@ class Index_EweiShopV2Page extends PluginWebPage
 		}
 
 		$data = m('common')->getPluginset('repertory');
-		$goods = false;
-
-		if (!empty($data['become_goodsid'])) {
-			$goods = pdo_fetch('select id,title,thumb from ' . tablename('ewei_shop_goods') . ' where id=:id and uniacid=:uniacid limit 1 ', array(':id' => $data['become_goodsid'], ':uniacid' => $_W['uniacid']));
-		}
 
 		include $this->template();
 	}
