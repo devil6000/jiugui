@@ -28,7 +28,7 @@ if (!(class_exists('RepertoryModel'))) {
             $merchid = 0;
             $lastverifys = 0;
             $verifyinfo = false;
-            if ($times <= 0) {
+            if($times <= 0){
                 $times = 1;
             }
 
@@ -41,8 +41,12 @@ if (!(class_exists('RepertoryModel'))) {
             if(empty($order)){
                 return error(-1, '未找到订单');
             }
-            if(empty($order['total'])){
+            if($order['status'] == 1 || ($order['total'] <= $order['get_num'])){
                 return error(-1, '订单已核销完成,不能核销');
+            }
+
+            if($times > ($order['total'] - $order['get_num'])){
+                return error(-1, '核销数量不足');
             }
 
             if(!empty($saler['storeid'])){
@@ -83,6 +87,35 @@ if (!(class_exists('RepertoryModel'))) {
             $uniacid = $_W['uniacid'];
             $count = pdo_fetchcolumn('select (sum(total) - sum(get_num)) as num from ' . tablename('ewei_shop_repertory') . ' where openid=:openid and uniacid=:uniacid and status=0 limit 1', array(':openid' => $openid, ':uniacid' => $uniacid));
             return $count;
+        }
+
+        public function verify($orderid = 0, $times = 0, $verifycode = '', $openid = '')
+        {
+            global $_W;
+            global $_GPC;
+            $uniacid = $_W['uniacid'];
+            $current_time = time();
+
+            if (empty($openid)) {
+                $openid = $_W['openid'];
+            }
+
+            $data = $this->allow($orderid, $times, $openid);
+
+            if (is_error($data)) {
+                return NULL;
+            }
+
+            extract($data);
+            if(empty($data['status'])){
+                $get_num = $data['get_num'] + $times;
+                $status = ($data['total'] - $get_num) <= 0 ? 1 : 0;
+                $update = array('get_num' => $get_num, 'status' => $status);
+                pdo_update('ewei_shop_repertory', $update, array('id' => $orderid, 'uniacid' => $uniacid));
+
+            }
+
+            return true;
         }
 	}
 }

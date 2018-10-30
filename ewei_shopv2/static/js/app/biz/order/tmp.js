@@ -96,7 +96,7 @@ define(['core', 'tpl', 'biz/plugin/diyform'], function(core, tpl, diyform) {
                     $('#addressInfo').hide(), $('#carrierInfo').show(), $('#memberInfo').show(), $('#showdispatchprice').hide();
                     modal.caculate()
                 },
-                tab3: function () {
+                tb3: function () {
                     modal.params.iscarry = 2;
                     $('#addressInfo').hide(), $('#carrierInfo').hide(), $('#memberInfo').show(), $('#showdispatchprice').hide();
                     modal.caculate()
@@ -585,7 +585,7 @@ define(['core', 'tpl', 'biz/plugin/diyform'], function(core, tpl, diyform) {
             return
         }
         if (modal.params.isonlyverifygoods) {} else if (modal.params.iscarry || modal.params.isverify || modal.params.isvirtual) {
-            if (modal.params.iscarry == 1 && modal.params.storeid == 0) {
+            if (modal.params.iscarry && modal.params.storeid == 0) {
                 FoxUI.toast.show('请选择自提点');
                 return
             }
@@ -633,8 +633,7 @@ define(['core', 'tpl', 'biz/plugin/diyform'], function(core, tpl, diyform) {
             'gdid': modal.params.gdid,
             'liveid': modal.params.liveid,
             'diydata': diyformdata,
-            //'dispatchtype': modal.params.iscarry ? 1 : 0,
-            'dispatchtype': modal.params.iscarry,
+            'dispatchtype': modal.params.iscarry ? 1 : 0,
             'fromcart': modal.params.fromcart,
             'carrierid': modal.params.iscarry ? modal.params.storeid : 0,
             'addressid': !modal.params.iscarry ? modal.params.addressid : 0,

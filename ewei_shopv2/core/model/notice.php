@@ -1039,9 +1039,11 @@ class Notice_EweiShopV2Model
 				if ($order['isverify']) {
 					$remark = "\n" . '点击订单详情查看可消费门店, 【' . $shopname . '】欢迎您的再次购物！' . "\n";
 				}
-				 else if ($order['dispatchtype']) {
+				 else if ($order['dispatchtype'] == 1) {
 					$remark = "\n" . '您可以到选择的自提点进行取货了,【' . $shopname . '】欢迎您的再次购物！' . "\n";
-				}
+				}else if($order['dispatchtype'] == 2){
+				    $remark = "\n" . '您可以到任意服务门店进行取酒消费,【' . $shopname . '】欢迎您的再次购物!' . "\n";
+                 }
 
 
 				$cusurl = '<a href=\'' . $url . '\'>点击查看详情</a>';

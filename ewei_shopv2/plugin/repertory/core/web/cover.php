@@ -9,18 +9,18 @@ class Cover_EweiShopV2Page extends PluginWebPage
 	{
 		global $_W;
 		global $_GPC;
-		$rule = pdo_fetch('select * from ' . tablename('rule') . ' where uniacid=:uniacid and module=:module and name=:name limit 1', array(':uniacid' => $_W['uniacid'], ':module' => 'cover', ':name' => 'ewei_shopv2分销中心入口设置'));
+		$rule = pdo_fetch('select * from ' . tablename('rule') . ' where uniacid=:uniacid and module=:module and name=:name limit 1', array(':uniacid' => $_W['uniacid'], ':module' => 'cover', ':name' => 'ewei_shopv2存酒功能入口设置'));
 
 		if (!empty($rule)) {
 			$keyword = pdo_fetch('select * from ' . tablename('rule_keyword') . ' where uniacid=:uniacid and rid=:rid limit 1', array(':uniacid' => $_W['uniacid'], ':rid' => $rule['id']));
 			$cover = pdo_fetch('select * from ' . tablename('cover_reply') . ' where uniacid=:uniacid and rid=:rid limit 1', array(':uniacid' => $_W['uniacid'], ':rid' => $rule['id']));
 		}
 
-		$url = mobileUrl('commission', NULL, true);
+		$url = mobileUrl('repertory', NULL, true);
 		$qrcode = m('qrcode')->createQrcode($url);
 
 		if ($_W['ispost']) {
-			ca('commission.cover.edit');
+			ca('repertory.cover.edit');
 			$data = (is_array($_GPC['cover']) ? $_GPC['cover'] : array());
 
 			if (empty($data['keyword'])) {
@@ -30,7 +30,7 @@ class Cover_EweiShopV2Page extends PluginWebPage
 			$keyword = m('common')->keyExist($data['keyword']);
 
 			if (!empty($keyword)) {
-				if ($keyword['name'] != 'ewei_shopv2分销中心入口设置') {
+				if ($keyword['name'] != 'ewei_shopv2存酒功能入口设置') {
 					show_json(0, '关键字已存在!');
 				}
 			}
@@ -41,14 +41,14 @@ class Cover_EweiShopV2Page extends PluginWebPage
 				pdo_delete('cover_reply', array('rid' => $rule['id'], 'uniacid' => $_W['uniacid']));
 			}
 
-			$rule_data = array('uniacid' => $_W['uniacid'], 'name' => 'ewei_shopv2分销中心入口设置', 'module' => 'cover', 'displayorder' => 0, 'status' => intval($data['status']));
+			$rule_data = array('uniacid' => $_W['uniacid'], 'name' => 'ewei_shopv2存酒功能入口设置', 'module' => 'cover', 'displayorder' => 0, 'status' => intval($data['status']));
 			pdo_insert('rule', $rule_data);
 			$rid = pdo_insertid();
 			$keyword_data = array('uniacid' => $_W['uniacid'], 'rid' => $rid, 'module' => 'cover', 'content' => trim($data['keyword']), 'type' => 1, 'displayorder' => 0, 'status' => intval($data['status']));
 			pdo_insert('rule_keyword', $keyword_data);
-			$cover_data = array('uniacid' => $_W['uniacid'], 'rid' => $rid, 'module' => $this->modulename, 'title' => trim($data['title']), 'description' => trim($data['desc']), 'thumb' => save_media($data['thumb']), 'url' => mobileUrl('commission'));
+			$cover_data = array('uniacid' => $_W['uniacid'], 'rid' => $rid, 'module' => $this->modulename, 'title' => trim($data['title']), 'description' => trim($data['desc']), 'thumb' => save_media($data['thumb']), 'url' => mobileUrl('repertory'));
 			pdo_insert('cover_reply', $cover_data);
-			plog('commission.cover.edit', '修改分销商入口设置');
+			plog('repertory.cover.edit', '修改存酒功能入口设置');
 			show_json(1);
 		}
 
