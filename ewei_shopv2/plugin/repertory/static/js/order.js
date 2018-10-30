@@ -1,6 +1,7 @@
 define(['core', 'tpl'], function(core, tpl) {
     var modal = {
         page: 1,
+        status: ''
     };
     modal.init = function() {
         $('.fui-content').infinite({
@@ -11,6 +12,25 @@ define(['core', 'tpl'], function(core, tpl) {
         if (modal.page == 1) {
             modal.getList()
         }
+        FoxUI.tab({
+            container: $('#tab'),
+            handlers: {
+                status: function() {
+                    modal.changeTab(0)
+                },
+                status0: function() {
+                    modal.changeTab(1)
+                },
+                status1: function() {
+                    modal.changeTab(2)
+                }
+            }
+        })
+    };
+    modal.changeTab = function(status) {
+        $('.fui-content').infinite('init');
+        $('.content-empty').hide(), $('.content-loading').show(), $('#container').html('');
+        modal.page = 1, modal.status = status, modal.getList()
     };
     modal.loading = function() {
         modal.page++
@@ -18,6 +38,7 @@ define(['core', 'tpl'], function(core, tpl) {
     modal.getList = function() {
         core.json('repertory/index/get_list', {
             page: modal.page,
+            status: modal.status
         }, function(ret) {
             var result = ret.result;
             if (result.total <= 0) {

@@ -67,7 +67,7 @@
                     <span class='status <%order.statuscss%>'><%order.statusstr%></span>
                 </div>
                 <%each order.goods[0].goods as g%>
-                <div class="fui-list goods-list">
+                <div class="fui-list goods- <%if order.userdeleted==1%>list">
                     <div class="fui-list-media" style="<%if g.status==2%><%/if%>">
                         <img data-lazy="<%g.thumb%>" class="">
                     </div>
@@ -92,7 +92,7 @@
             <div class='fui-list-group-title lineblock   opblock' >
         <span class='status noremark'>
 
-        <%if order.userdeleted==1%>
+
             <%if order.status==3 || order.status==-1%>
             <div class="btn btn-default btn-default-o order-deleted" data-orderid="<%order.id%>">彻底删除订单</div>
             <%/if%>
