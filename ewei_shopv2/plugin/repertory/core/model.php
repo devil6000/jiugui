@@ -74,14 +74,14 @@ if (!(class_exists('RepertoryModel'))) {
             $order = pdo_fetch('select openid, ordersn, verifycode, carrier from ' . tablename('ewei_shop_order') . ' where uniacid=:uniacid and status=3 and id=:id and dispatchtype=2 limit 1', array(':uniacid' => $uniacid, ':id' => $order_id));
             if(!empty($order)){
                 $member = pdo_get('ewei_shop_member', array('openid' => $order['openid'], 'uniacid' => $uniacid), array('id','repertory', 'nickname'));
-                $order_goods_list = pdo_fetchall('select og.goodsid,og.total,og.optionid,og.optionname,g.thumb,g.title,g.marketprice from ' . tablename('ewei_shop_order_goods') . ' og left join ' . tablename('ewei_shop_goods') . ' g on og.goodsid=g.id where og.orderid=:orderid', array(':orderid' => $order_id));
+                $order_goods_list = pdo_fetchall('select og.goodsid,og.total,og.optionid,og.optionname,g.thumb,g.title,g.marketprice,g.bottle from ' . tablename('ewei_shop_order_goods') . ' og left join ' . tablename('ewei_shop_goods') . ' g on og.goodsid=g.id where og.orderid=:orderid', array(':orderid' => $order_id));
                 $num = $member['repertory'];
                 $time = time();
                 $total = 0;
                 foreach ($order_goods_list as $key => $item){
-                    $num += $item['total'];
-                    $total += $item['total'];
-                    $insert = array('uniacid' => $_W['uniacid'], 'goods_id' => $item['goodsid'], 'thumb' => $item['thumb'], 'option_id' => $item['optionid'], 'option_name' => $item['optionname'], 'goods_price' => $item['marketprice'], 'order_id' => $order_id, 'order_sn' => $order['ordersn'], 'total' => $item['total'], 'create_time' => $time, 'goods_title' => $item['title'], 'openid' => $order['openid'], 'verifycode' => $order['verifycode'], 'carrier' => $order['carrier'], 'get_num' => 0, 'status' => 0);
+                    $num += $item['bottle'];
+                    $total += $item['bottle'];
+                    $insert = array('uniacid' => $_W['uniacid'], 'goods_id' => $item['goodsid'], 'thumb' => $item['thumb'], 'option_id' => $item['optionid'], 'option_name' => $item['optionname'], 'goods_price' => $item['marketprice'], 'order_id' => $order_id, 'order_sn' => $order['ordersn'], 'total' => $item['bottle'], 'create_time' => $time, 'goods_title' => $item['title'], 'openid' => $order['openid'], 'verifycode' => $order['verifycode'], 'carrier' => $order['carrier'], 'get_num' => 0, 'status' => 0);
                     pdo_insert('ewei_shop_repertory',$insert);
                 }
                 pdo_update('ewei_shop_member', array('isrepertory' => 1, 'repertory' => $num, 'repertorytime' => time()), array('openid' => $order['openid'], 'uniacid' => $uniacid));
@@ -125,11 +125,14 @@ if (!(class_exists('RepertoryModel'))) {
                 $status = ($order['total'] - $get_num) <= 0 ? 1 : 0;
                 $data = array('get_num' => $get_num, 'status' => $status);
                 pdo_update('ewei_shop_repertory', $data, array('id' => $orderid, 'uniacid' => $uniacid));
-                //$num = pdo_getcolumn('ewei_shop_member', array('openid' => $order['openid'], 'uniacid' => $uniacid), 'repertory');
                 $member = m('member')->getMember($order['openid']);
                 $num = $member['repertory'] - $times;
                 pdo_update('ewei_shop_member', array('repertory' => $num), array('openid' => $order['openid'], 'uniacid' => $uniacid));
                 plog('reportory.verify.complete', '核销酒水 ' . $order['goods_title'] . ' ' . $times . ' 件');
+                //保存取酒信息
+                $saler = pdo_fetch('select * from ' . tablename('ewei_shop_saler') . ' where openid=:openid and uniacid=:uniacid limit 1', array(':uniacid' => $uniacid, ':openid' => $openid));
+                $insert = array('uniacid' => $uniacid, 'store_id' => $saler['storeid'], 'verify_openid' => $saler['openid'], 'rid' => $order['id'], 'total' => $times, 'create_time' => time(), 'verify_name' => $saler['salername']);
+                pdo_insert('ewei_shop_repertory_log', $insert);
 
                 $this->sendMessage(array('openid' => $order['openid'], 'nickname' => $member['nickname'], 'num' => $times, 'title' => $order['goods_title'], 'verifytime' => time()), 'repertory_verify');
             }
@@ -219,10 +222,23 @@ if (!(class_exists('RepertoryModel'))) {
                 'keyword2' => array('value' => $message['keyword2'], 'color' => '#73a68d')
             );
             $openid = $tm['msguser'];
-            $send = m('message')->sendTplNotice($openid, $tm['templateid'], $msg);
-            if(is_error($send)){
+            if(!empty($tm['templateid'])){
+                $send = m('message')->sendTplNotice($openid, $tm['templateid'], $msg);
+            }else{
                 m('message')->sendCustomNotice($openid, $msg);
             }
+        }
+
+        protected function replaceArray(array $array, $message) {
+
+            foreach ($array as $key => $value) {
+
+                $message = str_replace($key, $value, $message);
+
+            }
+
+            return $message;
+
         }
 
         protected function sendMoreAdvanced($tm, $tag, $msg, $url)

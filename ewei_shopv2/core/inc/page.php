@@ -161,6 +161,16 @@ class Page extends WeModuleSite
 			}
 		}
 
+		if(p('repertory')){
+            $lasttime = strtotime(m('cache')->getString('repertory_credit_send', 'global'));
+            $interval = 24 * 3600;
+            $current = time();
+            if(($lasttime + $interval) <= $current){
+                m('cache')->set('repertory_credit_send', date('Y-m-d H:i:s', $current), 'global');
+                http_request($_W['siteroot'] . 'addons/ewei_shopv2/plugin/repertory/task/receive.php', NULL, NULL, 1);
+			}
+		}
+
 		exit('run finished.');
 	}
 

@@ -48,3 +48,17 @@ create table `ims_ewei_shop_repertory`(
   `option_name` VARCHAR(300) NULL COMMENT '商品属性名称',
   primary key (`id`)
 );
+
+alter table `ims_ewei_shop_goods` add `bottle` int(10) null default 0 comment '瓶数';
+
+create table `ims_ewei_shop_repertory_log`(
+  `id` int(11) not null AUTO_INCREMENT,
+  `uniacid` int(10) null default 0,
+  `store_id` int(11) null default 0 comment '核销门店ID',
+  `verify_openid` varchar(50) null comment '核销员',
+  `rid` int(11) not null comment '核销存酒ID',
+  `total` int(4) not null comment '核销数量',
+  `create_time` int(6) null,
+  `verify_name` varchar(100) null,
+  primary key (`id`)
+);

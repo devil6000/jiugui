@@ -125,7 +125,7 @@ if ($_W['ispost']) {
 	$statustimeend = strtotime($_GPC['statustime']['end']);
 	$data['statustimestart'] = $statustimestart;
 	$data['statustimeend'] = $statustimeend;
-
+    $data['bottle'] = max(1,intval($_GPC['bottle'])); //默认为1瓶
 	if (($data['status'] == 1) && (0 < $data['isstatustime'])) {
 		if (!(($statustimestart < time()) && (time() < $statustimeend))) {
 			show_json(0, '上架时间不符合要求！');

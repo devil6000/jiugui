@@ -470,7 +470,20 @@
                 {/if}
             </div>
         </div>
-
+        <!-- 每件瓶数 -->
+        <div class="form-group">
+            <label class="col-sm-2 control-label">瓶数</label>
+            <div class="col-sm-9 col-xs-12">
+                {ife 'goods' $item}
+                <div class="input-group">
+                    <input type="text" name="bottle" id="bottle" class="form-control" value="{$item['bottle']}" />
+                    <span class="input-group-addon">瓶</span>
+                </div>
+                {else}
+                <div class="form-control-static">{$item['bottle']} 瓶</div>
+                {/if}
+            </div>
+        </div>
     </div>
 </div>
 

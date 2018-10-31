@@ -554,6 +554,8 @@ class Verifyorder_EweiShopV2Page extends ComWebPage
 		global $_GPC;
 		$orderData = $this->orderData();
 	}
+
+
 }
 
 ?>

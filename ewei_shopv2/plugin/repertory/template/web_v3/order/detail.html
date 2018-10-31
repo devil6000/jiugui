@@ -1,0 +1,52 @@
+{template '_header'}
+<style type='text/css'>
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+        padding: 10px 20px;
+    }
+    .table > tbody>.trbody > td{
+        border-top:none !important;
+    }
+    .trhead td {  background:#efefef;text-align: center}
+    .trbody td {  text-align: center; vertical-align:top;border-left:1px solid #f2f2f2;overflow: hidden; font-size:12px;}
+    .paytype span{
+        vertical-align: middle;
+    }
+</style>
+<div class="page-header">
+    当前位置：<span class="text-primary">存酒日志</span>
+</div>
+
+<div class="page-content">
+    {if count($list)>0}
+    <table class='table table-responsive' style='table-layout: fixed;'>
+        <tr style='background:#f8f8f8'>
+            <td style='width:100px;border-left:1px solid #f2f2f2;'>商品</td>
+            <td ></td>
+            <td style='width:200px;text-align: right;;'>核销数量</td>
+            <td style='text-align: center;'>核销门店</td>
+            <td style='text-align: center;'>核销员</td>
+            <td style='text-align: center;'>核销时间</td>
+        </tr>
+        {loop $list $item}
+        <tr class='trbody'>
+            <td style='overflow:hidden;'><img src="{php echo tomedia($item['thumb'])}" style='width:70px;height:70px;border:1px solid #ccc; padding:1px;' onerror="this.src='../addons/ewei_shopv2/static/images/nopic.png'"></td>
+            <td style='text-align:left;overflow:hidden;border-left:none;'  >{$item['goods_title']}</td>
+            <td style='text-align:center;border-left:none;'>{$item['total']}</td>
+            <td style='text-align:center;border-left:none;'>{$item['store_name']}</td>
+            <td style='text-align:center;border-left:none;'>{$item['verify_name']}</td>
+            <td style='text-align:center;border-left:none;'>{php echo date('Y-m-d H:i:s', $item['create_time'])}</td>
+        </tr>
+        {/loop}
+    </table>
+    <div style="text-align:right;width:100%;">
+        {$pager}
+    </div>
+    {else}
+    <div class='panel panel-default'>
+        <div class='panel-body' style='text-align: center;padding:30px;'>
+            暂时没有任何存酒日志!
+        </div>
+    </div>
+    {/if}
+</div>
+{template '_footer'}
