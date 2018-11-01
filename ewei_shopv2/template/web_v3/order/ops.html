@@ -36,7 +36,7 @@
 {else}
     {if $item['dispatchtype'] == 2}
         <!-- 完成存酒 -->
-        {ifp 'order.op.keepwine'}
+        {ifp 'order.op.verify'}
         <a class="btn btn-primary btn-xs" data-toggle="ajaxPost" href="{php echo webUrl('order/op/keepwine', array('id' => $item['id']))}" data-confirm="确认存酒吗？">确认存酒</a>
         {/if}
     {else}
