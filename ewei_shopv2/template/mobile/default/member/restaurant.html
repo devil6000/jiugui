@@ -1,0 +1,33 @@
+{template '_header'}
+<div class='fui-page fui-page-current'>
+    <div class="fui-header">
+        <div class="fui-header-left">
+            <a class="back"></a>
+        </div>
+        <div class="title">餐饮会员注册</div>
+        <div class="fui-header-right">&nbsp;</div>
+    </div>
+    <div class='fui-content navbar' >
+        <div class='fui-cell-group'>
+            <div class='fui-cell'>
+                <div class='fui-cell-label'>店铺名称</div>
+                <div class='fui-cell-info c000'style="display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;-webkit-box-align: center;-webkit-align-items: center;-ms-flex-align: center;align-items: center;"><input type='text' class='fui-input' id='store_name' value="{$_GPC['store_name']}"></div>
+            </div>
+            <div class='fui-cell'>
+                <div class='fui-cell-label'>联系人</div>
+                <div class='fui-cell-info c000'style="display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;-webkit-box-align: center;-webkit-align-items: center;-ms-flex-align: center;align-items: center;"><input type='text' class='fui-input' id='contacts' value="{$_GPC['contacts']}"></div>
+            </div>
+            <div class='fui-cell'>
+                <div class='fui-cell-label'>电话</div>
+                <div class='fui-cell-info c000'style="display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;-webkit-box-align: center;-webkit-align-items: center;-ms-flex-align: center;align-items: center;"><input type='number' class='fui-input' id='tel' value="{$_GPC['tel']}"></div>
+            </div>
+        </div>
+        <a id='btn-next' class='btn btn-danger block disabled mtop' style="margin-top: 0.5rem">提交申请</a>
+    </div>
+</div>
+<script language='javascript'>
+    require(['biz/member/recharge'], function (modal) {
+        modal.init();
+    });
+</script>
+{template '_footer'}

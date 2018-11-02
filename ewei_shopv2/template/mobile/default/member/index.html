@@ -290,6 +290,16 @@
 		</div>
 		{/if}
 
+		{if $member['level'] != 5}
+		<div class="fui-cell-group fui-cell-click">
+			<a class="fui-cell"  href="{php echo mobileUrl('member/restaurant/apply')}">
+				<div class="fui-cell-icon"><i class="icon icon-profile"></i></div>
+				<div class="fui-cell-text"><p>餐饮店会员申请</p></div>
+				<div class="fui-cell-remark"></div>
+			</a>
+		</div>
+		{/if}
+
 		<div class="fui-cell-group fui-cell-click">
 			<a class="fui-cell" href="{php echo mobileUrl('repertory/index')}">
 				<div class="fui-cell-icon"><i class="icon icon-plus"></i></div>

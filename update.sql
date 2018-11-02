@@ -62,3 +62,25 @@ create table `ims_ewei_shop_repertory_log`(
   `verify_name` varchar(100) null,
   primary key (`id`)
 );
+
+/**
+会员信息增加
+ */
+
+alter table `ims_ewei_shop_member` add store_name varchar(300) null comment '餐饮店名称，只有餐饮店会员显示';
+alter table `ims_ewei_shop_member` add contacts varchar(100) null comment '联系人，只有餐饮店会员显示';
+alter table `ims_ewei_shop_member` add tel varchar(20) null comment '电话，只有餐饮店会员显示';
+
+create table `ims_ewei_shop_restaurant_apply`(
+  `id` int(11) not null AUTO_INCREMENT,
+  `uniacid` int(10) null default 0,
+  `openid` varchar(50) not null,
+  `store_name` varchar(300) null comment '餐饮店名称',
+  `contacts` varchar(100) null comment '联系人',
+  `tel` varchar(20) null comment '电话',
+  `create_time` int(6) null default 0,
+  `status` int(1) null default 0 comment '状态,0待审核，1通过，2不通过',
+  `remark` text,
+  `apply_time` int(6) null default 0,
+  primary key (`id`)
+);
