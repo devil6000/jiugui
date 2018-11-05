@@ -330,7 +330,14 @@ class Perm_EweiShopV2ComModel extends ComModel
 		'send' => '群发消息-log',
 		'xxx'  => array('sendmessage' => 'send', 'fetch' => 'send')
 		),
-	'card'     => array('text' => '微信会员卡管理', 'add' => '添加', 'edit' => '修改', 'delete' => '删除', 'stock' => '修改库存', 'active' => '激活设置')
+	'card'     => array('text' => '微信会员卡管理', 'add' => '添加', 'edit' => '修改', 'delete' => '删除', 'stock' => '修改库存', 'active' => '激活设置'),
+	'restaurant' => array(
+		'text'	=> '店铺会员',
+		'status0'	=> '待审核',
+		'status1'	=> '已审核',
+		'status2'	=> '已取消',
+		'apply'		=> '审核'
+		)
 	);
 	}
 

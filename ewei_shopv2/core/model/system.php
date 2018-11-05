@@ -755,6 +755,15 @@ class System_EweiShopV2Model
 						'route'   => 'card',
 						//'iscom'   => 'card',
 						'extends' => array('member.card.post', 'member.card.activationset')
+						),
+					array(
+						'title'   => '店铺会员',
+						'route'	  => 'restaurant',
+						'items'   => array(
+							array('title' => '待审核', 'route' => 'status0'),
+                            array('title' => '已审核', 'route' => 'status1'),
+                            array('title' => '已取消', 'route' => 'status2')
+							)
 						)
 					)
 				),

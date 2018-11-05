@@ -27,11 +27,11 @@ class Restaurant_EweiShopV2Page extends MobilePage{
                 'store_name' => $_GPC['store_name'],
                 'contacts' => $_GPC['contacts'],
                 'tel' => $_GPC['tel'],
-                'store_name' => time()
+                'create_time' => time()
             );
 
             pdo_insert('ewei_shop_restaurant_apply', $insert);
-            show_json(1);
+            show_json(1,'申请成功');
         }
     }
 }

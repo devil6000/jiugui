@@ -1,5 +1,15 @@
 <div class="subnav-scene">会员管理</div>
 
+<style type="text/css">
+    .restaurant-list a {
+        position: relative;
+    }
+    .restaurant-list span  {
+
+        float:right;margin-right:20px;
+    }
+</style>
+
 {ifp 'member.list|member.level|member.group'}
 <div class='menu-header'><i class="menu-icon fa {if $_GPC['r']!='member.rank'}fa-caret-down{else}fa-caret-right{/if}"></i>会员</div>
 <ul {if $_GPC['r']!='member.rank'}style="display: block;"{/if}>
@@ -12,6 +22,31 @@
     {ifp 'member.group'}
     	<li {if $_W['action']=='member.group'} class="active" {/if}><a href="{php echo webUrl('member/group')}">会员分组</a></li>
     {/if}
+
+</ul>
+{/if}
+
+{ifp 'member.restaurant.status0|member.restaurant.status1|member.restaurant.status2'}
+<div class='menu-header'><i class="menu-icon fa {if $_GPC['r']=='member.restaurant.status0'||$_GPC['r']=='member.restaurant.status1'||$_GPC['r']=='member.restaurant.status2'}fa-caret-down{else}fa-caret-right{/if}"></i>店铺会员</div>
+<ul class='restaurant-list' {if $_GPC['r']=='member.restaurant.status0'||$_GPC['r']=='member.restaurant.status1'||$_GPC['r']=='member.restaurant.status2'}style="display: block;"{/if}>
+{ifp 'member.restaurant.status0'}
+<li {if $_W['routes']=='member.restaurant.status0'}class="active"{/if}>
+<a href="{php echo webUrl('member/restaurant/status0')}">待审核 <span class='text-danger status0'>--</span></a>
+</li>
+{/if}
+
+{ifp 'member.restaurant.status1'}
+<li {if $_W['routes']=='member.restaurant.status1'}class="active"{/if}>
+<a href="{php echo webUrl('member/restaurant/status1')}">已通过 <span class='text-warning status1'>--</span></a>
+</li>
+{/if}
+
+{ifp 'member.restaurant.status2'}
+<li {if $_W['routes']=='member.restaurant.status2'}class="active"{/if}>
+<a href="{php echo webUrl('member/restaurant/status2')}">未通过 <span class="status2">--</span></a>
+</li>
+{/if}
+
 </ul>
 {/if}
 

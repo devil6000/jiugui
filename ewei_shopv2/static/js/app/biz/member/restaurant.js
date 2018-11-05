@@ -4,9 +4,9 @@ define(['core', 'tpl'], function(core, tpl) {
     };
     modal.init = function() {
         $('#btn-next').click(function() {
-            var store_name = $.trim($('store_name').val());
-            var contacts = $.trim($('contacts').val());
-            var tel = $.trim($('tel').val());
+            var store_name = $.trim($('#store_name').val());
+            var contacts = $.trim($('#contacts').val());
+            var tel = $.trim($('#tel').val());
 
             if ($(this).attr('submit')) {
                 return
