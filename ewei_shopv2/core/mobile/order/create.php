@@ -3336,8 +3336,9 @@ class Create_EweiShopV2Page extends MobileLoginPage
 
 
 		if ($multiple_order == 0) {
-			$order_merchid = current(array_keys($merch_array));
-			$order['merchid'] = intval($order_merchid);
+			//$order_merchid = current(array_keys($merch_array));
+			//$order['merchid'] = intval($order_merchid);
+            $order['merchid'] = $carrierid;
 			$order['isparent'] = 0;
 			$order['transid'] = '';
 			$order['isverify'] = (($isverify ? 1 : 0));

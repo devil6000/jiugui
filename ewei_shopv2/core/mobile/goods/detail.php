@@ -397,6 +397,10 @@ class Detail_EweiShopV2Page extends MobilePage
 		$goods = set_medias($goods, 'thumb');
 		$goods['canbuy'] = ($goods['status'] == 1) && empty($goods['deleted']);
 
+		if(0 < $goods['merchid']){
+		    $goods['canbuy'] = false;
+        }
+
 		if (!(empty($goods['hasoption']))) {
 			$options = pdo_fetchall('select id,stock,marketprice,islive,liveprice from ' . tablename('ewei_shop_goods_option') . ' where goodsid=:goodsid and uniacid=:uniacid order by displayorder asc', array(':goodsid' => $goods['id'], ':uniacid' => $_W['uniacid']), 'stock');
 			$options_stock = array_keys($options);
