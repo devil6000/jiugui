@@ -84,3 +84,8 @@ create table `ims_ewei_shop_restaurant_apply`(
   `apply_time` int(6) null default 0,
   primary key (`id`)
 );
+
+/**
+商品管理－余额
+ */
+ALTER TABLE `ism_ewei_shop_goods` add `subsidy` DECIMAL(10,2) null DEFAULT 0 comment '补贴';

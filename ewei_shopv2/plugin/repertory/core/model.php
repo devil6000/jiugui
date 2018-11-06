@@ -165,7 +165,7 @@ if (!(class_exists('RepertoryModel'))) {
             if(($message_type == 'repertory_verify') && empty($usernotice['repertory_verify'])){
                 $tm['msguser'] = $sendData['openid'];
                 $data = array('[昵称]' => $sendData['nickname'], '[件数]' => $sendData['num'], '[商品名称]' => $sendData['title'], '[时间]' => date('Y-m-d H:i:s', $sendData['verifytime']));
-                $message = array('keyword1' => (!(empty($tm['repertory_verifytitle'])) ? $tm['repertory_verifytitle'] : '核销成功通知'), 'keyword2' => (!(empty($tm['repertory_verify'])) ? $tm['repertory_verify'] : '[昵称]在[时间]成功消费[数量]件[商品名称].请到后台查看~'));
+                $message = array('keyword1' => (!(empty($tm['repertory_verifytitle'])) ? $tm['repertory_verifytitle'] : '核销成功通知'), 'keyword2' => (!(empty($tm['repertory_verify'])) ? $tm['repertory_verify'] : '[昵称]在[时间]成功消费[件数]件[商品名称].请到后台查看~'));
                 return $this->sendNotice($tm, 'repertory_verify_advanced', $data, $message);
             }
 
