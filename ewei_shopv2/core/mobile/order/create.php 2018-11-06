@@ -818,9 +818,8 @@ class Create_EweiShopV2Page extends MobileLoginPage
 
 			}
 
-
 			if (!($isverify) && !($isvirtual) && !($ismerch)) {
-                $carrier_list = pdo_fetchall('select * from ' . tablename('ewei_shop_merch_store') . ' where  uniacid=:uniacid and status=1 and type in(1,3) order by displayorder desc,id desc', array(':uniacid' => $_W['uniacid']));
+			    $carrier_list = pdo_fetchall('select * from ' . tablename('ewei_shop_merch_store') . ' where  uniacid=:uniacid and status=1 and type in(1,3) order by displayorder desc,id desc', array(':uniacid' => $_W['uniacid']));
 			    /*
 				if (0 < $merch_id) {
 					$carrier_list = pdo_fetchall('select * from ' . tablename('ewei_shop_merch_store') . ' where  uniacid=:uniacid and merchid=:merchid and status=1 and type in(1,3) order by displayorder desc,id desc', array(':uniacid' => $_W['uniacid'], ':merchid' => $merch_id));
@@ -830,7 +829,6 @@ class Create_EweiShopV2Page extends MobileLoginPage
 				}
 			    */
 			}
-
 
 			$sale_plugin = com('sale');
 			$saleset = false;
@@ -3262,6 +3260,10 @@ class Create_EweiShopV2Page extends MobileLoginPage
 		$order['cash'] = $cash;
 		$order['status'] = 0;
 		$order['remark'] = trim($_GPC['remark']);
+        /********************************
+         * 判断是否为存酒订单 BY 2018-10-24
+         ********************************/
+        $order['is_repertory'] = intval($_GPC['repertory']);
 		$order['addressid'] = ((empty($dispatchtype) ? $addressid : 0));
 		$order['goodsprice'] = $goodsprice;
 		$order['dispatchprice'] = $dispatch_price + $seckill_dispatchprice;
@@ -3372,7 +3374,6 @@ class Create_EweiShopV2Page extends MobileLoginPage
 		if (!(empty($address))) {
 			$order['address'] = iserializer($address);
 		}
-
 
 		pdo_insert('ewei_shop_order', $order);
 		$orderid = pdo_insertid();
