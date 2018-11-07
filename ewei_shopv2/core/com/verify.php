@@ -368,7 +368,8 @@ class Verify_EweiShopV2ComModel extends ComModel
 					if ($order['status'] != 3) {
 						pdo_update('ewei_shop_order', array('status' => 3, 'sendtime' => $current_time, 'finishtime' => $current_time, 'verifytime' => $current_time, 'verified' => 1, 'verifyopenid' => $openid, 'verifystoreid' => $saler['storeid']), array('id' => $order['id']));
 						$this->finish($openid, $order);
-						m('order')->setGiveBalance($orderid, 1);
+						//m('order')->setGiveBalance($orderid, 1);
+						m('order')->setGiveRebate($orderid);
 					}
 
 					m('member')->upgradeLevel($order['openid'], $orderid);
@@ -380,7 +381,8 @@ class Verify_EweiShopV2ComModel extends ComModel
 			if ($order['dispatchtype'] == 1) {
 				pdo_update('ewei_shop_order', array('status' => 3, 'fetchtime' => $current_time, 'sendtime' => $current_time, 'finishtime' => $current_time, 'verifytime' => $current_time, 'verified' => 1, 'verifyopenid' => $openid, 'verifystoreid' => $saler['storeid']), array('id' => $order['id']));
 				$this->finish($openid, $order);
-				m('order')->setGiveBalance($orderid, 1);
+				//m('order')->setGiveBalance($orderid, 1);
+                m('order')->setGiveRebate($orderid);
 				com_run('printer::sendOrderMessage', $orderid, array('type' => 0));
 				m('member')->upgradeLevel($order['openid'], $orderid);
 				m('notice')->sendOrderMessage($orderid);

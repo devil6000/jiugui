@@ -449,7 +449,7 @@ class Order_EweiShopV2Model
 	{
 		global $_W;
 		$order = pdo_fetch('select id,ordersn,price,openid,dispatchtype,addressid,carrier,status from ' . tablename('ewei_shop_order') . ' where id=:id limit 1', array(':id' => $orderid));
-		$goods = pdo_fetchall('select og.goodsid,og.total,g.totalcnf,og.realprice,g.money,og.optionid,g.total as goodstotal,og.optionid,g.sales,g.salesreal from ' . tablename('ewei_shop_order_goods') . ' og ' . ' left join ' . tablename('ewei_shop_goods') . ' g on g.id=og.goodsid ' . ' where og.orderid=:orderid and og.uniacid=:uniacid ', array(':uniacid' => $_W['uniacid'], ':orderid' => $orderid));
+		$goods = pdo_fetchall('select og.goodsid,og.total,g.totalcnf,og.realprice,g.money,og.optionid,g.total as goodstotal,og.optionid,g.sales,g.salesreal,g.bottle,g.subsidy from ' . tablename('ewei_shop_order_goods') . ' og ' . ' left join ' . tablename('ewei_shop_goods') . ' g on g.id=og.goodsid ' . ' where og.orderid=:orderid and og.uniacid=:uniacid ', array(':uniacid' => $_W['uniacid'], ':orderid' => $orderid));
 		$balance = 0;
 
 		foreach ($goods as $g) {
@@ -463,6 +463,7 @@ class Order_EweiShopV2Model
 					$balance += round($g['money'], 2) * $g['total'];
 				}
 			}
+
 		}
 
 		if (0 < $balance) {
@@ -477,6 +478,29 @@ class Order_EweiShopV2Model
 				if ($type == 2) {
 					if (1 <= $order['status']) {
 						m('member')->setCredit($order['openid'], 'credit2', 0 - $balance, array(0, $shopset['name'] . '购物取消订单扣除赠送余额 订单号: ' . $order['ordersn']));
+					}
+				}
+			}
+		}
+	}
+
+	public function setGiveRebate($orderid = ''){
+        global $_W;
+        $order = pdo_fetch('select id,ordersn,price,openid,dispatchtype,addressid,carrier,status,merchid from ' . tablename('ewei_shop_order') . ' where id=:id limit 1', array(':id' => $orderid));
+        $goods = pdo_fetchall('select og.goodsid,og.total,g.totalcnf,og.realprice,g.money,og.optionid,g.total as goodstotal,og.optionid,g.sales,g.salesreal,g.bottle,g.subsidy from ' . tablename('ewei_shop_order_goods') . ' og ' . ' left join ' . tablename('ewei_shop_goods') . ' g on g.id=og.goodsid ' . ' where og.orderid=:orderid and og.uniacid=:uniacid ', array(':uniacid' => $_W['uniacid'], ':orderid' => $orderid));
+        $balance = 0;
+
+        foreach ($goods as $g) {
+			$balance += $g['bottle'] * $g['subsidy'];
+        }
+
+        if(0 < $balance){
+			$saler = pdo_fetch('select * from ' . tablename('ewei_shop_merch_user') . ' where uniacid=:uniacid and id=:id limit 1', array(':uniacid' => $_W['uniacid'], ':id' => $order['merchid']));
+			if(!empty($saler)){
+				$member = pdo_fetch('select * from ' . tablename('ewei_shop_member') . ' where uniacid=:uniacid and openid=:openid limit 1', array(':uniacid' => $_W['uniacid'], ':openid' => $saler['openid']));
+				if(!empty($member)){
+					if($order['status'] == 3){
+                        m('member')->setCredit($member['openid'], 'credit2', $balance, array(0, $saler['merchname'] . '核销订单，订单号: ' . $order['ordersn'] . ',返余额：' . $balance . ' 元'));
 					}
 				}
 			}

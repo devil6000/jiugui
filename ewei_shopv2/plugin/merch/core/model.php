@@ -1917,9 +1917,6 @@ class MerchModel extends PluginModel
 		}
 
 
-
-
-
 		$sql = 'select ' . $con . ' from ' . tablename('ewei_shop_merch_user') . ' u ' . ' left join ' . tablename('ewei_shop_order') . ' o on u.id=o.merchid' . ' where 1 ' . $condition . ' limit 1';
 		$list = pdo_fetch($sql, $params);
 		$merchcouponprice = pdo_fetchcolumn('select sum(o.couponprice) from ' . tablename('ewei_shop_merch_user') . ' u ' . ' left join ' . tablename('ewei_shop_order') . ' o on u.id=o.merchid' . ' where o.couponmerchid>0 ' . $condition . ' limit 1', $params);

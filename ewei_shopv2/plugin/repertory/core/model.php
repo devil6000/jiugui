@@ -32,10 +32,7 @@ if (!(class_exists('RepertoryModel'))) {
                 $times = 1;
             }
 
-            $saler = pdo_fetch('select * from ' . tablename('ewei_shop_saler') . ' where openid=:openid and uniacid=:uniacid limit 1', array(':uniacid' => $uniacid, ':openid' => $openid));
-            if (empty($saler)) {
-                return error(-1, '无核销权限!');
-            }
+
             //$merchid = $saler['merchid'];
             $order = pdo_get('ewei_shop_repertory', array('uniacid' => $uniacid,'id' => $orderid));
             if(empty($order)){
@@ -49,6 +46,15 @@ if (!(class_exists('RepertoryModel'))) {
                 return error(-1, '核销数量不足');
             }
 
+            $saler = pdo_fetch('select * from ' . tablename('ewei_shop_merch_saler') . ' where openid=:openid and uniacid=:uniacid and status=1 limit 1', array(':uniacid' => $_W['uniacid'], ':openid' => $openid));   //判断在其他门店是否有核销员
+            if(empty($saler)){ //没有判断总店是否有核销员
+                $saler = pdo_fetch('select * from ' . tablename('ewei_shop_saler') . ' where openid=:openid and uniacid=:uniacid limit 1', array(':uniacid' => $uniacid, ':openid' => $openid));
+            }
+            if (empty($saler)) {
+                return error(-1, '无核销权限!');
+            }
+
+            /*
             if(!empty($saler['storeid'])){
                 if(0 < $merchid){
                     $store = pdo_fetch('select * from ' . tablename('ewei_shop_merch_store') . ' where id=:id and uniacid=:uniacid and merchid = :merchid limit 1', array(':id' => $saler['storeid'], ':uniacid' => $_W['uniacid'], ':merchid' => $merchid));
@@ -56,6 +62,7 @@ if (!(class_exists('RepertoryModel'))) {
                     $store = pdo_fetch('select * from ' . tablename('ewei_shop_store') . ' where id=:id and uniacid=:uniacid limit 1', array(':id' => $saler['storeid'], ':uniacid' => $_W['uniacid']));
                 }
             }
+            */
 
             $total = $order['total'] - $order['get_num'];   //获取剩余数量
 
@@ -106,7 +113,6 @@ if (!(class_exists('RepertoryModel'))) {
             global $_W;
             global $_GPC;
             $uniacid = $_W['uniacid'];
-            $current_time = time();
 
             if (empty($openid)) {
                 $openid = $_W['openid'];
@@ -130,7 +136,11 @@ if (!(class_exists('RepertoryModel'))) {
                 pdo_update('ewei_shop_member', array('repertory' => $num), array('openid' => $order['openid'], 'uniacid' => $uniacid));
                 plog('reportory.verify.complete', '核销酒水 ' . $order['goods_title'] . ' ' . $times . ' 件');
                 //保存取酒信息
-                $saler = pdo_fetch('select * from ' . tablename('ewei_shop_saler') . ' where openid=:openid and uniacid=:uniacid limit 1', array(':uniacid' => $uniacid, ':openid' => $openid));
+                $saler = pdo_fetch('select * from ' . tablename('ewei_shop_merch_saler') . ' where openid=:openid and uniacid=:uniacid and status=1 limit 1', array(':uniacid' => $uniacid, ':openid' => $openid));
+                if(empty($saler)){
+                    $saler = pdo_fetch('select * from ' . tablename('ewei_shop_saler') . ' where openid=:openid and uniacid=:uniacid limit 1', array(':uniacid' => $uniacid, ':openid' => $openid));
+                }
+
                 $insert = array('uniacid' => $uniacid, 'store_id' => $saler['storeid'], 'verify_openid' => $saler['openid'], 'rid' => $order['id'], 'total' => $times, 'create_time' => time(), 'verify_name' => $saler['salername']);
                 pdo_insert('ewei_shop_repertory_log', $insert);
 
