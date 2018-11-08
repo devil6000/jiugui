@@ -370,7 +370,8 @@ class Op_EweiShopV2Page extends MerchWebPage
 				pdo_update('ewei_shop_order', array('refundstate' => 0), array('id' => $item['id']));
 			}
 		}
-		m('order')->setGiveBalance($item['id'], 1);
+		//m('order')->setGiveBalance($item['id'], 1);
+        m('order')->setGiveRebate($item['id']);
 		m('member')->upgradeLevel($item['openid']);
 		m('notice')->sendOrderMessage($item['id']);
 		if (p('commission')) 

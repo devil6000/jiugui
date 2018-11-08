@@ -497,7 +497,7 @@ class Order_EweiShopV2Model
         if(0 < $balance){
 			$saler = pdo_fetch('select * from ' . tablename('ewei_shop_merch_user') . ' where uniacid=:uniacid and id=:id limit 1', array(':uniacid' => $_W['uniacid'], ':id' => $order['merchid']));
 			if(!empty($saler)){
-				$member = pdo_fetch('select * from ' . tablename('ewei_shop_member') . ' where uniacid=:uniacid and openid=:openid limit 1', array(':uniacid' => $_W['uniacid'], ':openid' => $saler['openid']));
+				$member = pdo_fetch('select * from ' . tablename('ewei_shop_member') . ' where uniacid=:uniacid and openid=:openid limit 1', array(':uniacid' => $_W['uniacid'], ':openid' => $saler['payopenid']));
 				if(!empty($member)){
 					if($order['status'] == 3){
                         m('member')->setCredit($member['openid'], 'credit2', $balance, array(0, $saler['merchname'] . '核销订单，订单号: ' . $order['ordersn'] . ',返余额：' . $balance . ' 元'));

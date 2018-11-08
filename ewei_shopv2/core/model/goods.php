@@ -63,6 +63,10 @@ class Goods_EweiShopV2Model
 		$condition = ' and `uniacid` = :uniacid AND `deleted` = 0 and status=1';
 		$params = array(':uniacid' => $_W['uniacid']);
 
+		if(empty($merchid)){
+		    $condition .= ' and `merchid` = 0';
+        }
+
 		if (!(empty($merchid))) {
 			$condition .= ' and merchid=:merchid and checked=0';
 			$params[':merchid'] = $merchid;

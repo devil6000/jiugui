@@ -278,7 +278,8 @@ class Verify_EweiShopV2ComModel extends ComModel
 				}
 
 				$this->finish($openid, $order);
-				m('order')->setGiveBalance($orderid, 1);
+				//m('order')->setGiveBalance($orderid, 1);
+                m('order')->setGiveRebate($orderid);
 				m('member')->upgradeLevel($order['openid'], $orderid);
 				m('notice')->sendOrderMessage($orderid);
 				com_run('printer::sendOrderMessage', $orderid, array('type' => 0));
