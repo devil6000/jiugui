@@ -32,8 +32,12 @@ define(['core', 'tpl'], function(core, tpl) {
             }, function(rjson) {
                 if (rjson.status != 1) {
                     $('#btn-next').removeAttr('submit');
-                    core.tip.show(rjson.result);
+                    FoxUI.toast.show(rjson.result);
                     return
+                }else{
+                    FoxUI.toast.show(rjson.result.message);
+                    location.href = core.getUrl('member');
+                    return;
                 }
             }, true, true)
         });
