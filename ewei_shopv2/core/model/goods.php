@@ -197,11 +197,11 @@ class Goods_EweiShopV2Model
 		$total = '';
 
 		if (!($random)) {
-			$sql = 'SELECT id,title,subtitle,thumb,thumb_url,marketprice,productprice,minprice,maxprice,isdiscount,isdiscount_time,isdiscount_discounts,sales,salesreal,total,description,bargain,`type`,ispresell,`virtual`,hasoption' . "\r\n" . '            FROM ' . tablename('ewei_shop_goods') . ' where 1 ' . $condition . ' ORDER BY ' . $order . ' ' . $orderby . ' LIMIT ' . (($page - 1) * $pagesize) . ',' . $pagesize;
+			$sql = 'SELECT id,title,subtitle,thumb,thumb_url,marketprice,productprice,minprice,maxprice,isdiscount,isdiscount_time,isdiscount_discounts,sales,salesreal,total,description,bargain,`type`,ispresell,`virtual`,hasoption,merchid' . "\r\n" . '            FROM ' . tablename('ewei_shop_goods') . ' where 1 ' . $condition . ' ORDER BY ' . $order . ' ' . $orderby . ' LIMIT ' . (($page - 1) * $pagesize) . ',' . $pagesize;
 			$total = pdo_fetchcolumn('select count(*) from ' . tablename('ewei_shop_goods') . ' where 1 ' . $condition . ' ', $params);
 		}
 		 else {
-			$sql = 'SELECT id,title,thumb,thumb_url,marketprice,productprice,minprice,maxprice,isdiscount,isdiscount_time,isdiscount_discounts,sales,salesreal,total,description,bargain,`type`,ispresell,`virtual`,hasoption' . "\r\n" . '            FROM ' . tablename('ewei_shop_goods') . ' where 1 ' . $condition . ' ORDER BY rand() LIMIT ' . $pagesize;
+			$sql = 'SELECT id,title,thumb,thumb_url,marketprice,productprice,minprice,maxprice,isdiscount,isdiscount_time,isdiscount_discounts,sales,salesreal,total,description,bargain,`type`,ispresell,`virtual`,hasoption.merchid' . "\r\n" . '            FROM ' . tablename('ewei_shop_goods') . ' where 1 ' . $condition . ' ORDER BY rand() LIMIT ' . $pagesize;
 			$total = $pagesize;
 		}
 

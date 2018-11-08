@@ -188,6 +188,7 @@ return array(
                 )
             )
         ),
+        /*
         'statistics' => array(
             'title' => '数据',
             'subtitle' => '数据统计',
@@ -218,6 +219,7 @@ return array(
                 )
             )
         ),
+        */
         'perm' => array(
             'title' => '权限',
             'subtitle' => '权限系统',
@@ -228,6 +230,7 @@ return array(
                 array('title' => '操作员日志', 'route' => 'log')
             )
         ),
+        /*
         'apply' => array(
             'title' => '结算',
             'subtitle' => '结算',
@@ -241,6 +244,7 @@ return array(
                 array('title' => '申请提现', 'route' => 'list.add')
             )
         ),
+        */
         'sysset' => array(
             'title' => '设置',
             'subtitle' => '商城设置',

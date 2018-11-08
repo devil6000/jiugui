@@ -20,9 +20,11 @@
 					<div class="price" style="margin-top: 0.3rem">
 						<span class="text">￥{$item['minprice']}
 						</span>
+						{if empty($item['merchid'])}
 						<span class="buy">
 							购买
 						</span>
+						{/if}
 					</div>
 				</div>
 			</div>

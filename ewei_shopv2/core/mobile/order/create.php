@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (!(defined('IN_IA'))) {
 	exit('Access Denied');
 }
@@ -3335,10 +3335,15 @@ class Create_EweiShopV2Page extends MobileLoginPage
 		}
 
 
+		if(!empty($carrierid)){
+		    $order_merchid = pdo_getcolumn('ewei_shop_merch_store', array('uniacid' => $_W['uniacid'], 'id' => $carrierid), 'merchid');
+        }
+
+
 		if ($multiple_order == 0) {
 			//$order_merchid = current(array_keys($merch_array));
 			//$order['merchid'] = intval($order_merchid);
-            $order['merchid'] = $carrierid;
+            $order['merchid'] = intval($order_merchid);
 			$order['isparent'] = 0;
 			$order['transid'] = '';
 			$order['isverify'] = (($isverify ? 1 : 0));
@@ -3397,7 +3402,8 @@ class Create_EweiShopV2Page extends MobileLoginPage
 				}
 
 
-				$order_goods['merchid'] = $goods['merchid'];
+				//$order_goods['merchid'] = $goods['merchid'];
+                $order_goods['merchid'] = $order_merchid;
 				$order_goods['merchsale'] = $goods['merchsale'];
 				$order_goods['uniacid'] = $uniacid;
 				$order_goods['orderid'] = $orderid;
