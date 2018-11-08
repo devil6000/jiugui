@@ -141,8 +141,15 @@ if (!(class_exists('RepertoryModel'))) {
                     $saler = pdo_fetch('select * from ' . tablename('ewei_shop_saler') . ' where openid=:openid and uniacid=:uniacid limit 1', array(':uniacid' => $uniacid, ':openid' => $openid));
                 }
 
-                $insert = array('uniacid' => $uniacid, 'store_id' => $saler['storeid'], 'verify_openid' => $saler['openid'], 'rid' => $order['id'], 'total' => $times, 'create_time' => time(), 'verify_name' => $saler['salername']);
+                $insert = array('uniacid' => $uniacid, 'store_id' => $saler['storeid'], 'verify_openid' => $saler['openid'], 'rid' => $order['id'], 'total' => $times, 'create_time' => time(), 'verify_name' => $saler['salername'], 'merchid' => $saler['merchid']);
                 pdo_insert('ewei_shop_repertory_log', $insert);
+
+                if($saler['merchid'] > 0){
+                    $goods = pdo_fetch("select subsidy from " . tablename('ewei_shop_goods') . " where id=:id and uniacid=:uniacid", array(':id' => $order['goods_id'], ':uniacid' => $uniacid));
+                    $balance = $goods['subsidy'] * $times;
+                    $shop = pdo_fetch('select * from ' . tablename('ewei_shop_merch_user') . ' where uniacid=:uniacid and id=:id limit 1', array(':uniacid' => $uniacid, ':id' => $saler['merchid']));
+                    m('member')->setCredit($shop['payopenid'], 'credit2', $balance, array(0, $shop['merchname'] . '核销存酒，订单号: ' . $order['order_sn'] . '数量：' . $times . '瓶,返余额：' . $balance . ' 元'));
+                }
 
                 $this->sendMessage(array('openid' => $order['openid'], 'nickname' => $member['nickname'], 'num' => $times, 'title' => $order['goods_title'], 'verifytime' => time()), 'repertory_verify');
             }
@@ -282,9 +289,6 @@ if (!(class_exists('RepertoryModel'))) {
                 }
 
             }
-
-
-
         }
 	}
 }

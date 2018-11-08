@@ -90,3 +90,5 @@ create table `ims_ewei_shop_restaurant_apply`(
  */
 ALTER TABLE `ims_ewei_shop_goods` add `subsidy` DECIMAL(10,2) null DEFAULT 0 comment '补贴';
 ALTER TABLE `ims_ewei_shop_store` add `merch_id` INT(11) null DEFAULT 0 comment '多商户ID';
+
+alter table `ims_ewei_shop_repertory_log` add merchid int(11) null DEFAULT 0 comment '多商户ID';

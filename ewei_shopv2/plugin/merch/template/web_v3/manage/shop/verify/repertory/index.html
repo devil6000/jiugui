@@ -1,0 +1,36 @@
+{template '_header'}
+<div class="page-header">当前位置：<span class="text-primary">存酒管理</span></div>
+<div class="page-content">
+    {if empty($list)}
+    <div class="panel panel-default">
+        <div class="panel-body empty-data">未查询到相关数据</div>
+    </div>
+    {else}
+    <table class="table table-hover table-responsive">
+        <thead>
+        <tr>
+            <th style="width:120px;">订单编号</th>
+            <th style="width:40px;">商品信息</th>
+            <th style="width:200px;"></th>
+            <th style="width:90px;">核销数量</th>
+            <th style="width:100px;">核销员</th>
+            <th style="width:120px;">核销时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {loop $list $row}
+        <tr>
+            <td>{$row['ordersn']}</td>
+            <td><img src="{$row['thumb']}" class="img-rounded" style="width: 30px; height: 30px;"></td>
+            <td>{$row['goods_title']}</td>
+            <td>{$row['total']}</td>
+            <td>{$row['verify_name']}</td>
+            <td>{php echo date('Y-m-d H:i:s', $row['create_time'])}</td>
+        </tr>
+        {/loop}
+        </tbody>
+        <tfoot><td colspan="6" style="text-align: right">{$pager}</td></tfoot>
+    </table>
+    {/if}
+</div>
+{template '_footer'}

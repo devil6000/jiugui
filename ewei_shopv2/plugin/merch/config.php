@@ -132,7 +132,8 @@ return array(
                     'route' => 'verify',
                     'items' => array(
                         array('title' => '门店管理', 'route' => 'store', 'desc' => '核销/自提门店管理'),
-                        array('title' => '店员管理', 'route' => 'saler', 'desc' => '核销/自提门店店员管理')
+                        array('title' => '店员管理', 'route' => 'saler', 'desc' => '核销/自提门店店员管理'),
+                        array('title' => '存酒管理', 'route' => 'repertory', 'desc' => '核销/自提存酒管理')
                     )
                 )
             )
