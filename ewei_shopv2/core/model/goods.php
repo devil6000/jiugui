@@ -1,3 +1,4 @@
+
 <?php
 if (!(defined('IN_IA'))) {
 	exit('Access Denied');
@@ -1133,6 +1134,5 @@ class Goods_EweiShopV2Model
 		return array('red' => $r, 'green' => $g, 'blue' => $b);
 	}
 }
-
 
 ?>
