@@ -108,7 +108,7 @@ class Order_EweiShopV2Model
 			}
 
 			$carrier = false;
-			if (($order['dispatchtype'] == 1) || ($order['isvirtual'] == 1)) {
+			if (($order['dispatchtype'] == 1) || ($order['isvirtual'] == 1) || $order['dispatchtype'] == 2) {
 				$carrier = unserialize($order['carrier']);
 			}
 
@@ -158,34 +158,37 @@ class Order_EweiShopV2Model
 					$com_set=p('commission')->getSet();
 					$send_member=m('member')->getMember($order['agentid']);
 					$send_member=p('commission')->getInfo($send_member['openid']);
-					
-					if(!empty($order['agentid']) && $send_member['agent_level']['levelname']=='个人代理' && !empty($com_set['open_agentsend']) ){//如果存在等级名称为‘个人代理’ 上级 并且系统开启分销商发货
-//					ini_set("display_errors", "On");
-//					error_reporting( E_STRICT);	
-						$senddata['agent_send']=1;
-						$data['sendtype']=1;
-						$senddata['status'] = 2;
-						//下面是发送信息内容
-						$order['address']=iunserializer($order['address']);
-						if(empty($order['address'])){
-							$order['address']=pdo_get('ewei_shop_member_address',array('uniacid'=>$_W['uniacid'],'openid'=>$order['openid'],'id'=>$order['addressid']));
-						}
-						$order['address']['address_area']=$order['address']['province'].' '.$order['address']['city'].' '.$order['address']['area'].' '.$order['address']['address'];
-						$order_goods=pdo_fetchall('SELECT g.title,og.total,og.optionname FROM ' . tablename('ewei_shop_order_goods') . ' as og left join ' . tablename('ewei_shop_goods') . ' as g on g.id=og.goodsid WHERE og.orderid = :id and og.uniacid=:uniacid', array(':id' => $order['id'], ':uniacid' => $_W['uniacid']));
-						$og_title='';
-						foreach($order_goods as $val){
-							$og_title[]= $val['title'].' '.$val['optionname'] .' x'.$val['total'];
-						}
-						$order['goods']=implode(',', $og_title);
-						
-						//先获取接收人openid
 
-						//发送通知
-						p('commission')->sendMessage($send_member['openid'], array('order'=>$order,'nickname' => $send_member['nickname'], 'agenttime' => time()), TM_COMMISSION_ANGENT_SEND);
-						//最后发货
-						pdo_update('ewei_shop_order_goods', $data, array('orderid' => $order['id'], 'uniacid' => $_W['uniacid']));
-						pdo_update('ewei_shop_order', $senddata, array('id' => $order['id'], 'uniacid' => $_W['uniacid']));
+					if($order['dispatchtype'] == 0){	//只有普通购买需要配送
+                        if(!empty($order['agentid']) && $send_member['agent_level']['levelname']=='个人代理' && !empty($com_set['open_agentsend']) ){//如果存在等级名称为‘个人代理’ 上级 并且系统开启分销商发货
+//					ini_set("display_errors", "On");
+//					error_reporting( E_STRICT);
+                            $senddata['agent_send']=1;
+                            $data['sendtype']=1;
+                            $senddata['status'] = 2;
+                            //下面是发送信息内容
+                            $order['address']=iunserializer($order['address']);
+                            if(empty($order['address'])){
+                                $order['address']=pdo_get('ewei_shop_member_address',array('uniacid'=>$_W['uniacid'],'openid'=>$order['openid'],'id'=>$order['addressid']));
+                            }
+                            $order['address']['address_area']=$order['address']['province'].' '.$order['address']['city'].' '.$order['address']['area'].' '.$order['address']['address'];
+                            $order_goods=pdo_fetchall('SELECT g.title,og.total,og.optionname FROM ' . tablename('ewei_shop_order_goods') . ' as og left join ' . tablename('ewei_shop_goods') . ' as g on g.id=og.goodsid WHERE og.orderid = :id and og.uniacid=:uniacid', array(':id' => $order['id'], ':uniacid' => $_W['uniacid']));
+                            $og_title='';
+                            foreach($order_goods as $val){
+                                $og_title[]= $val['title'].' '.$val['optionname'] .' x'.$val['total'];
+                            }
+                            $order['goods']=implode(',', $og_title);
+
+                            //先获取接收人openid
+
+                            //发送通知
+                            p('commission')->sendMessage($send_member['openid'], array('order'=>$order,'nickname' => $send_member['nickname'], 'agenttime' => time()), TM_COMMISSION_ANGENT_SEND);
+                            //最后发货
+                            pdo_update('ewei_shop_order_goods', $data, array('orderid' => $order['id'], 'uniacid' => $_W['uniacid']));
+                            pdo_update('ewei_shop_order', $senddata, array('id' => $order['id'], 'uniacid' => $_W['uniacid']));
+                        }
 					}
+
 					if ($order['isparent'] == 1) {
 						$this->setChildOrderPayResult($order, $time, 1);
 					}
