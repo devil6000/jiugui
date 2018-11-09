@@ -28,6 +28,21 @@ class Index_EweiShopV2Page extends PluginMobilePage
         $list = set_medias($list, 'thumb');
         show_json(1, array('list' => $list, 'pagesize' => $pSize, 'total' => $total));
 	}
+
+	public function detail(){
+	    global $_W;
+	    global $_GPC;
+
+	    $id = intval($_GPC['id']);
+	    $item = pdo_fetch('SELECT * FROM ' . tablename('ewei_shop_repertory') . ' WHERE uniacid=:uniacid AND id=:id', array(':uniacid' => $_W['uniacid'], ':id' => $id));
+	    if(empty($item)){
+	        $this->message('未找到存酒信息', 'referer', 'error');
+	        exit;
+        }
+
+        $num = $item['total'] - $item['get_num'];
+	    include $this->template();
+    }
 }
 
 ?>
