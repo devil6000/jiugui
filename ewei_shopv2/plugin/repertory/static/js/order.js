@@ -23,6 +23,9 @@ define(['core', 'tpl'], function(core, tpl) {
                 },
                 status1: function() {
                     modal.changeTab(2)
+                },
+                shop: function () {
+
                 }
             }
         })
@@ -31,6 +34,11 @@ define(['core', 'tpl'], function(core, tpl) {
         $('.fui-content').infinite('init');
         $('.content-empty').hide(), $('.content-loading').show(), $('#container').html('');
         modal.page = 1, modal.status = status, modal.getList()
+    };
+    modal.changeShop = function () {
+        $('.fui-content').infinite('init');
+        $('.content-empty').hide(), $('.content-loading').show(), $('#container').html('');
+        modal.page = 1, modal.getShop()
     };
     modal.loading = function() {
         modal.page++
@@ -61,6 +69,9 @@ define(['core', 'tpl'], function(core, tpl) {
                 })
             })
         })
+    };
+    modal.getShop = function() {
+
     };
     return modal
 });

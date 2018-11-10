@@ -187,6 +187,23 @@ class Order_EweiShopV2Model
                             pdo_update('ewei_shop_order_goods', $data, array('orderid' => $order['id'], 'uniacid' => $_W['uniacid']));
                             pdo_update('ewei_shop_order', $senddata, array('id' => $order['id'], 'uniacid' => $_W['uniacid']));
                         }
+					}elseif ($order['dispatchtype'] == 2){
+						//存酒订单，支付后直接完成订单
+						$end_data = array('status' => 3, 'sendtime' => time(),'finishtime' => time());
+						pdo_update('ewei_shop_order', $end_data, array('id' => $order['id'], 'uniacid' => $_W['uniacid']));
+						//存酒
+                        if(p('repertory')){
+                            p('repertory')->setOrdeToRepertory($order['id']);
+                        }
+						$this->fullback($order['id']);
+                        $log = '订单确认存酒 ID: ' . $order['id'] . ' 订单号: ' . $order['ordersn'];
+                        $this->setGiveBalance($order['id'],1);
+                        m('member')->upgradeLevel($order['openid']);
+                        m('notice')->sendOrderMessage($order['id']);
+                        if (p('commission')) {
+                            p('commission')->checkOrderFinish($order['id']);
+                        }
+                        plog('order.op.keepwine', $log);
 					}
 
 					if ($order['isparent'] == 1) {

@@ -34,7 +34,12 @@
             </div>
             <div class="fui-cell must ">
                 <div class="fui-cell-label">主营项目</div>
-                <div class="fui-cell-info"><input type="text" class="fui-input" id="salecate" placeholder="例如火锅店，串串店，中餐店等" value="{$reg['salecate']}"/></div>
+                <div class="fui-cell-info">
+                    <!--<input type="text" class="fui-input" id="salecate" placeholder="例如火锅店，串串店，中餐店等" value="{$reg['salecate']}"/>-->
+                    <select class="fui-input" id="salecate">
+                        {loop $categorys $cate}<option value="{$cate['catename']}">{$cate['catename']}</option>{/loop}
+                    </select>
+                </div>
             </div>
             <div class="fui-cell ">
                 <div class="fui-cell-label">简单介绍</div>

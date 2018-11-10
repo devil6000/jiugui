@@ -86,7 +86,7 @@
 
 
 
-        {if count($carrier_list)>0 && !$isverify && !$isvirtual&&!$isonlyverifygoods}
+        {if empty($noun) && (count($carrier_list)>0 && !$isverify && !$isvirtual&&!$isonlyverifygoods)}
 
         <div id="carrierTab" class="fui-tab fui-tab-danger" style="margin-bottom: 0">
 

@@ -185,9 +185,9 @@
                         <option value='goodstitle' {if $_GPC['searchfield']=='goodstitle'}selected{/if}>商品名称</option>
                         <option value='goodssn' {if $_GPC['searchfield']=='goodssn'}selected{/if}>商品编码</option>
                         <option value='saler' {if $_GPC['searchfield']=='saler'}selected{/if}>核销员</option>
-                        <option value='store' {if $_GPC['searchfield']=='store'}selected{/if}>核销门店</option>
+                        <!--<option value='store' {if $_GPC['searchfield']=='store'}selected{/if}>核销门店</option>-->
                         {if $merch_plugin}
-                        <option value='merch' {if $_GPC['searchfield']=='merch'}selected{/if}>商户名称</option>
+                        <option value='merch' {if $_GPC['searchfield']=='merch'}selected{/if}>核销门店</option>
                             {/if}
                     </select>
                 </span>

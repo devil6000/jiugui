@@ -1,4 +1,5 @@
 {template '_header'}
+<link rel="stylesheet" type="text/css" href="../addons/ewei_shopv2/plugin/qa/static/css/common.css?v=2016063000">
 <div class="fui-page order-list-page">
     <div class="fui-header">
         <div class="fui-header-left">
@@ -11,6 +12,7 @@
         <a class="active" data-tab='status'>全部</a>
         <a href="javascript:void(0)" data-tab='status0'>待核销</a>
         <a href="javascript:void(0)" data-tab='status1'>已核销</a>
+        <a href="javascript:void(0)" data-tab="shop">核销门店</a>
     </div>
     <div class='fui-content navbar order-list'>
         <div class='fui-content-inner'>
@@ -53,6 +55,62 @@
             </div>
         </div>
         <%/each%>
+    </script>
+    <script id='tpl_merch_list_user' type='text/html'>
+        <%each list as value%>
+        <div  class="fui-list store-item"
+              data-lng="<%value.lng%>"
+              data-lat="<%value.lat%>">
+
+            <div class="fui-list-media">
+                <div class="fui-list-media">
+                    <a href="<%value.merch_url%>">
+                        <img src="<%value.logo%>" class="round">
+                    </a>
+                </div>
+            </div>
+
+            <div class="fui-list-inner store-inner">
+                <a href="<%value.merch_url%>">
+                    <div class="title"> <span class='storename'><%value.merchname%></span></div>
+                    <%if value.address!=''%>
+                    <div class="text">
+                        地址: <span class='realname'><%value.address%></span>
+                    </div>
+                    <%/if%>
+
+                    <%if value.tel!=''%>
+                    <div class="text">
+                        电话: <span class='address'><%value.tel%></span>
+                    </div>
+                    <%/if%>
+
+                    <%if value.catename!=''%>
+                    <div class="text">
+                        分类: <span class='address'><%value.catename%></span>
+                    </div>
+                    <%/if%>
+
+                    <div class="text location" style="color:green;">
+                        <%if value.distance<100000%>
+                        距离您:<%value.distance%>km
+                        <%else%>
+                        <%/if%>
+                    </div>
+                </a>
+            </div>
+
+            <div class="fui-list-angle ">
+                <%if value.tel!=''%><a href="tel:<%value.tel%>" class='external '><i class=' icon icon-phone' style='color:green'></i></a><%/if%>
+                <a href="<%value.url%>" class='external' ><i class='icon icon-location' style='color:#f90'></i></a>
+            </div>
+        </div>
+        <%/each%>
+
+        <div id="nearStore" style="display:none">
+            <div class='fui-list store-item' id='nearStoreHtml'></div>
+        </div>
+
     </script>
     <div class="order-verify-hidden" style="display: none;">
         <div class="verify-pop">

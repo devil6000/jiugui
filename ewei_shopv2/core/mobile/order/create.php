@@ -175,6 +175,10 @@ class Create_EweiShopV2Page extends MobileLoginPage
 				$id = $bargain_act_id['goods_id'];
 			}
 
+			//判断是否为餐饮店会员
+            if($level['id'] == 5 and $level['levelname'] == '餐饮店铺'){
+                $noun = 1;
+            }
 
 			$optionid = intval($_GPC['optionid']);
 			$total = intval($_GPC['total']);

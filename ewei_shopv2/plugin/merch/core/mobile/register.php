@@ -51,6 +51,9 @@ class Register_EweiShopV2Page extends PluginMobileLoginPage
 				}
 			}
 		}
+		//类型
+		$categorys = $this->model->getCategory();
+
 		if ($_W['ispost']) 
 		{
 			if (empty($set['apply_openmobile'])) 
