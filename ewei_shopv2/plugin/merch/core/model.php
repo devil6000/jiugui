@@ -2593,6 +2593,24 @@ class MerchModel extends PluginModel
 		}
 
 	}
+
+    /**
+     * 获取核销数量
+     * @return int
+     */
+	public function getVerify($merch_id = 0){
+	    if(empty($merch_id)){   return 0;}
+
+	    global $_W;
+	    $uniacid = $_W['uniacid'];
+
+	    //核销存酒瓶数
+        $sum1 = pdo_fetchcolumn('SELECT SUM(total) FROM ' . tablename('ewei_shop_repertory_log') . ' WHERE uniacid=:uniacid AND merchid=:merchid', array(':uniacid' => $uniacid, ':merchid' => $merch_id));
+        //核销订单
+        $sum2 = pdo_fetchcolumn('SELECT SUM(g.bottle) FROM ' . tablename('ewei_shop_order_goods') . ' og LEFT JOIN ' . tablename('ewei_shop_order') . ' o ON og.orderid=id LEFT JOIN ' . tablename('ewei_shop_goods') . ' g ON og.goodsid=g.id WHERE o.status=3 AND o.uniacid=:uniacid AND o.merchid=:merchid', array(':uniacid' => $uniacid, ':merchid' => $merch_id));
+        $total = intval($sum1) + intval($sum2);
+        return $total;
+	}
 }
 
 function merch_sort_enoughs($a, $b)

@@ -44,6 +44,10 @@ class Merch_EweiShopV2Page extends PluginWebPage
 			$sql .= ' limit ' . (($pindex - 1) * $psize) . ',' . $psize;
 		}
 		$list = pdo_fetchall($sql, $params);
+		foreach($list as &$item){
+		    $item['bottle'] = $this->model->getVerify($item['id']);
+        }
+        unset($item);
 		if ($_GPC['export'] == '1') 
 		{
 			plog('merch.statistics.merch', '导出商户数据');
@@ -54,6 +58,7 @@ class Merch_EweiShopV2Page extends PluginWebPage
 			unset($row);
 			m('excel')->export($list, array( 'title' => '商户数据-' . date('Y-m-d-H-i', time()), 'columns' => array( array('title' => '商城信息', 'field' => 'merchname', 'width' => 12), array('title' => '姓名', 'field' => 'realname', 'width' => 12), array('title' => '手机号', 'field' => 'mobile', 'width' => 12), array('title' => '订单应收', 'field' => 'realprice', 'width' => 12), array('title' => '积分抵扣', 'field' => 'deductprice', 'width' => 12), array('title' => '余额抵扣', 'field' => 'deductcredit2', 'width' => 12), array('title' => '会员抵扣', 'field' => 'discountprice', 'width' => 12), array('title' => '促销优惠', 'field' => 'isdiscountprice', 'width' => 12), array('title' => '订单实收', 'field' => 'price', 'width' => 12) ) ));
 		}
+
 		$total = pdo_fetchcolumn('select COUNT(u.id) from ' . tablename('ewei_shop_merch_user') . ' u ' . ' left join ' . tablename('ewei_shop_order') . ' o on u.id=o.merchid' . ' where 1 ' . $condition . ' GROUP BY u.id', $params);
 		$total = count($total);
 		$pager = pagination($total, $pindex, $psize);

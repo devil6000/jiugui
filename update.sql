@@ -26,7 +26,7 @@ create table `ims_ewei_shop_lottery_share_join`(
 存酒信息
  */
 alter table `ims_ewei_shop_order_goods` add `repertory_num` int(10) null default 0 comment '存酒数量';
-ALTER TABLE `ims_ewei_shop_order` ADD `is_repertory` INT(11) NULL DEFAULT 0 COMMENT '是否存酒';
+/*ALTER TABLE `ims_ewei_shop_order` ADD `is_repertory` INT(11) NULL DEFAULT 0 COMMENT '是否存酒';*/
 
 create table `ims_ewei_shop_repertory`(
   `id` int(11) not null AUTO_INCREMENT,

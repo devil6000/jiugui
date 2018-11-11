@@ -45,6 +45,7 @@
                         <th style="width:150px;">商城信息</th>
                         <th style="width:120px;">商户信息</th>
                         <th style="width:100px;">订单应收</th>
+                        <th style="width:100px;">核销瓶数</th>
                         <th style="width:100px;">订单抵扣</th>
                         <th style="width:100px;">订单会员折扣</th>
                         <th style="width:100px;">订单促销</th>
@@ -67,6 +68,7 @@
                         <td>{$row['realname']}<br/>{$row['mobile']}</td>
 
                         <td>{php echo $row['goodsprice']+$row['dispatchprice']}</td>
+                        <td>{$row['bottle']}</td>
                         <td>积分：<span class="text-primary">{php echo floatval($row['deductprice'])}</span><br/>
                             余额：<span class="text-warning">{php echo floatval($row['deductcredit2'])}</span>
                         </td>
