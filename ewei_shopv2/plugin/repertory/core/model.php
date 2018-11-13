@@ -87,8 +87,8 @@ if (!(class_exists('RepertoryModel'))) {
                 $total = 0;
                 foreach ($order_goods_list as $key => $item){
                     $num += $item['bottle'];
-                    $total += $item['bottle'];
-                    $insert = array('uniacid' => $_W['uniacid'], 'goods_id' => $item['goodsid'], 'thumb' => $item['thumb'], 'option_id' => $item['optionid'], 'option_name' => $item['optionname'], 'goods_price' => $item['marketprice'], 'order_id' => $order_id, 'order_sn' => $order['ordersn'], 'total' => $item['bottle'], 'create_time' => $time, 'goods_title' => $item['title'], 'openid' => $order['openid'], 'verifycode' => $order['verifycode'], 'carrier' => $order['carrier'], 'get_num' => 0, 'status' => 0);
+                    $total += ($item['bottle'] * $item['total']);
+                    $insert = array('uniacid' => $_W['uniacid'], 'goods_id' => $item['goodsid'], 'thumb' => $item['thumb'], 'option_id' => $item['optionid'], 'option_name' => $item['optionname'], 'goods_price' => $item['marketprice'], 'order_id' => $order_id, 'order_sn' => $order['ordersn'], 'total' => ($item['bottle'] * $item['total']), 'create_time' => $time, 'goods_title' => $item['title'], 'openid' => $order['openid'], 'verifycode' => $order['verifycode'], 'carrier' => $order['carrier'], 'get_num' => 0, 'status' => 0);
                     pdo_insert('ewei_shop_repertory',$insert);
                 }
                 pdo_update('ewei_shop_member', array('isrepertory' => 1, 'repertory' => $num, 'repertorytime' => time()), array('openid' => $order['openid'], 'uniacid' => $uniacid));

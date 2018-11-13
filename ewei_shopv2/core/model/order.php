@@ -511,7 +511,7 @@ class Order_EweiShopV2Model
         $balance = 0;
 
         foreach ($goods as $g) {
-			$balance += $g['bottle'] * $g['subsidy'];
+			$balance += ($g['bottle'] * $g['subsidy'] * $g['total']);
         }
 
         if(0 < $balance){
@@ -527,7 +527,7 @@ class Order_EweiShopV2Model
 		}
 	}
 
-	/**
+    /**
      * //处理订单库存及用户积分情况(赠送积分)
      * @param type $orderid
      * @param type $type 0 下单 1 支付 2 取消 3 确认收货

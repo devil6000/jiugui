@@ -4,6 +4,12 @@ define(['core', 'tpl'], function(core, tpl) {
         status: ''
     };
     modal.init = function() {
+        require(['../addons/ewei_shopv2/plugin/repertory/static/js/op.js'], function(modal) {
+            modal.init({
+                fromDetail: false
+            })
+        });
+
         $('.fui-content').infinite({
             onLoading: function() {
                 modal.getList()
@@ -67,7 +73,7 @@ define(['core', 'tpl'], function(core, tpl) {
                 modal.init({
                     fromDetail: false
                 })
-            })
+            });
         })
     };
     modal.getShop = function() {
