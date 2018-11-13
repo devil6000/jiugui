@@ -1,5 +1,4 @@
 {template '_header'}
-<link rel="stylesheet" type="text/css" href="../addons/ewei_shopv2/plugin/qa/static/css/common.css?v=2016063000">
 <div class="fui-page order-list-page">
     <div class="fui-header">
         <div class="fui-header-left">
@@ -65,7 +64,7 @@
             <div class="fui-list-media">
                 <div class="fui-list-media">
                     <a href="<%value.merch_url%>">
-                        <img src="<%value.logo%>" class="round">
+                        <img src="<%value.logo%>" class="round" onerror="this.src='../addons/ewei_shopv2/static/images/nopic.jpg';">
                     </a>
                 </div>
             </div>
