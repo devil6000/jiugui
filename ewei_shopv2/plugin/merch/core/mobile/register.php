@@ -89,7 +89,7 @@ class Register_EweiShopV2Page extends PluginMobileLoginPage
 			{
 				show_json(0, '帐号 ' . $uname . ' 已经存在,请更改!');
 			}
-			$upass = m('util')->pwd_encrypt($upass, 'E');
+			//$upass = m('util')->pwd_encrypt($upass, 'E');
 			$data = array('uniacid' => $_W['uniacid'], 'openid' => $_W['openid'], 'status' => 0, 'realname' => trim($_GPC['realname']), 'mobile' => trim($_GPC['mobile']), 'uname' => $uname, 'upass' => $upass, 'merchname' => trim($_GPC['merchname']), 'salecate' => trim($_GPC['salecate']), 'desc' => trim($_GPC['desc']));
 			if ($template_flag == 1) 
 			{

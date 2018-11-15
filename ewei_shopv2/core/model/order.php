@@ -509,8 +509,10 @@ class Order_EweiShopV2Model
         $order = pdo_fetch('select id,ordersn,price,openid,dispatchtype,addressid,carrier,status,merchid from ' . tablename('ewei_shop_order') . ' where id=:id limit 1', array(':id' => $orderid));
         $goods = pdo_fetchall('select og.goodsid,og.total,g.totalcnf,og.realprice,g.money,og.optionid,g.total as goodstotal,og.optionid,g.sales,g.salesreal,g.bottle,g.subsidy from ' . tablename('ewei_shop_order_goods') . ' og ' . ' left join ' . tablename('ewei_shop_goods') . ' g on g.id=og.goodsid ' . ' where og.orderid=:orderid and og.uniacid=:uniacid ', array(':uniacid' => $_W['uniacid'], ':orderid' => $orderid));
         $balance = 0;
+        $allTotal = 0;
 
         foreach ($goods as $g) {
+            $allTotal += $g['bottle'] * $g['total'];
 			$balance += ($g['bottle'] * $g['subsidy'] * $g['total']);
         }
 
@@ -521,6 +523,8 @@ class Order_EweiShopV2Model
 				if(!empty($member)){
 					if($order['status'] == 3){
                         m('member')->setCredit($member['openid'], 'credit2', $balance, array(0, $saler['merchname'] . '核销订单，订单号: ' . $order['ordersn'] . ',返余额：' . $balance . ' 元'));
+                        $message = array('keyword1' => '核销获取余额通知','keyword2' => '核销客户' . $member['nickname'] . ',核销订单编号为' . $order['ordersn'] . '订单，核销共' . $allTotal . '瓶酒水，可获得补贴' . $balance . '元');
+                        m('message')->sendCustomNotice($member['openid'], $message);
 					}
 				}
 			}
