@@ -30,7 +30,7 @@ define(['core', 'tpl'], function(core, tpl) {
         $('.order-verify').unbind('click').click(function() {
             var orderid = $(this).data('orderid');
             modal.verify(orderid)
-        })
+        });
     };
     modal.cancel = function(id, remark) {
         core.json('groups/orders/cancel', {

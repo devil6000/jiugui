@@ -523,7 +523,10 @@ class Order_EweiShopV2Model
 				if(!empty($member)){
 					if($order['status'] == 3){
                         m('member')->setCredit($member['openid'], 'credit2', $balance, array(0, $saler['merchname'] . '核销订单，订单号: ' . $order['ordersn'] . ',返余额：' . $balance . ' 元'));
-                        $message = array('keyword1' => '核销获取余额通知','keyword2' => '核销客户' . $member['nickname'] . ',核销订单编号为' . $order['ordersn'] . '订单，核销共' . $allTotal . '瓶酒水，可获得补贴' . $balance . '元');
+                        $message = array(
+                        	'keyword1' => array('value' => '核销获取余额通知', 'color' => '#73a68d'),
+							'keyword2' => array('value' => '核销客户' . $member['nickname'] . ',核销订单编号为' . $order['ordersn'] . '订单，核销共' . $allTotal . '瓶酒水，可获得补贴' . $balance . '元', 'color' => '#73a68d')
+						);
                         m('message')->sendCustomNotice($member['openid'], $message);
 					}
 				}

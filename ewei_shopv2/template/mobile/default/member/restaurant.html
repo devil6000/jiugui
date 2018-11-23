@@ -28,8 +28,8 @@
             </div>
             {/if}
         </div>
-        {if empty($apply)}
-        <a id='btn-next' class='btn btn-success block disabled mtop' style="margin-top: 0.5rem">提交申请</a>
+        {if empty($apply['status']) || $apply['status'] == 2}
+        <a id='btn-next' class='btn btn-success block disabled mtop' style="margin-top: 0.5rem">{if $apply['status'] == 2}重新{/if}提交申请</a>
         {/if}
     </div>
 </div>

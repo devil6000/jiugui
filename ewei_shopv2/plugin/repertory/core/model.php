@@ -149,6 +149,11 @@ if (!(class_exists('RepertoryModel'))) {
                     $balance = $goods['subsidy'] * $times;
                     $shop = pdo_fetch('select * from ' . tablename('ewei_shop_merch_user') . ' where uniacid=:uniacid and id=:id limit 1', array(':uniacid' => $uniacid, ':id' => $saler['merchid']));
                     m('member')->setCredit($shop['payopenid'], 'credit2', $balance, array(0, $shop['merchname'] . '核销存酒，订单号: ' . $order['order_sn'] . '数量：' . $times . '瓶,返余额：' . $balance . ' 元'));
+                    $message = array(
+                        'keyword1' => array('value' => '核销存酒获取余额通知', 'color' => '#73a68d'),
+                        'keyword2' => array('value' => '核销员' . $saler['salername'] . ',核销存酒' . '共' . $times . '瓶酒水，可获得补贴' . $balance . '元', 'color' => '#73a68d')
+                    );
+                    m('message')->sendCustomNotice($shop['payopenid'], $message);
                 }
 
                 $this->sendMessage(array('openid' => $order['openid'], 'nickname' => $member['nickname'], 'num' => $times, 'title' => $order['goods_title'], 'verifytime' => time()), 'repertory_verify');

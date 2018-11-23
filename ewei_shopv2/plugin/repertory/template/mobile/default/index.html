@@ -44,12 +44,18 @@
             </a>
             <div class='fui-list-group-title lineblock   opblock' >
                 <span class='status noremark'>
+                    <!--
                     <%if order.status == 0 || order.total > order.get_num%>
                     <div class="btn btn-sm btn-danger-o order-verify" data-nocache="true" data-orderid="<%order.id%>" style="margin-left:.5rem;" >
                         <i class="icon icon-erweimazhuanhuan"></i>
                         核销订单
                     </div>
                     <%/if%>
+                    -->
+                    <a class="btn btn-sm btn-danger-o" href="{php echo mobileUrl('repertory/verify/detail')}&id=<%order.id%>">
+                        <i class="icon icon-erweimazhuanhuan"></i>
+                        核销订单
+                    </a>
                 </span>
             </div>
         </div>

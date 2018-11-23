@@ -43,7 +43,7 @@
 
         <div class='fui-cell-group'>
             <div class='fui-cell'>
-                <div class='fui-cell-label' style='width:auto;'>剩余件数(已取 <span class='text-danger'>{$order['get_num']}</span> 件)</div>
+                <div class='fui-cell-label' style='width:auto;'>剩余件数(已取 <span class='text-danger'>{$order['get_num']}</span> 瓶)</div>
                 <div class='fui-cell-info'></div>
                 <div class='fui-cell-remark noremark'>
                     <div class="fui-number"
@@ -64,6 +64,9 @@
             <span>确定使用</span>
         </div>
     </div>
+    {if com('verify')}
+    {template 'order/verify'}
+    {/if}
     <script language='javascript'>require(['../addons/ewei_shopv2/plugin/repertory/static/js/verify.js'], function (modal) {
         modal.init();
     });</script>

@@ -22,6 +22,7 @@ define(['core', 'tpl'], function(core, tpl, op) {
         tip = "确认核销 <span class='text-danger'>" + times + "</span> 次吗?";
 
         FoxUI.confirm(tip, function() {
+            /*
             core.json('repertory/verify/complete', {
                 id: orderid,
                 times: times
@@ -35,6 +36,29 @@ define(['core', 'tpl'], function(core, tpl, op) {
                     times: times
                 })
             })
+            */
+            container = new FoxUIModal({
+                content: $(".order-verify-hidden").html(),
+                extraClass: "popup-modal",
+                maskClick: function() {
+                    container.close()
+                }
+            });
+            container.show();
+            $('.verify-pop').find('.close').unbind('click').click(function() {
+                container.close()
+            });
+            core.json('repertory/verify/qrcode', {
+                id: orderid,
+                times: times
+            }, function (ret) {
+                if (ret.status == 0) {
+                    FoxUI.alert('生成出错，请刷新重试!');
+                    return
+                }
+                var time = +new Date();
+                $('.verify-pop').find('.qrimg').attr('src', ret.result.url + "?timestamp=" + time).show()
+            },false,true);
         })
     };
     return modal

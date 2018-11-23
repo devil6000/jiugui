@@ -28,6 +28,12 @@ class Selector_EweiShopV2Page extends MobilePage
 		}
 
         $list = pdo_fetchall('select * from ' . tablename('ewei_shop_merch_store') . ' where  uniacid=:uniacid and status=1 ' . $condition . ' order by displayorder desc,id desc', array(':uniacid' => $_W['uniacid']));
+		foreach ($list as $key => $item){
+			$user = pdo_fetch('SELECT * FROM ' . tablename('ewei_shop_merch_user') . ' WHERE uniacid=:uniacid AND id=:merchid', array(':uniacid' => $_W['uniacid'], ':merchid' => $item['merchid']));
+			if(empty($user)){
+				unset($list[$key]);
+			}
+		}
 		/*
 		if (0 < $merchid) {
 			$list = pdo_fetchall('select * from ' . tablename('ewei_shop_merch_store') . ' where  uniacid=:uniacid and merchid=:merchid and status=1 ' . $condition . ' order by displayorder desc,id desc', array(':uniacid' => $_W['uniacid'], ':merchid' => $merchid));
