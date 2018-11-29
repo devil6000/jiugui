@@ -19,6 +19,7 @@
      {ifp 'goods.category'}<li {if $_W['action'] == 'goods.category'} class="active" {/if}><a href="{php echo webUrl('goods/category')}">商品分类</a></li>{/if}
     {ifp 'goods.group'}<li {if $_GPC['r'] == 'goods.group' || $_GPC['r'] == 'goods.group.edit'}class="active" {/if}><a href="{php echo webUrl('goods/group')}">商品组</a></li>{/if}
     <li {if $_W['action'] == 'goods.label'} class="active" {/if}><a href="{php echo webUrl('goods/label')}">标签管理</a></li>
+    <li><a href="{php echo webUrl('goods/merch_goods')}">商户商品</a></li>
 </ul>
 {/if}
 

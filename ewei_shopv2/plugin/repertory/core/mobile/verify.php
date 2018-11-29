@@ -34,6 +34,7 @@ class Verify_EweiShopV2Page extends PluginMobilePage{
         extract($data);
         */
         $order = pdo_fetch('SELECT * FROM ' . tablename('ewei_shop_repertory') . ' WHERE uniacid=:uniacid AND id=:id', array(':uniacid' => $_W['uniacid'], ':id' => $orderid));
+        $max = $order['total'] - $order['get_num'];
         include $this->template();
     }
 
@@ -45,7 +46,11 @@ class Verify_EweiShopV2Page extends PluginMobilePage{
         $orderid = intval($_GPC['id']);
         $times = intval($_GPC['times']);
         p('repertory')->verify($orderid, $times);
-        $this->message(array('title' => '操作完成', 'message' => '您可以退出浏览器了'), 'javascript:WeixinJSBridge.call("closeWindow");', 'success');
+        $order = pdo_fetch('select * from ' . tablename('ewei_shop_repertory') . ' where id=:id and uniacid=:uniacid', array(':id' => $orderid, ':uniacid' => $uniacid));
+        $realname = pdo_fetchcolumn('SELECT realname FROM' . tablename('ewei_shop_member') . ' WHERE openid=:openid AND uniacid=:uniacid', array(':openid' => $order['openid'], ':uniacid' => $uniacid));
+        $date = date('H时i分s秒', time());
+        $msg = $realname . $date . '在本店成功取酒' . $times . '瓶';
+        $this->message(array('title' => '操作完成', 'message' => $msg), 'javascript:WeixinJSBridge.call("closeWindow");', 'success');
     }
 
     public function success(){

@@ -98,4 +98,14 @@ class Restaurant_EweiShopV2Page extends WebPage{
         $this->message($msg, webUrl('member/restaurant/status0'), 'success');
     }
 
+    public function delete(){
+        global $_W;
+        global $_GPC;
+        if($_W['isajax']){
+            $id = intval($_GPC['id']);
+            pdo_delete('ewei_shop_restaurant_apply', array('uniacid' => $_W['uniacid'], 'id' => $id));
+            show_json(1,'删除成功');
+        }
+    }
+
 }

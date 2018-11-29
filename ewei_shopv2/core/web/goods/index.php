@@ -98,6 +98,7 @@ class Index_EweiShopV2Page extends WebPage
 			$sql = 'SELECT g.* FROM ' . tablename('ewei_shop_goods') . 'g' . $sqlcondition . $condition . $groupcondition . " ORDER BY g.`status` DESC, g.`displayorder` DESC,\r\n                g.`id` DESC LIMIT " . (($pindex - 1) * $psize) . ',' . $psize;
 			$list = pdo_fetchall($sql, $params);
 
+
 			foreach ($list as $key => &$value) {
 				$url = mobileUrl('goods/detail', array('id' => $value['id']), true);
 				$value['qrcode'] = m('qrcode')->createQrcode($url);
@@ -105,14 +106,21 @@ class Index_EweiShopV2Page extends WebPage
 
 			$pager = pagination2($total, $pindex, $psize);
 
+            $merch_goods = array();
+
 			if ($merch_plugin) {
 				$merch_user = $merch_plugin->getListUser($list, 'merch_user');
 				if (!empty($list) && !empty($merch_user)) {
 					foreach ($list as &$row) {
 						$row['merchname'] = $merch_user[$row['merchid']]['merchname'] ? $merch_user[$row['merchid']]['merchname'] : $_W['shopset']['shop']['name'];
+						$merch_goods[$row['merchid']]['merchname'] = $merch_user[$row['merchid']]['merchname'] ? $merch_user[$row['merchid']]['merchname'] : $_W['shopset']['shop']['name'];
+						$merch_goods[$row['merchid']]['list'][] = $row;
 					}
 				}
 			}
+
+			$list = $merch_goods;
+			ksort($list);
 		}
 
 		$categorys = m('shop')->getFullCategory(true);

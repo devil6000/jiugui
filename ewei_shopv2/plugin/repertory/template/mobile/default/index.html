@@ -52,10 +52,12 @@
                     </div>
                     <%/if%>
                     -->
+                    <%if order.status == 0%>
                     <a class="btn btn-sm btn-danger-o" href="{php echo mobileUrl('repertory/verify/detail')}&id=<%order.id%>">
                         <i class="icon icon-erweimazhuanhuan"></i>
                         核销订单
                     </a>
+                    <%/if%>
                 </span>
             </div>
         </div>

@@ -43,12 +43,12 @@
 
         <div class='fui-cell-group'>
             <div class='fui-cell'>
-                <div class='fui-cell-label' style='width:auto;'>剩余件数(已取 <span class='text-danger'>{$order['get_num']}</span> 瓶)</div>
+                <div class='fui-cell-label' style='width:auto;'>剩余{$max}瓶(已取 <span class='text-danger'>{$order['get_num']}</span> 瓶)</div>
                 <div class='fui-cell-info'></div>
                 <div class='fui-cell-remark noremark'>
                     <div class="fui-number"
                          data-value='1'
-                         data-max="{$total}"
+                         data-max="{$max}"
                          data-min="1">
                         <div class="minus">-</div>
                         <input class="num shownum" type="tel" name="" value="1"/>

@@ -86,13 +86,13 @@
 
 
 
-        {if empty($noun) && (count($carrier_list)>0 && !$isverify && !$isvirtual&&!$isonlyverifygoods)}
+        {if empty($noun) && (count($carrier_list)>0 && !$isverify && !$isvirtual&&!$isonlyverifygoods) && empty($member['level'])}
 
         <div id="carrierTab" class="fui-tab fui-tab-danger" style="margin-bottom: 0">
 
             <a data-tab="tab1" class="active">快递配送</a>
 
-            <a data-tab="tab2">上门自提</a>
+            <!--<a data-tab="tab2">上门自提</a>-->
 
             <a data-tab="tab3">存酒</a>
 

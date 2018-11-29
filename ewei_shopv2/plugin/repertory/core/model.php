@@ -54,6 +54,13 @@ if (!(class_exists('RepertoryModel'))) {
                 return error(-1, '无核销权限!');
             }
 
+            if(!empty($saler['merchid'])){
+                $store = pdo_fetch('SELECT * FROM ' . tablename('ewei_shop_merch_user') . ' WHERE id=:id AND uniacid=:uniacid AND status=1', array(':id' => $saler['merchid'], ':uniacid' => $_W['uniacid']));
+                if(empty($store)){
+                    return error(-1, '无核销权限!');
+                }
+            }
+
             /*
             if(!empty($saler['storeid'])){
                 if(0 < $merchid){
@@ -156,7 +163,8 @@ if (!(class_exists('RepertoryModel'))) {
                     m('message')->sendCustomNotice($shop['payopenid'], $message);
                 }
 
-                $this->sendMessage(array('openid' => $order['openid'], 'nickname' => $member['nickname'], 'num' => $times, 'title' => $order['goods_title'], 'verifytime' => time()), 'repertory_verify');
+                $this->sendMessage(array('openid' => $order['openid'], 'nickname' => $member['nickname'], 'num' => $times, 'title' => $order['goods_title'], 'verifytime' => time(), 'merchtitle' => $shop['merchname']), 'repertory_verify');
+                $this->sendMessage(array('openid' => $shop['payopenid'], 'nickname' => $member['nickname'], 'num' => $times, 'title' => $order['goods_title'], 'verifytime' => time(), 'merchtitle' => $shop['merchname']), 'merch_verify');
             }
 
             return true;
@@ -186,8 +194,15 @@ if (!(class_exists('RepertoryModel'))) {
 
             if(($message_type == 'repertory_verify') && empty($usernotice['repertory_verify'])){
                 $tm['msguser'] = $sendData['openid'];
-                $data = array('[昵称]' => $sendData['nickname'], '[件数]' => $sendData['num'], '[商品名称]' => $sendData['title'], '[时间]' => date('Y-m-d H:i:s', $sendData['verifytime']));
-                $message = array('keyword1' => (!(empty($tm['repertory_verifytitle'])) ? $tm['repertory_verifytitle'] : '核销成功通知'), 'keyword2' => (!(empty($tm['repertory_verify'])) ? $tm['repertory_verify'] : '[昵称]在[时间]成功消费[件数]件[商品名称].请到后台查看~'));
+                $data = array('[昵称]' => $sendData['nickname'], '[件数]' => $sendData['num'], '[商品名称]' => $sendData['title'], '[时间]' => date('Y-m-d H:i:s', $sendData['verifytime']), '[门店]' => $sendData['merchtitle']);
+                $message = array('keyword1' => (!(empty($tm['repertory_verifytitle'])) ? $tm['repertory_verifytitle'] : '核销成功通知'), 'keyword2' => (!(empty($tm['repertory_verify'])) ? $tm['repertory_verify'] : '[昵称]在[时间]成功从[门店]消费[件数]瓶[商品名称].请到后台查看~'));
+                return $this->sendNotice($tm, 'repertory_verify_advanced', $data, $message);
+            }
+
+            if(($message_type == 'merch_verify') && empty($usernotice['merch_verify'])){
+                $tm['msguser'] = $sendData['openid'];
+                $data = array('[昵称]' => $sendData['nickname'], '[件数]' => $sendData['num'], '[商品名称]' => $sendData['title'], '[时间]' => date('Y-m-d H:i:s', $sendData['verifytime']),'[门店]' => $sendData['merchtitle']);
+                $message = array('keyword1' => (!(empty($tm['repertory_merchtitle'])) ? $tm['repertory_merchtitle'] : '核销成功通知'), 'keyword2' => (!(empty($tm['repertory_merch'])) ? $tm['repertory_merch'] : '[昵称]在[时间]成功从[门店]取走[件数]瓶[商品名称]'));
                 return $this->sendNotice($tm, 'repertory_verify_advanced', $data, $message);
             }
 

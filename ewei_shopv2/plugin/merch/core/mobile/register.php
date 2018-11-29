@@ -20,6 +20,12 @@ class Register_EweiShopV2Page extends PluginMobileLoginPage
 		{
 			$this->message('您已经申请，无需重复申请!', '', 'error');
 		}
+
+		$member = m('member')->getMember($_W['openid']);
+		if($member['level'] != 5){
+		    $this->message('您当前的等级不是餐饮店会员，请先申请为餐饮店会员。', '', 'error');
+        }
+
 		$apply_set = array();
 		$apply_set['open_protocol'] = $set['open_protocol'];
 		if (empty($set['applytitle'])) 

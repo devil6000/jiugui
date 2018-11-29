@@ -79,6 +79,13 @@
                                 </span>
                             </a>
                             {/if}
+                            {ifp 'member.restaurant.delete'}
+                            <a class="btn btn-op btn-operation" data-toggle='ajaxRemove' href="{php echo webUrl('member/restaurant/delete',array('id' => $row['id']));}" data-confirm="确定要删除该申请吗？">
+                                <span data-toggle="tooltip" data-placement="top" title="" data-original-title="删除申请">
+                                    <i class='icow icow-shanchu1'></i>
+                                </span>
+                            </a>
+                            {/if}
                         </div>
                     </td>
                 </tr>
