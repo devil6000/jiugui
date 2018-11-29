@@ -45,7 +45,12 @@ class Verify_EweiShopV2Page extends PluginMobilePage{
         $uniacid = $_W['uniacid'];
         $orderid = intval($_GPC['id']);
         $times = intval($_GPC['times']);
-        p('repertory')->verify($orderid, $times);
+        $data = p('repertory')->verify($orderid, $times);
+        if(is_error($data)){
+            $this->message(array('title' => '操作失败', 'message' => $data['message']), 'javascript:WeixinJSBridge.call("closeWindow");', 'error');
+            exit;
+        }
+
         $order = pdo_fetch('select * from ' . tablename('ewei_shop_repertory') . ' where id=:id and uniacid=:uniacid', array(':id' => $orderid, ':uniacid' => $uniacid));
         $realname = pdo_fetchcolumn('SELECT realname FROM' . tablename('ewei_shop_member') . ' WHERE openid=:openid AND uniacid=:uniacid', array(':openid' => $order['openid'], ':uniacid' => $uniacid));
         $date = date('H时i分s秒', time());
