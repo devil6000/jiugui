@@ -336,7 +336,8 @@ class Perm_EweiShopV2ComModel extends ComModel
 		'status0'	=> '待审核',
 		'status1'	=> '已审核',
 		'status2'	=> '已取消',
-		'apply'		=> '审核'
+		'apply'		=> '审核',
+		'delete'	=> '删除'
 		)
 	);
 	}

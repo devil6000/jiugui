@@ -524,6 +524,15 @@
         }
     });
 
+    $(function () {
+        $('.aops').each(function () {
+            var id = $(this).data('merchid');
+            $(this).find('i').removeClass('fa-minus-square').addClass('fa-plus-square');
+            $('tr[name=' + id + ']').hide();
+            $(this).attr('show',1);
+        });
+    });
+
     $(document).on("click", '[data-toggle="ajaxEdit2"]',
             function (e) {
                 var _this = $(this)
