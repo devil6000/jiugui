@@ -179,7 +179,7 @@
                 <label class="col-lg control-label">标题</label>
                 <div class="col-sm-9 col-xs-12">
                     {ifp 'repertory.notice.edit'}
-                    <input type="text" name="data[repertory_verifytitle]" class="form-control" value="{$data['tm']['repertory_merchtitle']}" />
+                    <input type="text" name="data[repertory_merchtitle]" class="form-control" value="{$data['tm']['repertory_merchtitle']}" />
                     <div class="help-block">标题，默认"核销成功通知"</div>
                     {else}
                     <div class='form-control-static'>{$data['tm']['repertory_merchtitle']}</div>
@@ -190,7 +190,7 @@
                 <label class="col-lg control-label">内容</label>
                 <div class="col-sm-9 col-xs-12">
                     {ifp 'repertory.notice.edit'}
-                    <textarea  name="data[repertory_verify]" class="form-control" rows="5">{$data['tm']['repertory_merch']}</textarea>
+                    <textarea  name="data[repertory_merch]" class="form-control" rows="5">{$data['tm']['repertory_merch']}</textarea>
                     模板变量: [昵称] [件数] [商品名称] [时间] [门店]
                     {else}
                     <div class='form-control-static'>{$data['tm']['repertory_merch']}</div>
@@ -286,6 +286,26 @@
                         <option value=''>从短信消息库中选择</option>
                         {loop $template_sms $template_val}
                         <option value="{$template_val['id']}" {if $data['tm']['repertory_verify_sms_advanced'] == $template_val['id'] }selected{/if}>{$template_val['name']}</option>
+                        {/loop}
+                        </select>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>门店存酒通知</td>
+                    <td>
+                        <select class="select2" {ifp 'repertory.notice.edit'}name="data[merch_verify_advanced]"{else}disabled{/if}>
+                        <option value=''>从模板消息库中选择</option>
+                        {loop $template_list $template_val}
+                        <option value="{$template_val['id']}" {if $data['tm']['merch_verify_advanced'] == $template_val['id'] }selected{/if}>{$template_val['title']}</option>
+                        {/loop}
+                        </select>
+                    </td>
+                    <td class="is_sms">
+                        <select class="select2" {ifp 'repertory.notice.edit'}name="data[repertory_merch_sms_advanced]"{else}disabled{/if}>
+                        <option value=''>从短信消息库中选择</option>
+                        {loop $template_sms $template_val}
+                        <option value="{$template_val['id']}" {if $data['tm']['repertory_merch_sms_advanced'] == $template_val['id'] }selected{/if}>{$template_val['name']}</option>
                         {/loop}
                         </select>
                     </td>
