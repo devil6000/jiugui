@@ -263,21 +263,25 @@ class Goods_EweiShopV2Model
 		$params = array(':uniacid' => $_W['uniacid']);
 		$merchid = ((!(empty($args['merchid'])) ? trim($args['merchid']) : ''));
 
-		if (!(empty($merchid))) {
-			$condition .= ' and g.merchid=:merchid and g.checked=0';
-			$params[':merchid'] = $merchid;
-		}
-		 else if ($is_openmerch == 0) {
-			$condition .= ' and g.`merchid` = 0';
-		}
-		 else {
-			$condition .= ' and g.`checked` = 0';
-		}
+		if($merchid == -1){
+		    //-1表示只显示主商城商品
+            $condition .= ' and g.`merchid` = 0';
+        }else{
+            if (!(empty($merchid))) {
+                $condition .= ' and g.merchid=:merchid and g.checked=0';
+                $params[':merchid'] = $merchid;
+            }
+            else if ($is_openmerch == 0) {
+                $condition .= ' and g.`merchid` = 0';
+            }
+            else {
+                $condition .= ' and g.`checked` = 0';
+            }
 
-		if (empty($args['type'])) {
-			$condition .= ' and g.type !=10 ';
-		}
-
+            if (empty($args['type'])) {
+                $condition .= ' and g.type !=10 ';
+            }
+        }
 
 		$ids = ((!(empty($args['ids'])) ? trim($args['ids']) : ''));
 

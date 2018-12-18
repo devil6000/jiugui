@@ -28,7 +28,9 @@
 						</a>
 						<div class="price" style="margin-top: 0.3rem">
 							<span class="text">￥<%item.minprice%></span>
+							<%if item.merchid <= 0%>
 							<span class="buy" data-type="<%item.type%>" ><%if item.bargain>0%>砍价活动<%else%>购买<%/if%></span>
+							<%/if%>
 						</div>
 					</div>
 				</div>

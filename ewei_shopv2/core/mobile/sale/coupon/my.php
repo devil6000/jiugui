@@ -777,6 +777,7 @@ class My_EweiShopV2Page extends MobileLoginPage
 		if ($merch_plugin && $merch_data['is_openmerch']) {
 			$args['merchid'] = intval($_GPC['merchid']);
 		}
+		$args['merchid'] = -1; //只显示主商城商品，其他商品不能购买
 
 		if (isset($_GPC['nocommission'])) {
 			$args['nocommission'] = intval($_GPC['nocommission']);

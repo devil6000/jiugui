@@ -35,7 +35,7 @@ define(['core', 'tpl'], function (core, tpl) {
                 }
             }
             modal.page++;
-            core.tpl('#container', 'tpl_shop_notice', result, modal.page > 1);
+            core.tpl('#container', 'tpl_shop_myreward', result, modal.page > 1);
         });
     };
     return modal;
