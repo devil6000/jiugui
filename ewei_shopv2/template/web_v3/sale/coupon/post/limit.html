@@ -130,6 +130,20 @@
 
 </div>
 
+<!-- 使用次数限制 -->
+<!--
+<div class="form-group">
+    <label class="col-lg control-label">商品使用次数限制</label>
+    <div class="col-sm-9 col-xs-12" >
+        {ife 'sale.coupon' $item}
+        <input type="text" id="limit_times" name="limit_times" placeholder="每天使用次数" class="form-control" value="{$item['limit_times']}" />
+        {else}
+        {$item['limit_times']}
+        {/if}
+        <div class="help-block">设置0表示不限制使用次数</div>
+    </div>
+</div>
+-->
 
 
 

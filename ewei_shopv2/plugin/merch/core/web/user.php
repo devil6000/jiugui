@@ -576,6 +576,9 @@ class User_EweiShopV2Page extends PluginWebPage
 			pdo_update('ewei_shop_goods', $change_data, array('merchid' => $item['id'], 'uniacid' => $uniacid));
 			pdo_delete('ewei_shop_merch_account', array('merchid' => $item['id'], 'uniacid' => $uniacid));
 			pdo_delete('ewei_shop_merch_user', array('id' => $item['id'], 'uniacid' => $uniacid));
+			pdo_delete('ewei_shop_merch_saler', array('merchid' => $item['id'], 'uniacid' => $uniacid));
+			pdo_delete('ewei_shop_merch_store', array('merchid' => $item['id'], 'uniacid' => $uniacid));
+
 			plog('merch.user.delete', '删除`商户 <br/>商户:  ID: ' . $item['id'] . ' / 名称:   ' . $item['merchname']);
 		}
 

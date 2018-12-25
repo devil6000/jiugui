@@ -87,6 +87,7 @@ class Store_EweiShopV2Page extends MerchWebPage
 		foreach ($items as $item ) 
 		{
 			pdo_delete('ewei_shop_merch_store', array('id' => $item['id']));
+            pdo_delete('ewei_shop_merch_saler', array('storeid' => $item['id']));
 			mplog('shop.verify.store.delete', '删除门店 ID: ' . $item['id'] . ' 门店名称: ' . $item['storename'] . ' ');
 		}
 		show_json(1, array('url' => referer()));

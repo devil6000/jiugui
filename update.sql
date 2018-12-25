@@ -92,3 +92,6 @@ ALTER TABLE `ims_ewei_shop_goods` add `subsidy` DECIMAL(10,2) null DEFAULT 0 com
 ALTER TABLE `ims_ewei_shop_store` add `merch_id` INT(11) null DEFAULT 0 comment '多商户ID';
 
 alter table `ims_ewei_shop_repertory_log` add merchid int(11) null DEFAULT 0 comment '多商户ID';
+
+/* 优惠券使用次数限制 */
+alter table `ims_ewei_shop_coupon` add `limit_times` int(4) null default 0 comment '使用次数';

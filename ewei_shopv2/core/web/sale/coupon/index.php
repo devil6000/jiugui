@@ -177,6 +177,8 @@ class Index_EweiShopV2Page extends ComWebPage
 				show_json(0, '您好,您输入的折扣范围不对! 请输入 0.1 ~ 10 之间数');
 			}
 
+			$data['limit_times'] = intval($_GPC['limit_times']);
+
 			if (!empty($id)) {
 				if (!empty($data['pwdkey2'])) {
 					$pwdkey2 = pdo_fetch('SELECT pwdkey2 FROM ' . tablename('ewei_shop_coupon') . ' WHERE id=:id and uniacid=:uniacid limit 1 ', array(':id' => $id, ':uniacid' => $_W['uniacid']));
