@@ -1,0 +1,49 @@
+{template '_header'}
+<div class='fui-page  fui-page-current'>
+    <div class="fui-header">
+        <div class="fui-header-left"><a class="back"></a></div>
+        <div class="title">存酒详情</div>
+        <div class="fui-header-right">&nbsp;</div>
+    </div>
+    <div class='fui-content navbar'>
+        <div class='fui-list-group'>
+            <div class='fui-list order-status'>
+                <div class='fui-list-inner'>
+                    <div class='title'>{$item['order_sn']}</div>
+                </div>
+            </div>
+        </div>
+        {if !empty($carrier)}
+        <div class='fui-list-group' style='margin-top:5px;'>
+            <div class='fui-list'>
+                <div class='fui-list-media'><i class='icon icon-person2'></i></div>
+                <div class='fui-list-inner'>
+                    <div class='title'>{$carrier['carrier_realname']} {$carrier['carrier_mobile']}</div>
+                </div>
+            </div>
+        </div>
+        {/if}
+        <div class="fui-list-group goods-list-group">
+            <a href="{php echo mobileUrl('goods/detail',array('id'=>$item['goods_id']))}">
+                <div class="fui-list goods-list">
+                    <div class="fui-list-media">
+                        <img src="{php echo tomedia($item['thumb'])}" class="round" />
+                    </div>
+                    <div class="fui-list-inner">
+                        <div class="text goodstitle">{$item['goods_title']}</div>
+                        {if !empty($item['option_id'])}<div class='subtitle'>{$item['option_name']}</div>{/if}
+                    </div>
+                    <div class='fui-list-angle'>
+                        ￥<span class='marketprice'>{$item['goods_price']}</span><br/>   x{$num}
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class='fui-cell-group'>
+            <div class='fui-cell'>
+                <div class='fui-cell-label' style='width:auto;'>已取<span class='text-danger'>{$item['get_num']}</span>件，剩余<span class='text-danger'>{$num}</span>件</div>
+            </div>
+        </div>
+    </div>
+</div>
+{template '_footer'}

@@ -97,7 +97,9 @@ class List_EweiShopV2Page extends PluginMobilePage
 				}
 				$merchuser[$k]['catename'] = $cate_list[$v['cateid']]['catename'];
 				//$merchuser[$k]['url'] = mobileUrl('merch/map', array('merchid' => $v['id']));
-                $merchuser[$k]['url'] = "http://api.map.baidu.com/marker?location={$v['lat']},{$v['lng']}&title={$v['merchname']}&content={$v['address']}&output=html";
+                //$merchuser[$k]['url'] = "http://api.map.baidu.com/marker?location={$v['lat']},{$v['lng']}&title={$v['merchname']}&content={$v['address']}&output=html";
+                $merchuser[$k]['url'] = "http://comment.csnet.net.cn/home/map/index/baidumap/{$v['lat']},{$v['lng']}/title/{$v['merchname']}/address/{$v['address']}";
+                //$merchuser[$k]['url'] = "http://comment.csnet.net.cn/home/map/index/baidumap/{$v['lng']},{$v['lat']}/title/{$v['merchname']}/address/{$v['address']}";
 				$merchuser[$k]['merch_url'] = mobileUrl('merch', array('merchid' => $v['id']));
 				$merchuser[$k]['logo'] = tomedia($v['logo']);
 			}

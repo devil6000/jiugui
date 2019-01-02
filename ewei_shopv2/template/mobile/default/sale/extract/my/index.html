@@ -1,0 +1,60 @@
+{template '_header'}
+<link rel="stylesheet" type="text/css" href="../addons/ewei_shopv2/template/mobile/default/static/css/coupon-new.css?v=2017030302">
+<style type="text/css">
+	.coupon-item{
+		position: relative;
+	}
+	.mask{
+		z-index: 999;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: rgba(0,0,0,.2);
+	}
+</style>
+<div class='fui-page  fui-page-current coupon-my-page'>
+    <div class="fui-header">
+		<div class="fui-header-left">
+			<a class="back"></a>
+		</div>
+		<div class="title">我的提货券</div> 
+		<div class="fui-header-right">&nbsp;</div>
+    </div>
+	<div class='fui-content'>
+		<div class='fui-tab fui-tab-danger' id='cateTab'>
+			<a class="active" data-status='1'>未使用</a>
+			<a data-status='2'>已使用</a>
+			<a data-status='3'>已过期</a>
+		</div>
+		<div class="fui-message fui-message-popup in content-empty" style="display: none; margin-top: 0; padding-top: 0; position: relative; height: auto; background: none;">
+				<div class="icon ">
+					<i class="icon icon-information"></i>
+				</div>
+				<div class="content">您还没有优惠券~</div>
+		</div>
+		<div id="container" class="coupon-container coupon-list"></div>
+		<div class='infinite-loading' style="text-align: center; color: #666;">
+	    	<span class='fui-preloader'></span>
+	    	<span class='text'> 正在加载...</span>
+	    </div>
+		{template '_copyright'}
+	</div>
+
+	<script id='tpl_list_coupon_my' type='text/html'>
+		<%each list as coupon%>
+			<%if coupon.status==1%>
+				<a href="{php echo mobileUrl('sale/extract/my/detail')}&id=<%coupon.id%>" class="coupon-item">
+			<%else%>
+				<a href="javascript:void(0)" class="coupon-item">
+				<div class="mask"></div>
+			<%/if%>
+				<img src="<%coupon.pimg%>" style="width:100%;height:100%;" />
+			</a>
+		<%/each%>
+	</script>
+	<script language='javascript'>require(['biz/sale/extract/my'], function (modal) {modal.init();});</script>
+</div>
+{template '_footer'}
+<!--NDAwMDA5NzgyNw==-->

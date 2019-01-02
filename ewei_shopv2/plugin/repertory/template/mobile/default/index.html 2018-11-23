@@ -1,0 +1,139 @@
+{template '_header'}
+<div class="fui-page order-list-page">
+    <div class="fui-header">
+        <div class="fui-header-left">
+            <a class="back"></a>
+        </div>
+        <div class="title">存酒列表</div>
+        <div class="fui-header-right"></div>
+    </div>
+    <div id="tab" class="fui-tab fui-tab-danger">
+        <a class="active" data-tab='status'>全部</a>
+        <a href="javascript:void(0)" data-tab='status0'>待核销</a>
+        <a href="javascript:void(0)" data-tab='status1'>已核销</a>
+        <a href="javascript:void(0)" data-tab="shop">核销门店</a>
+    </div>
+    <div class='fui-content navbar order-list'>
+        <div class='fui-content-inner'>
+            <div class='content-empty' style='display:none;'>
+                <img src="{EWEI_SHOPV2_STATIC}images/nolist.png" style="width: 6rem;margin-bottom: .5rem;"><br/><p style="color: #999;font-size: .75rem">您暂时没有任何存酒哦！</p>
+            </div>
+            <div id='container'></div>
+            <div class='infinite-loading'><span class='fui-preloader'></span><span class='text'> 正在加载...</span></div>
+        </div>
+        {template '_copyright'}
+    </div>
+    <script id='tpl_groups_order_list' type='text/html'>
+        <%each list as order%>
+        <div class='fui-list-group order-item' data-orderid="<%order.id%>" data-verifycode="<%order.verifycode%>">
+            <a href="{php echo mobileUrl('repertory/detail')}&id=<%order.id%>" data-nocache='true'>
+                <div class="fui-list goods-list">
+                    <div class="fui-list-media">
+                        <img data-lazy="<%order.thumb%>" class="">
+                    </div>
+                    <div class="fui-list-inner">
+                        <div class="text goodstitle towline"><%order.goods_title%></div>
+                    </div>
+                    <div class='fui-list-angle'>
+                     <span class='marketprice'>x<%order.total%></span>
+                    </div>
+                </div>
+                <div class='fui-list-group-title lineblock'>
+                    <span class='status noremark'>已核销 <span><%order.get_num%></span> 个商品</span>
+                </div>
+            </a>
+            <div class='fui-list-group-title lineblock   opblock' >
+                <span class='status noremark'>
+                    <!--
+                    <%if order.status == 0 || order.total > order.get_num%>
+                    <div class="btn btn-sm btn-danger-o order-verify" data-nocache="true" data-orderid="<%order.id%>" style="margin-left:.5rem;" >
+                        <i class="icon icon-erweimazhuanhuan"></i>
+                        核销订单
+                    </div>
+                    <%/if%>
+                    -->
+                    <a class="btn btn-sm btn-danger-o" href="{php echo mobileUrl('repertory/verify/detail')}&id=<%order.id%>">
+                        <i class="icon icon-erweimazhuanhuan"></i>
+                        核销订单
+                    </a>
+                </span>
+            </div>
+        </div>
+        <%/each%>
+    </script>
+    <script id='tpl_merch_list_user' type='text/html'>
+        <%each list as value%>
+        <div  class="fui-list store-item"
+              data-lng="<%value.lng%>"
+              data-lat="<%value.lat%>">
+
+            <div class="fui-list-media">
+                <div class="fui-list-media">
+                    <a href="<%value.merch_url%>">
+                        <img src="<%value.logo%>" class="round" onerror="this.src='../addons/ewei_shopv2/static/images/nopic.jpg';">
+                    </a>
+                </div>
+            </div>
+
+            <div class="fui-list-inner store-inner">
+                <a href="<%value.merch_url%>">
+                    <div class="title"> <span class='storename'><%value.merchname%></span></div>
+                    <%if value.address!=''%>
+                    <div class="text">
+                        地址: <span class='realname'><%value.address%></span>
+                    </div>
+                    <%/if%>
+
+                    <%if value.tel!=''%>
+                    <div class="text">
+                        电话: <span class='address'><%value.tel%></span>
+                    </div>
+                    <%/if%>
+
+                    <%if value.catename!=''%>
+                    <div class="text">
+                        分类: <span class='address'><%value.catename%></span>
+                    </div>
+                    <%/if%>
+
+                    <div class="text location" style="color:green;">
+                        <%if value.distance<100000%>
+                        距离您:<%value.distance%>km
+                        <%else%>
+                        <%/if%>
+                    </div>
+                </a>
+            </div>
+
+            <div class="fui-list-angle ">
+                <%if value.tel!=''%><a href="tel:<%value.tel%>" class='external '><i class=' icon icon-phone' style='color:green'></i></a><%/if%>
+                <a href="<%value.url%>" class='external' ><i class='icon icon-location' style='color:#f90'></i></a>
+            </div>
+        </div>
+        <%/each%>
+
+        <div id="nearStore" style="display:none">
+            <div class='fui-list store-item' id='nearStoreHtml'></div>
+        </div>
+
+    </script>
+    <div class="order-verify-hidden" style="display: none;">
+        <div class="verify-pop">
+            <div class="close"><i class="icon icon-roundclose"></i></div>
+            <div class="qrcode">
+                <div class="loading"><i class="icon icon-qrcode1"></i> 正在生成二维码</div>
+                <img class="qrimg" src="" />
+            </div>
+            <div class="tip">
+                <p>如果无法扫描?</p>
+                <p>请使用拼团核销码</p>
+                <p>(请将此二维码出示给店员进行核销)</p>
+            </div>
+        </div>
+    </div>
+    <script language='javascript'>
+        require(['../addons/ewei_shopv2/plugin/repertory/static/js/order.js'], function(modal){ modal.init({fromDetail:false});});
+    </script>
+    {php echo $this->footerMenus()}
+</div>
+{template '_footer'}

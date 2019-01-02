@@ -1,0 +1,141 @@
+{template '_header'}
+
+<div class="page-header">
+    当前位置：<span class="text-primary">餐饮会员管理</span>
+</div>
+
+<div class="page-content">
+    <form action="./index.php" method="get" class="form-horizontal table-search" role="form"  id="search">
+        <input type="hidden" name="c" value="site" />
+        <input type="hidden" name="a" value="entry" />
+        <input type="hidden" name="m" value="ewei_shopv2" />
+        <input type="hidden" name="do" value="web" />
+        <input type="hidden" name="r" value="member.restaurant.{$set}" />
+        <div class="page-toolbar">
+            <div class="input-group">
+                <span class="input-group-select">
+                    <select name='searchtime'  class='form-control'   style="width:100px;padding:0 5px;"  id="searchtime">
+                        <option value=''>不按时间</option>
+                        <option value='create' {if $_GPC['searchtime']=='create'}selected{/if}>申请时间</option>
+                        <option value='apply' {if $_GPC['searchtime']=='apply'}selected{/if}>审核时间</option>
+                    </select>
+                </span>
+                <span class="input-group-btn">
+                    {php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d H:i', $starttime),'endtime'=>date('Y-m-d H:i', $endtime)),true);}
+                </span>
+                <input type="text" class="form-control input-sm"  name="keyword" id="keyword" value="{$_GPC['keyword']}" placeholder="请输入关键词"/>
+                <span class="input-group-btn">
+                    <button type="button" data-export="0" class="btn btn-primary btn-submit">搜索</button>
+                </span>
+            </div>
+        </div>
+    </form>
+    {if count($list)>0}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-table-header">
+                <input type="checkbox">
+            </div>
+            <table class="table table-responsive">
+                <thead>
+                <tr>
+                    <th style="width:25px;"></th>
+                    <th style="width: 250px;">粉丝</th>
+                    <th style="">店铺名称</th>
+                    <th style="">联系人</th>
+                    <th style="">电话</th>
+                    <th style="">申请时间</th>
+                    {if $status > 0}
+                    <th style="">审核时间</th>
+                    {/if}
+                    {if $status == 2}
+                    <th style="">备注</th>
+                    {/if}
+                    <th style="width: 125px;text-align: center;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $list $row}
+                <tr>
+                    <td style="position: relative; "><input type='checkbox' value="{$row['id']}" class="checkone"/></td></td>
+                    <td style="overflow: visible">
+                        <img class="img-40" src="{php echo tomedia($row['avatar'])}" style='border-radius:50%;border:1px solid #efefef;' onerror="this.src='../addons/ewei_shopv2/static/images/noface.png'" />
+                        <span style="display: flex;flex-direction: column;justify-content: center;align-items: flex-start;padding-left: 5px">
+                            <span class="nickname">{$row['nickname']}</span>
+                        </span>
+                    </td>
+                    <td>{$row['store_name']}</td>
+                    <td>{$row['contacts']}</td>
+                    <td>{$row['tel']}</td>
+                    <td>{php echo date('Y-m-d H:i:s', $row['create_time'])}</td>
+                    {if $status > 0}<td>{php echo date('Y-m-d H:i:s', $row['apply_time'])}</td>{/if}
+                    {if $status == 2}<td>{$row['remark']}</td>{/if}
+                    <td style="overflow:visible;text-align: center;">
+                        <div class="btn-group">
+                            {ifp 'member.restaurant.apply'}
+                            <a class="btn  btn-op btn-operation" href="javascript:show({$row['id']})" title="审核">
+                                <span data-toggle="tooltip" data-placement="top" title="" data-original-title="审核">
+                                    <i class='icow icow-bianji2'></i>
+                                </span>
+                            </a>
+                            {/if}
+                            {ifp 'member.restaurant.delete'}
+                            <a class="btn btn-op btn-operation" data-toggle='ajaxRemove' href="{php echo webUrl('member/restaurant/delete',array('id' => $row['id']));}" data-confirm="确定要删除该申请吗？">
+                                <span data-toggle="tooltip" data-placement="top" title="" data-original-title="删除申请">
+                                    <i class='icow icow-shanchu1'></i>
+                                </span>
+                            </a>
+                            {/if}
+                        </div>
+                    </td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {else}
+    <div class="panel panel-default">
+        <div class="panel-body empty-data">未查询到相关数据</div>
+    </div>
+    {/if}
+</div>
+
+<div id="modal-module-menus-notice"  class="modal fade" tabindex="-1">
+    <div class="modal-dialog" style='width: 920px;'>
+        <div class="modal-content">
+            <div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3>审核</h3></div>
+            <div class="modal-body" >
+                <form method="post" action="{php echo webUrl('member/restaurant/apply')}" id="applyForm" class="form-horizontal" role="form">
+                    <input type="hidden" id="id" name="id" />
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">状态</label>
+                        <div class="col-sm-9">
+                            <label class="radio-inline"><input type="radio" name="types" value="1" /> 通过</label>
+                            <label class="radio-inline"><input type="radio" name="types" value="2" /> 不通过</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-9"><textarea name="remark" rows="2" cols="50"></textarea></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-9">
+                            <input type="submit" value="提交" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer"><a href="#" class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</a></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function show(id) {
+        $('#id').val(id);
+        popwin=$('#modal-module-menus-notice').modal();
+    }
+</script>
+
+{template '_footer'}

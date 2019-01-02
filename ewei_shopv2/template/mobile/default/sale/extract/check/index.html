@@ -1,0 +1,33 @@
+{template '_header'}
+<style type="text/css">
+	.qrcode-cell-group{
+		padding: 50px 0 0;
+	}
+	.qrcode-cell{
+		text-align: center;
+	}
+	.qrcode{
+		width: 160px;
+		height: 160px;
+	}
+</style>
+<div class="fui-page">
+
+	<div class="fui-content navbar coupon-page">
+		<div class="qrcode-cell-group">
+			<div class="qrcode-cell">奖品：{$record['pname']}</div>
+			<div class="qrcode-cell">状态：{if $record['status'] == 2}已核销{/if}{if $record['status'] == 1}未核销{/if}</div>
+			<div class="qrcode-cell"><a id="submit" class="btn btn-submit">确认核销</a></div>
+		</div>
+		
+	</div>
+</div>
+<script language='javascript'>
+	require(['biz/sale/extract/check'], function (modal) {
+		modal.init({
+			id: {$id}
+		});
+	});
+</script>
+{template '_footer'}
+<!--6Z2S5bKb5piT6IGU5LqS5Yqo572R57uc56eR5oqA5pyJ6ZmQ5YWs5Y+4-->

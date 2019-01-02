@@ -46,10 +46,10 @@ class Order_EweiShopV2Page extends WebPage
 	    $pIndex = max(1,intval($_GPC['page']));
 	    $pSize = 20;
 
-	    $list = pdo_fetchall("select * from " . tablename('ewei_shop_repertory_log') . " where uniacid=:uniacid and rid=:id order create_time desc limit " . ($pIndex - 1) * $pSize . "," . $pSize, array(':uniacid' => $_W['uniacid'], ':id' => $id));
+	    $list = pdo_fetchall("select * from " . tablename('ewei_shop_repertory_log') . " where uniacid=:uniacid and rid=:id order by create_time desc limit " . ($pIndex - 1) * $pSize . "," . $pSize, array(':uniacid' => $_W['uniacid'], ':id' => $id));
 	    foreach($list as &$item){
 	        if($item['store_id']){
-	            $item['store_name'] = pdo_getcolumn('ewei_shop_store', array('uniacid' => $_W['uniacid'], 'id' => $item['store_id']), 'storename');
+	            $item['store_name'] = pdo_getcolumn('ewei_shop_merch_store', array('uniacid' => $_W['uniacid'], 'id' => $item['store_id']), 'storename');
             }
             $goods = pdo_get('ewei_shop_repertory', array('uniacid' => $_W['uniacid'], 'id' => $item['rid']), array('goods_title','thumb'));
 	        $item['goods_title'] = $goods['goods_title'];

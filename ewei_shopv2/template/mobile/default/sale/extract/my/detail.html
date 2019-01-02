@@ -1,0 +1,30 @@
+{template '_header'}
+<link rel="stylesheet" type="text/css" href="../addons/ewei_shopv2/template/mobile/default/static/css/coupon-new.css?v=20170303112">
+<style type="text/css">
+	.qrcode-cell-group{
+		padding: 50px 0 0;
+	}
+	.qrcode-cell{
+		text-align: center;
+	}
+	.qrcode{
+		width: 160px;
+		height: 160px;
+	}
+</style>
+<div class="fui-page">
+
+	<div class="fui-content navbar coupon-page">
+		<div class="qrcode-cell-group">
+			<div class="qrcode-cell">奖品：{$record['pname']}</div>
+			<div class="qrcode-cell">状态：{if $record['status'] == 2}已核销{/if}{if $record['status'] == 1}未核销{/if}</div>
+			<div class="qrcode-cell">核销二维码</div>
+			<div class="qrcode-cell"><img class="qrcode" src="{$record['qrcode']}" width="100%"></div>
+			<div class="qrcode-cell">以上二维码请给门店店员扫描进行兑奖!</div>
+		</div>
+		
+	</div>
+</div>
+
+{template '_footer'}
+<!--6Z2S5bKb5piT6IGU5LqS5Yqo572R57uc56eR5oqA5pyJ6ZmQ5YWs5Y+4-->

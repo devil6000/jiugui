@@ -42,7 +42,7 @@ class Restaurant_EweiShopV2Page extends WebPage{
         }
 
         if(!empty($_GPC['keyword'])){
-            $conditions .= " and (r.store_name like '%" . $_GPC['keyword'] . "%' or r.contacts like '%" . $_GPC['keyword'] . "%'";
+            $conditions .= " and (r.store_name like '%" . $_GPC['keyword'] . "%' or r.contacts like '%" . $_GPC['keyword'] . "%')";
         }
 
         $count = pdo_fetchcolumn("select count(r.id) from " . tablename('ewei_shop_restaurant_apply') . " r lef tjoin" . tablename('ewei_shop_member') . " m on r.openid=m.openid where " . $conditions, $params);
